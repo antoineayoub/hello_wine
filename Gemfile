@@ -8,6 +8,7 @@ gem 'figaro'
 gem 'jbuilder', '~> 2.0'
 gem 'devise'
 gem 'redis'
+gem 'coffee-rails'
 
 gem 'sass-rails'
 gem 'jquery-rails'
@@ -16,6 +17,26 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'autoprefixer-rails'
+
+gem 'nokogiri'
+gem 'rest-open-uri', '~> 1.0'
+
+# gems for pictures: cloudinary & attachinary
+gem 'cloudinary'
+gem 'attachinary'
+
+# for facebookconnect
+gem 'omniauth-facebook'
+
+# for faker
+gem 'faker'
+
+# for gmaps
+gem 'geocoder'
+gem 'gmaps4rails'
+source 'https://rails-assets.org' do
+ gem "rails-assets-underscore"
+end
 
 group :development, :test do
   gem 'binding_of_caller'
