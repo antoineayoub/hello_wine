@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
+
+  resources :wines, only: [:show, :index] do
+    resources :user_ratings, only: [:create]
+  end
+  resources :user_answers, only: [:create]
+  get '/questions', to: 'pages#questions', as: 'questions'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
