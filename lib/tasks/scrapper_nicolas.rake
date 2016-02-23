@@ -1,6 +1,5 @@
 require 'nokogiri'
 require 'open-uri'
-require 'cloudinary'
 require 'csv'
 require 'json'
 

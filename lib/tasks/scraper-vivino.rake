@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-desc "Scrappe Nicolas"
+desc "Scrappe Vivino"
 task :scraper_vivino => [:environment] do
 
   Vivino.new(["boutisse", "la tour", "lafitte"])

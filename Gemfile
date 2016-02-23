@@ -21,8 +21,14 @@ gem 'autoprefixer-rails'
 gem 'nokogiri'
 
 # gems for pictures: cloudinary & attachinary
-gem 'cloudinary'
-gem 'attachinary'
+# gem 'cloudinary'
+# gem 'attachinary'
+
+# gems for pictures AWS S3
+gem "carrierwave"
+gem "mini_magick"
+# gem "fog-aws"
+gem "fog"
 
 # for facebookconnect
 gem 'omniauth-facebook'
