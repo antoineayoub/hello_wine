@@ -23,8 +23,8 @@ def store_scrapping
 
             time_position = 0
             store = JSON.parse(element.attribute("data-stores"))
-            strores_csv << [store_id,'nicolas', store["store#{i}"]["displayName"], store["store#{i}"]["address"] ,store["store#{i}"]["postcode"], store["store#{i}"]["town"] ]
-            new_store = Store.new(brand: 'nicolas',name: store["store#{i}"]["displayName"], address: [store["store#{i}"]["address"] ,store["store#{i}"]["postcode"], store["store#{i}"]["town"]].join(' '))
+            strores_csv << [store_id,'Nicolas', store["store#{i}"]["displayName"], store["store#{i}"]["address"] ,store["store#{i}"]["postcode"], store["store#{i}"]["town"] ]
+            new_store = Store.new(brand_id: 1,name: store["store#{i}"]["displayName"], address: [store["store#{i}"]["address"] ,store["store#{i}"]["postcode"], store["store#{i}"]["town"]].join(' '))
             new_store.save
             store_details = open("http://www.nicolas.com/#{store["store#{i}"]["urlDetail"]}")
             doc = Nokogiri::HTML(store_details, nil, 'utf-8')
@@ -69,7 +69,8 @@ def wine_scraping
                   district: wines.css('.ns-Product-district').text().gsub(/\n*\t*/,''),
                   domain: wines.css('.ns-Product-domain').text().gsub(/\n*\t*/,''),
                   price: (wines.css('.ns-Price-unity').text() + wines.css('.ns-Price-decimal').text()).to_f,
-                  size: wines.css('.ns-Product-bottle').text().gsub(/\n*\t*/,'')
+                  size: wines.css('.ns-Product-bottle').text().gsub(/\n*\t*/,''),
+                  brand: 1
                 })
           wine_detail = open("http://www.nicolas.com#{url}")
           doc = Nokogiri::HTML(wine_detail, nil, 'utf-8')
