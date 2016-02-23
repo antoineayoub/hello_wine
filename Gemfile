@@ -19,8 +19,6 @@ gem 'simple_form'
 gem 'autoprefixer-rails'
 
 gem 'nokogiri'
-gem 'rest-open-uri', '~> 1.0'
-
 # gems for pictures: cloudinary & attachinary
 gem 'cloudinary'
 gem 'attachinary'
