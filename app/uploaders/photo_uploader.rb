@@ -6,6 +6,9 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   storage :fog
 
+  def store_dir
+    "uploads/#{model.class.to_s}"
+  end
   version :standard do
     resize_to_fill 400, 300
   end

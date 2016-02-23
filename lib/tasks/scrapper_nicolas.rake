@@ -62,21 +62,21 @@ def wine_scraping
       doc = Nokogiri::HTML(wine_list, nil, 'utf-8')
       doc.search('.ns-Product').each do |wines|
         begin
-          wine = {
-                  url: wines.css('a').attribute('href').value.gsub('  ','%20%20'),
+          url = wines.css('a').attribute('href').value.gsub('  ','%20%20')
+          wine = Wine.new({
                   name: wines.css('a').attribute('title').value,
-                  img: wines.css('.ns-Product-img').attribute('src').value,
+                  remote_photo_url: wines.css('.ns-Product-img').attribute('src').value,
                   district: wines.css('.ns-Product-district').text().gsub(/\n*\t*/,''),
                   domain: wines.css('.ns-Product-domain').text().gsub(/\n*\t*/,''),
                   price: (wines.css('.ns-Price-unity').text() + wines.css('.ns-Price-decimal').text()).to_f,
                   size: wines.css('.ns-Product-bottle').text().gsub(/\n*\t*/,'')
-                }
-          wine_detail = open("http://www.nicolas.com#{wine[:url]}")
+                })
+          wine_detail = open("http://www.nicolas.com#{url}")
           doc = Nokogiri::HTML(wine_detail, nil, 'utf-8')
           doc.search('.ns-ProductDetails-infos').each do |w|
             # Couleur et T°
-            w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')
-
+            wine[:color] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[0]
+            wine[:alcohol_percent] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[1]
             # Cepages
             i = 0
             w.css('.ns-ProductGrappe-value--grape').text.strip.split(/\n/).each do |t|
@@ -94,19 +94,20 @@ def wine_scraping
           doc.search('.ns-Oenologist').each do |w|
             # Corps / Fraicheur / Evolution / Tannins
             # ["corp", "fraicheur", "evolution", "tannins"]
-            val = []
-            w.css('.ns-SliderRange-container').each do |t|
-              val << (t.css('.ns-SliderRange-bullet').attribute('style').value.gsub(/\D/,'').to_i * 8) / 385
-            end
+            # val = []
+            # # w.css('.ns-SliderRange-container').each do |t|
+            # #   val << (t.css('.ns-SliderRange-bullet').attribute('style').value.gsub(/\D/,'').to_i * 8) / 385
+            # # end
 
             # Description
             wine[:description] = w.css('.ns-Oenologist-tastingContent').first.search('p').last.text
           end
-
-          doc.search('.ns-Chart-legend > li').each do |w|
-            w.search('.ns-Chart-legendLabel').text
-            w.search('span').last.text
-          end
+          wines_csv << wine.values
+          wine.save
+          # doc.search('.ns-Chart-legend > li').each do |w|
+          #   w.search('.ns-Chart-legendLabel').text
+          #   w.search('span').last.text
+          # end
         rescue NoMethodError => e
           puts "No wine found #{e}"
         end
