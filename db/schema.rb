@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223105126) do
+
+ActiveRecord::Schema.define(version: 20160223113432) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +24,8 @@ ActiveRecord::Schema.define(version: 20160223105126) do
     t.integer  "wine_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "wine_title"
+    t.string   "wine_name"
   end
 
   add_index "external_ratings", ["wine_id"], name: "index_external_ratings_on_wine_id", using: :btree
