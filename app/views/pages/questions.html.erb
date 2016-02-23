@@ -1,0 +1,39 @@
+<div class="questions-wrapper text-center">
+  <div class="container">
+    <div class="row">
+      <div class="question-wrapper" id="question-nb-1" data-ft="1">
+        <div class="col-xs-12">
+          <div class="sur-lg-padding">
+            <%= @question1[:question] %>
+          </div>
+        </div>
+        <%= simple_form_for( user_answers_path, remote: true) do |form| %>
+        <% @question1[:answers].each do |answer| %>
+          <div class="col-xs-12">
+            <div class="sur-md-padding">
+              <%= form.button :submit, answer, class: 'btn btn-primary btn-question'%>
+            </div>
+          </div>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<% content_for(:after_js) do %>
+  <script>
+    // removes ".hide" on first element
+    $(".question-wrapper").fadeIn("slow", function() {
+      $('*[data-ft="1"]').removeClass("hide");
+    })
+    var shownQuestion = 1
+    $(".btn").click(function(){
+      $("*[data-ft="+ shownQuestion +"]").addClass("hide");
+      shownQuestion += 1;
+      $("*[data-ft="+ shownQuestion +"]").removeClass("hide");
+    })
+  </script>
+<% end %>
