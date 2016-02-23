@@ -21,9 +21,11 @@ CSV.open(filepath_stores, 'wb', csv_options) do |strores_csv|
       doc = Nokogiri::HTML(store_list, nil, 'utf-8')
       doc.css('.storeMap').each do |element|
         (0..9).each do |i|
+          store_bdd = Store.new
           time_position = 0
           store = JSON.parse(element.attribute("data-stores"))
           strores_csv << [store_id,'Nicolas', store["store#{i}"]["displayName"], store["store#{i}"]["address"] ,store["store#{i}"]["postcode"], store["store#{i}"]["town"] ]
+
           store_details = open("http://www.nicolas.com/#{store["store#{i}"]["urlDetail"]}")
           doc = Nokogiri::HTML(store_details, nil, 'utf-8')
           doc.css('.weekday_openings').each do |detail|
@@ -100,6 +102,7 @@ CSV.open(filepath_stores, 'wb', csv_options) do |filepath_wines|
           w.search('.ns-Chart-legendLabel').text
           w.search('span').last.text
         end
+        p wine
       end
     end
   end
