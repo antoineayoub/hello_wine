@@ -11,6 +11,7 @@
         <% @question1[:answers].each do |answer| %>
           <div class="col-xs-12">
             <div class="sur-md-padding">
+              <a class="btn btn-primary btn-question"> <%= answer %> </a>
               <%= form.button :submit, answer, class: 'btn btn-primary btn-question'%>
             </div>
           </div>
