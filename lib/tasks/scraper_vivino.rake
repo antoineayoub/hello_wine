@@ -29,8 +29,6 @@ task :scraper_vivino => [:environment] do
 
       wine_cards.each do |wine_card|
         begin
-        #unless wine_card.search("[itemprop='ratingValue']").text == ""
-        #end
           @urls << wine_card.search(".wine-name > a").attribute('href').value
         rescue NoMethodError => e
           puts "No cards found #{e}"
