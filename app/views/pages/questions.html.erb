@@ -1,40 +1,112 @@
 <div class="questions-wrapper text-center">
   <div class="container">
     <div class="row">
-      <div class="question-wrapper" id="question-nb-1" data-ft="1">
-        <div class="col-xs-12">
-          <div class="sur-lg-padding">
-            <%= @question1[:question] %>
-          </div>
-        </div>
-        <%= simple_form_for( user_answers_path, remote: true) do |form| %>
-        <% @question1[:answers].each do |answer| %>
+      <% @questions.each_with_index do |question, index| %>
+        <div class="question-wrapper hide" data-ft="<%= index+1 %>">
           <div class="col-xs-12">
-            <div class="sur-md-padding">
-              <a class="btn btn-primary btn-question"> <%= answer %> </a>
-              <%= form.button :submit, answer, class: 'btn btn-primary btn-question'%>
+            <div class="sur-lg-padding">
+              <%= question[1][:question] %>
             </div>
           </div>
-        <% end %>
-        <% end %>
+          <% question[1][:answers].each_with_index do |answer, index| %>
+            <div class="col-xs-12">
+              <div class="sur-md-padding">
+                <a  class="btn btn-primary btn-question" data-q="<%= question[0].to_s %>"
+                    data-value="<%= question[1][:values][index] %>">
+                    <%= answer %>
+                </a>
+              </div>
+            </div>
+          <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="col-xs-12">
+        <div class="btn-back">
+          <a  class="btn">Back to previous question</a>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="btn-skip">
+          <a  class="btn">Skip question</a>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+<%= simple_form_for @user_answer do |f| %>
+  <%= f.input :meal %>
+  <%= f.input :color %>
+  <%= f.input :price %>
+  <%= f.button :submit %>
+<% end %>
 
 
 <% content_for(:after_js) do %>
   <script>
-    // removes ".hide" on first element
+
+    // NOTE : DOES NOT OVERWRITE QUESTIONAIRE WHEN BACK
+
+
+    // on first page load removes ".hide" on first element
     $(".question-wrapper").fadeIn("slow", function() {
       $('*[data-ft="1"]').removeClass("hide");
     })
-    var shownQuestion = 1
-    $(".btn").click(function(){
-      $("*[data-ft="+ shownQuestion +"]").addClass("hide");
-      shownQuestion += 1;
-      $("*[data-ft="+ shownQuestion +"]").removeClass("hide");
+
+    var questionToShow        = 1;
+    var questionTotalNumber   = <%= raw @questions.length %> ;
+
+    // next question
+    $(".btn-question").click(function(){
+      // question count variable
+      questionToDisplay(1);
+      recordAnswer($(this));
+      submitQuestionaire();
     })
+
+    // back button
+    $(".btn-back").click(function(){
+      // question count variable
+      questionToDisplay(0);
+      questionToShow    += -1;
+    })
+
+    // skip question
+    $(".btn-skip").click(function(){
+      // question count variable
+      questionToDisplay(1);
+      submitQuestionaire();
+    })
+
+
+    function questionToDisplay(direction) {
+      questionToShow    += direction;
+
+      // hide or show the right question
+      $("*[data-ft="+ (questionToShow - 1) +"]").toggleClass("hide");
+      $("*[data-ft="+ questionToShow +"]").toggleClass("hide");
+    }
+
+
+    function recordAnswer(elementClicked) {
+      $this = elementClicked
+
+      // retrieve user answer on btn click
+      var answer        = $this.attr("data-value");
+      var formAnswerID  = "#user_answer_"+ $this.attr("data-q") +""
+
+      // populates form
+      $(formAnswerID).val(answer);
+    }
+
+    function submitQuestionaire() {
+      // on last question, submit the form
+      if ((questionToShow - 1) == questionTotalNumber) {
+        $("#new_user_answer").submit();
+      }
+    }
+
+
   </script>
 <% end %>
