@@ -94,7 +94,7 @@ def wine_scraping
         doc.search('.ns-ProductDetails-infos').each do |w|
           # Couleur et T°
           wine[:color] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[0]
-          wine[:alcohol_percent] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[1]
+          wine[:alcohol_percent] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[1].to_f
           # Cepages
           i = 1
           w.css('.ns-ProductGrappe-value--grape').text.strip.split(/\n/).each do |t|
