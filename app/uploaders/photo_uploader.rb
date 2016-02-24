@@ -10,11 +10,11 @@ class PhotoUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s}"
   end
   version :standard do
-    resize_to_fill 400, 300
+    resize_to_fit 200, 400
   end
 
   version :thumb do
-    resize_to_fill 100, 100
+    resize_to_fit 100, 200
   end
 
 end

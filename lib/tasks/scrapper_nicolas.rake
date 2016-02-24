@@ -2,8 +2,9 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 require 'json'
+require 'aws-sdk'
 
-def store_scrapping
+def store_scraping
 
   Store.where("brand_id = 1").destroy_all
 
@@ -132,31 +133,36 @@ def wine_scraping
   end
 end
 
-desc "Scrappe Nicolas"
-task :scrappe_nicolas => [:environment] do
+desc "Scraper Nicolas"
+task :scraper_nicolas => [:environment] do
 
   NB_PAGE_STORE = 33
   NB_STORE_BY_PAGE = 9
   NB_WINE_PAGES = 3
   BRAND = 'Nicolas'
 
-  puts "What would you like to scrap ?"
-  puts "1- All"
-  puts "2- Stores"
-  puts "3- Wines"
-  puts "4- Exit"
-  result = STDIN.gets.chomp.to_i
+  bucket = AWS::S3.new.buckets['hello-wine']
 
-  if result == 1
-    store_scrapping
-    wine_scraping
-  elsif result == 2
-    store_scrapping
-  elsif result == 3
-    wine_scraping
-  else
-    exit
-  end
+
+  # delete all of the objects in a bucket (optionally with a common prefix as shown)
+  bucket.objects.with_prefix('uploads/Wine/').delete_all
+  # puts "What would you like to scrap ?"
+  # puts "1- All"
+  # puts "2- Stores"
+  # puts "3- Wines"
+  # puts "4- Exit"
+  # result = STDIN.gets.chomp.to_i
+
+  # if result == 1
+  #   store_scraping
+  #   wine_scraping
+  # elsif result == 2
+  #   store_scraping
+  # elsif result == 3
+  #   wine_scraping
+  # else
+  #   exit
+  # end
 
 
 end
