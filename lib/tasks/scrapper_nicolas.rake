@@ -5,13 +5,15 @@ require 'json'
 
 def store_scrapping
 
-  Store.where(name: 'nicolas').destroy_all
+  Store.where("brand_id = 1").destroy_all
 
   filepath_stores = 'db/stores.csv'
   filepath_schedules = 'db/schedules.csv'
-  days = []
+  days = %w(Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche)
+  day = 0
   am = []
   pm =[]
+  start_am = end_am = start_pm = end_pm = []
   store_id = 0
   CSV.open(filepath_stores, 'wb', CSV_OPTIONS) do |strores_csv|
     CSV.open(filepath_schedules, 'wb', CSV_OPTIONS) do |schedules_csv|
@@ -23,27 +25,47 @@ def store_scrapping
 
             time_position = 0
             store = JSON.parse(element.attribute("data-stores"))
-            strores_csv << [store_id,'Nicolas', store["store#{i}"]["displayName"], store["store#{i}"]["address"] ,store["store#{i}"]["postcode"], store["store#{i}"]["town"] ]
-            new_store = Store.new(brand_id: 1,name: store["store#{i}"]["displayName"], address: [store["store#{i}"]["address"] ,store["store#{i}"]["postcode"], store["store#{i}"]["town"]].join(' '))
-            new_store.save
+            strores_csv << [Brand.where(name: BRAND).first.id,store["store#{i}"]["displayName"], store["store#{i}"]["address"] ,store["store#{i}"]["postcode"], store["store#{i}"]["town"] ]
+            new_store = Store.create(brand_id: Brand.where(name: BRAND).first.id,name: store["store#{i}"]["displayName"], address: [store["store#{i}"]["address"] ,store["store#{i}"]["postcode"], store["store#{i}"]["town"]].join(' '))
             store_details = open("http://www.nicolas.com/#{store["store#{i}"]["urlDetail"]}")
             doc = Nokogiri::HTML(store_details, nil, 'utf-8')
             doc.css('.weekday_openings').each do |detail|
-              detail.css('.ns-StoreDetails-openingsDayDetail').each do |day|
-                days << day.text().strip
-              end
+              # detail.css('.ns-StoreDetails-openingsDayDetail').each do |day|
+              #   days << day.text().strip
+              # end
               detail.css('.ns-StoreDetails-openingsTimesDetail').each do |hour|
-                am << hour.css('.ns-StoreDetails-openingsTimesDetailAM').text().strip.gsub(/\n\t*\s/,'-')
-                pm << hour.css('.ns-StoreDetails-openingsTimesDetailPM').text().strip.gsub(/\n\t*/,'-')
+                am = hour.css('.ns-StoreDetails-openingsTimesDetailAM').text().strip.gsub(/\n\t*\s/,'-').split('-')
+                pm = hour.css('.ns-StoreDetails-openingsTimesDetailPM').text().strip.gsub(/\n\t*/,'-').split('-')
+                if am.count == 1 && pm.count == 1
+                  start_am = am[0]
+                  end_am = nil
+                  start_pm = nil
+                  end_pm = pm[0]
+                elsif am.count == 0 && pm.count == 2
+                  start_am = nil
+                  end_am = nil
+                  start_pm = pm[0]
+                  end_pm = pm[1]
+                elsif am.count == 2 && pm.count == 0
+                  start_am = am[0]
+                  end_am = am[1]
+                  start_pm = nil
+                  end_pm = nil
+                elsif am.count == 2 && pm.count == 2
+                  start_am = am[0]
+                  end_am = am[1]
+                  start_pm = pm[0]
+                  end_pm = pm[1]
+                elsif am.count == 0 && pm.count == 0
+                  start_am = end_am = start_pm = end_pm = nil
+                end
+                schedules_csv << [store_id, days[day], start_am ,end_am ,start_pm ,end_pm]
+                store_schedule = StoreSchedule.create( store_id: new_store.id, day: days[day], start_am: start_am ,end_am: end_am ,start_pm: start_pm ,end_pm: end_pm)
+                start_am = end_am = start_pm = end_pm = []
+                day += 1
+                day = 0 if day == 7
               end
             end
-            days.each do |day|
-              schedules_csv << [store_id, day, am[time_position], pm[time_position] ]
-              store_schedule = StoreSchedule.new( store_id: new_store.id, day: day, start_at:am[time_position],close_at:pm[time_position] )
-              store_schedule.save
-              time_position += 1
-            end
-            days = []
             am = []
             pm =[]
             store_id += 1
@@ -55,6 +77,9 @@ def store_scrapping
 end
 
 def wine_scraping
+
+  Wine.where("brand_id = 1").destroy_all
+
   filepath_wines = 'db/wines.csv'
   CSV.open(filepath_wines, 'wb', CSV_OPTIONS) do |wines_csv|
     (0..NB_WINE_PAGES).each do |page|
@@ -66,11 +91,11 @@ def wine_scraping
           wine = Wine.new({
                   name: wines.css('a').attribute('title').value,
                   remote_photo_url: wines.css('.ns-Product-img').attribute('src').value,
-                  district: wines.css('.ns-Product-district').text().gsub(/\n*\t*/,''),
-                  domain: wines.css('.ns-Product-domain').text().gsub(/\n*\t*/,''),
+                  region: wines.css('.ns-Product-district').text().gsub(/\n*\t*/,''),
+                  appellation: wines.css('.ns-Product-domain').text().gsub(/\n*\t*/,''),
                   price: (wines.css('.ns-Price-unity').text() + wines.css('.ns-Price-decimal').text()).to_f,
-                  size: wines.css('.ns-Product-bottle').text().gsub(/\n*\t*/,''),
-                  brand: 1
+                  #size: wines.css('.ns-Product-bottle').text().gsub(/\n*\t*/,''),
+                  brand_id: Brand.where(name: BRAND).first.id
                 })
           wine_detail = open("http://www.nicolas.com#{url}")
           doc = Nokogiri::HTML(wine_detail, nil, 'utf-8')
@@ -79,15 +104,15 @@ def wine_scraping
             wine[:color] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[0]
             wine[:alcohol_percent] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[1]
             # Cepages
-            i = 0
+            i = 1
             w.css('.ns-ProductGrappe-value--grape').text.strip.split(/\n/).each do |t|
               wine["cepage_#{i}"] = t.strip
               i += 1
             end
             # Accord mets / vins
-            j = 0
+            j = 1
             w.css('.ns-AgreementList-description').each do |t|
-              wine["accord_#{j}"] = t.text.strip
+              wine["pairing_#{j}"] = t.text.strip
               j += 1
             end
           end
@@ -103,7 +128,8 @@ def wine_scraping
             # Description
             wine[:description] = w.css('.ns-Oenologist-tastingContent').first.search('p').last.text
           end
-          wines_csv << wine.values
+          wines_csv << Array(wine)
+
           wine.save
           # doc.search('.ns-Chart-legend > li').each do |w|
           #   w.search('.ns-Chart-legendLabel').text
@@ -124,6 +150,7 @@ task :scrappe_nicolas => [:environment] do
   NB_PAGE_STORE = 33
   NB_STORE_BY_PAGE = 9
   NB_WINE_PAGES = 3
+  BRAND = 'Nicolas'
 
   puts "What would you like to scrap ?"
   puts "1- All"
