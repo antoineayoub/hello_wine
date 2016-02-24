@@ -3,10 +3,16 @@ require 'open-uri'
 
 desc "Scrappe Vivino"
 task :scraper_vivino => [:environment] do
-
-  Vivino.new(["boutisse", "la tour", "lafitte"])
-
   class Vivino
+
+    def normalize_uri(uri)
+      return uri if uri.is_a? URI
+
+      uri = uri.to_s
+      uri, *tail = uri.rpartition "#" if uri["#"]
+
+      URI(URI.encode(uri) << Array(tail).join)
+    end
 
     def initialize(wines_to_search)
       @wines_to_search = wines_to_search
@@ -19,7 +25,8 @@ task :scraper_vivino => [:environment] do
     def fetch_data
       @wines_to_search.each do |wine_to_search|
         query = wine_to_search.gsub(" ","+")
-        @url = open("https://www.vivino.com/search?q=#{query}&start=#{@page}")
+        query
+        @url = open(normalize_uri("https://www.vivino.com/search?q=#{query}&start=#{@page}"))
         @html_doc = Nokogiri::HTML(@url, nil, 'utf-8')
         wine_cards = @html_doc.search(".wine-card")
 
@@ -36,7 +43,7 @@ task :scraper_vivino => [:environment] do
             "no reviews on this wine: #{e}"
           end
 
-          ExternalRating.create({
+          ExternalRating.create!({
             wine_title: wine_title,
             wine_name: wine_name,
             avg_rating: avg_rating,
@@ -44,13 +51,20 @@ task :scraper_vivino => [:environment] do
           })
 
         end
-        # begin
-        # fetch_data unless @html_doc.search("button.btn-page")[1].attr("disabled") == "disabled"
-        # rescue NoMethodError => e
-        #   "no more pages on this wine: #{e}"
-        # end
+        begin
+        fetch_data unless @html_doc.search("button.btn-page")[1].attr("disabled") == "disabled"
+        rescue NoMethodError => e
+          "no more pages on this wine: #{e}"
+        end
       end
     end
   end
+
+  Wine.all.each do |wine|
+    Vivino.new([wine.name])
+  end
+
+
+
 
 end

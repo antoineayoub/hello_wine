@@ -130,7 +130,7 @@ def wine_scraping
           end
           wines_csv << Array(wine)
 
-          wine.save
+          wine.save!
           # doc.search('.ns-Chart-legend > li').each do |w|
           #   w.search('.ns-Chart-legendLabel').text
           #   w.search('span').last.text
