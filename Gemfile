@@ -9,6 +9,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'devise'
 gem 'redis'
 gem 'coffee-rails'
+gem "rails_admin"
 
 gem 'sass-rails'
 gem 'jquery-rails'
@@ -19,9 +20,12 @@ gem 'simple_form'
 gem 'autoprefixer-rails'
 
 gem 'nokogiri'
-# gems for pictures: cloudinary & attachinary
-gem 'cloudinary'
-gem 'attachinary'
+
+# gems for pictures AWS S3
+gem "carrierwave"
+gem "mini_magick"
+gem "fog"
+gem 'aws-sdk', '~> 2'
 
 # for facebookconnect
 gem 'omniauth-facebook'
