@@ -6,27 +6,32 @@ class PagesController < ApplicationController
 
   def questions
     @user_answer = UserAnswer.new
-    @question1 = {
-          question: "what food?",
-          answers: [ "Meat", "Fish", "Vegie" ]
-        }
-    @question2 = {
-          question: "what color?",
-          answers: [ "Red", "Green", "White" ]
-        }
 
-    if @user_answer.save
-      respond_to do |format|
-        format.html { redirect_to 'pages/home' }
-        format.js  # <-- will render `app/views/reviews/create.js.erb`
-      end
-    else
-      respond_to do |format|
-        format.html { render 'pages/questions' }
-        format.js  # <-- idem
-      end
-    end
-
+    @questions = {
+      meal: {
+            question: "what food?",
+            answers: [ "Meat", "Fish", "Vegie" ],
+            values: [ "meat", "fish", "vegie"]
+          },
+      color: {
+            question: "what color?",
+            answers: [ "Red", "rosé", "White" ],
+            values: [ "red", "rose", "white"]
+          },
+      price: {
+            question: "what price?",
+            answers: [ "less than 10€", "10-20€", "more than 20€" ],
+            values: [ "10", "20", "1000"]
+          }
+    }
   end
 
+
 end
+
+
+
+
+
+
+

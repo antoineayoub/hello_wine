@@ -1,6 +1,5 @@
 .btn-question {
   width: 100%;
-  width: 100%;
   background-color: #312F3F;
   border-radius: 18px;
 }
@@ -9,4 +8,24 @@
 }
 .sur-md-padding {
   padding: 10px 0px;
+}
+.btn-back a {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #312F3F;
+  border-radius: 5px;
+  color: #C7C6C6;
+}
+.btn-back a:hover {
+  color: white;
+}
+.btn-skip a {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #633131;
+  border-radius: 5px;
+  color: #C7C6C6;
+}
+.btn-skip a:hover {
+  color: white;
 }
