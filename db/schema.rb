@@ -58,9 +58,9 @@ ActiveRecord::Schema.define(version: 20160224114239) do
   add_index "stores", ["brand_id"], name: "index_stores_on_brand_id", using: :btree
 
   create_table "user_answers", force: :cascade do |t|
-    t.string   "question1"
-    t.string   "question2"
-    t.string   "question3"
+    t.string   "meal"
+    t.string   "color"
+    t.string   "price"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

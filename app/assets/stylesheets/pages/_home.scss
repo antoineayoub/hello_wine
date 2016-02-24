@@ -2,3 +2,34 @@
  * CSS code specific to home page
  * (margin/padding adjustments)
  * ------------------------------------- */
+.hp-title {
+
+}
+.btn-home {
+    background-color: #353535;
+    padding: 20px 90px;
+    border-radius: 16px;
+    border: 1px solid #736969;
+    color: #E0CDCD;
+}
+.btn-home a:hover {
+  border: 1px solid white;
+  text-decoration: none;
+  color: white;
+}
+.btn-home a:submit {
+  border: 1px solid white;
+  text-decoration: none,
+}
+.hp-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.hp-content img {
+  width: 120px;
+}
+.btn-container {
+  width: 100%;
+}
