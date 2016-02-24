@@ -2,7 +2,6 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 require 'json'
-require 'aws-sdk'
 
 def store_scraping
 
@@ -141,28 +140,32 @@ task :scraper_nicolas => [:environment] do
   NB_WINE_PAGES = 3
   BRAND = 'Nicolas'
 
-  bucket = AWS::S3.new.buckets['hello-wine']
+  puts "What would you like to scrap ?"
+  puts "1- All"
+  puts "2- Stores"
+  puts "3- Wines"
+  puts "4- Exit"
+  result = STDIN.gets.chomp.to_i
 
-
-  # delete all of the objects in a bucket (optionally with a common prefix as shown)
-  bucket.objects.with_prefix('uploads/Wine/').delete_all
-  # puts "What would you like to scrap ?"
-  # puts "1- All"
-  # puts "2- Stores"
-  # puts "3- Wines"
-  # puts "4- Exit"
-  # result = STDIN.gets.chomp.to_i
-
-  # if result == 1
-  #   store_scraping
-  #   wine_scraping
-  # elsif result == 2
-  #   store_scraping
-  # elsif result == 3
-  #   wine_scraping
-  # else
-  #   exit
-  # end
-
+  if result == 1
+    store_scraping
+    wine_scraping
+  elsif result == 2
+    store_scraping
+  elsif result == 3
+    wine_scraping
+  else
+    exit
+  end
 
 end
+
+# require 'aws-sdk'
+#  s3 = Aws::S3::Resource.new
+
+#   # reference an existing bucket by name
+#   bucket = s3.bucket(ENV["AWS_S3_BUCKET_NAME"])
+
+
+#   # delete all of the objects in a bucket (optionally with a common prefix as shown)
+#   bucket.objects(prefix: 'uploads/Wine/').batch_delete!
