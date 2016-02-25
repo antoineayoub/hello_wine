@@ -48,7 +48,6 @@
 
     // NOTE : DOES NOT OVERWRITE QUESTIONAIRE WHEN BACK
 
-
     // on first page load removes ".hide" on first element
     $(".question-wrapper").fadeIn("slow", function() {
       $('*[data-ft="1"]').removeClass("hide");
@@ -81,7 +80,7 @@
 
 
     function questionToDisplay(direction) {
-      questionToShow    += direction;
+      questionToShow += direction;
 
       // hide or show the right question
       $("*[data-ft="+ (questionToShow - 1) +"]").toggleClass("hide");
