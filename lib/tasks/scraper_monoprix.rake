@@ -18,8 +18,8 @@ def get_wine(color, url, nb_pages)
         wine_details  = Nokogiri::HTML(open(url_product), nil, 'utf-8')
 
         name              = wine_details.css('.brand').first.children.first.text.split(',').first.gsub(/\t*\n*/,'')
-        p description       = wine_details.search('#desc').text.strip
-        p alcohol_percent   = wine_details.search('.description_produits h5').text.match(/\d{2}.\d%/)[0].to_f
+        description       = wine_details.search('#desc').text.strip
+        alcohol_percent   = wine_details.search('.description_produits h5').text.match(/\d{2}.\d%/)[0].to_f
         img               = wine_details.search('.contentProduct img').first['src']
         cepage            = wine_details.search("#ingredients").text.strip
         breadcrumb        =  wine_details.css("#mpx-breadcrumb .breadcrumb li a")
@@ -46,7 +46,6 @@ def get_wine(color, url, nb_pages)
       color   = "" if color.nil?
 
       name.slice! "Monoprix Gourmet - " if name.include?("Monoprix Gourmet - ")
-      p name
 
       unless name == ""
         Wine.create!({

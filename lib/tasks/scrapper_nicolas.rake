@@ -2,12 +2,13 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 require 'json'
+require 'net/http'
+
 
 def store_scraping
 
   Store.where("brand_id = 1").destroy_all
 
-  days = %w(Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche)
   day = 0
   am = []
   pm =[]
@@ -55,7 +56,7 @@ def store_scraping
             elsif am.count == 0 && pm.count == 0
               start_am = end_am = start_pm = end_pm = nil
             end
-            store_schedule = StoreSchedule.create( store_id: new_store.id, day: days[day], start_am: start_am ,end_am: end_am ,start_pm: start_pm ,end_pm: end_pm)
+            store_schedule = StoreSchedule.create( store_id: new_store.id, day: day + 1, start_am: start_am ,end_am: end_am ,start_pm: start_pm ,end_pm: end_pm)
             start_am = end_am = start_pm = end_pm = []
             day += 1
             day = 0 if day == 7
@@ -75,49 +76,67 @@ def wine_scraping
 
 
   (0..NB_WINE_PAGES).each do |page|
-    wine_list = open("http://www.nicolas.com/fr/Vins/c/01/?q=%3Arelevance&page=#{page}&show=All")
-    doc = Nokogiri::HTML(wine_list, nil, 'utf-8')
-    doc.search('.ns-Product').each do |wines|
-      begin
-        url = wines.css('a').attribute('href').value.gsub('  ','%20%20')
-        wine = Wine.new({
-                name: wines.css('a').attribute('title').value.strip,
-                remote_photo_url: wines.css('.ns-Product-img').attribute('src').value,
-                region: wines.css('.ns-Product-district').text().gsub(/\n*\t*/,''),
-                appellation: wines.css('.ns-Product-domain').text().gsub(/\n*\t*/,''),
-                price: (wines.css('.ns-Price-unity').text() + wines.css('.ns-Price-decimal').text()).to_f,
-                brand_id: Brand.where(name: BRAND).first.id
-              })
-        wine_detail = open("http://www.nicolas.com#{url}")
-        doc = Nokogiri::HTML(wine_detail, nil, 'utf-8')
-        doc.search('.ns-ProductDetails-infos').each do |w|
-          # Couleur et T°
-          wine[:color] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[0]
-          wine[:alcohol_percent] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[1].to_f
+    begin
+      wine_list = open("http://www.nicolas.com/fr/Vins/c/01/?q=%3Arelevance&page=#{page}&show=All")
+      puts "URL PAGE"
+      p "http://www.nicolas.com/fr/Vins/c/01/?q=%3Arelevance&page=#{page}&show=All"
+      p page
+      url = URI.parse("http://www.google.com/")
+      req = Net::HTTP.new(url.host, url.port)
+      res = req.request_head(url.path)
 
-          # Cepages
-          i = 1
-          w.css('.ns-ProductGrappe-value--grape').text.strip.split(/\n/).each do |t|
-            wine["grape_#{i}"] = t.strip
-            i += 1
-          end
-          # Accord mets / vins
-          j = 1
-          w.css('.ns-AgreementList-description').each do |t|
-            wine["pairing_#{j}"] = t.text.strip
-            j += 1
-          end
+      doc = Nokogiri::HTML(wine_list, nil, 'utf-8')
+      doc.search('.ns-Product').each do |wines|
+        begin
+          puts "URL part"
+          p url = wines.css('a').attribute('href').value.gsub(/\s/,'%20')
+          wine = Wine.new({
+                  name: wines.css('a').attribute('title').value.strip,
+                  remote_photo_url: wines.css('.ns-Product-img').attribute('src').value,
+                  region: wines.css('.ns-Product-district').text().gsub(/\n*\t*/,''),
+                  appellation: wines.css('.ns-Product-domain').text().gsub(/\n*\t*/,''),
+                  price: (wines.css('.ns-Price-unity').text() + wines.css('.ns-Price-decimal').text()).to_f,
+                  brand_id: Brand.where(name: BRAND).first.id
+                })
+
+          res = Net::HTTP.get_response(URI("http://www.nicolas.com#{url}"))
+
+          p res['location']
+          wine_detail = open("http://www.nicolas.com#{url}")
+
+          # doc = Nokogiri::HTML(wine_detail, nil, 'utf-8')
+          # doc.search('.ns-ProductDetails-infos').each do |w|
+          #   # Couleur et T°
+          #   wine[:color] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[0]
+          #   wine[:alcohol_percent] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[1].to_f
+
+          #   # Cepages
+          #   i = 1
+          #   w.css('.ns-ProductGrappe-value--grape').text.strip.split(/\n/).each do |t|
+          #     wine["grape_#{i}"] = t.strip
+          #     i += 1
+          #   end
+          #   # Accord mets / vins
+          #   j = 1
+          #   w.css('.ns-AgreementList-description').each do |t|
+          #     wine["pairing_#{j}"] = t.text.strip
+          #     j += 1
+          #   end
+          # end
+
+          # doc.search('.ns-Oenologist').each do |w|
+          #   # Description
+          #   wine[:description] = w.css('.ns-Oenologist-tastingContent').first.search('p').last.text
+          # end
+          # wine.save!
+
+        rescue NoMethodError => e
+          puts "No wine found #{e}"
+          puts wines.css('a').attribute('href').value.gsub(/\s/,'%20')
         end
-
-        doc.search('.ns-Oenologist').each do |w|
-          # Description
-          wine[:description] = w.css('.ns-Oenologist-tastingContent').first.search('p').last.text
-        end
-        wine.save!
-
-      rescue NoMethodError => e
-        puts "No wine found #{e}"
       end
+    rescue NoMethodError => e
+      puts "No page found #{e}"
     end
   end
 end

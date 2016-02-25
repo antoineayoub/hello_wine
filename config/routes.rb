@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   end
   resources :user_answers, only: [:create]
   get '/questions', to: 'pages#questions', as: 'questions'
+
+  resources :stores, only: [:index]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
