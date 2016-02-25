@@ -86,7 +86,6 @@ def wine_scraping
                 region: wines.css('.ns-Product-district').text().gsub(/\n*\t*/,''),
                 appellation: wines.css('.ns-Product-domain').text().gsub(/\n*\t*/,''),
                 price: (wines.css('.ns-Price-unity').text() + wines.css('.ns-Price-decimal').text()).to_f,
-                #size: wines.css('.ns-Product-bottle').text().gsub(/\n*\t*/,''),
                 brand_id: Brand.where(name: BRAND).first.id
               })
         wine_detail = open("http://www.nicolas.com#{url}")
@@ -95,10 +94,11 @@ def wine_scraping
           # Couleur et T°
           wine[:color] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[0]
           wine[:alcohol_percent] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[1].to_f
+
           # Cepages
           i = 1
           w.css('.ns-ProductGrappe-value--grape').text.strip.split(/\n/).each do |t|
-            wine["cepage_#{i}"] = t.strip
+            wine["grape_#{i}"] = t.strip
             i += 1
           end
           # Accord mets / vins
@@ -110,21 +110,11 @@ def wine_scraping
         end
 
         doc.search('.ns-Oenologist').each do |w|
-          # Corps / Fraicheur / Evolution / Tannins
-          # ["corp", "fraicheur", "evolution", "tannins"]
-          # val = []
-          # # w.css('.ns-SliderRange-container').each do |t|
-          # #   val << (t.css('.ns-SliderRange-bullet').attribute('style').value.gsub(/\D/,'').to_i * 8) / 385
-          # # end
-
           # Description
           wine[:description] = w.css('.ns-Oenologist-tastingContent').first.search('p').last.text
         end
         wine.save!
-        # doc.search('.ns-Chart-legend > li').each do |w|
-        #   w.search('.ns-Chart-legendLabel').text
-        #   w.search('span').last.text
-        # end
+
       rescue NoMethodError => e
         puts "No wine found #{e}"
       end

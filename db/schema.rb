@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224164735) do
+ActiveRecord::Schema.define(version: 20160225102352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,15 +24,52 @@ ActiveRecord::Schema.define(version: 20160224164735) do
 
   create_table "external_ratings", force: :cascade do |t|
     t.float    "avg_rating"
-    t.integer  "nb_ratings"
+    t.integer  "rating_count"
     t.integer  "wine_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "wine_info"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "winery"
     t.string   "wine_name"
+    t.string   "color"
+    t.string   "name"
+    t.string   "vintage"
+    t.string   "description"
+    t.string   "region"
+    t.string   "appellation"
+    t.string   "acidity"
+    t.string   "alcohol_percent"
+    t.string   "body"
+    t.string   "grape_1"
+    t.string   "grape_2"
+    t.string   "grape_3"
+    t.string   "grape_4"
+    t.string   "grape_5"
+    t.string   "grape_6"
+    t.string   "grape_7"
+    t.string   "pairing_1"
+    t.string   "pairing_2"
+    t.string   "pairing_3"
+    t.string   "pairing_4"
+    t.string   "photo"
   end
 
   add_index "external_ratings", ["wine_id"], name: "index_external_ratings_on_wine_id", using: :btree
+
+  create_table "grapes", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "acidity"
+    t.string   "body"
+    t.string   "pairing_1"
+    t.string   "string"
+    t.string   "pairing_2"
+    t.string   "pairing_3"
+    t.string   "pairing_4"
+    t.string   "pairing_5"
+    t.string   "pairing_6"
+    t.string   "pairing_7"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "store_schedules", force: :cascade do |t|
     t.integer  "store_id"
@@ -124,7 +161,7 @@ ActiveRecord::Schema.define(version: 20160224164735) do
     t.string   "grape_5"
     t.string   "grape_6"
     t.string   "grape_7"
-    t.string   "paring_4"
+    t.string   "pairing_4"
   end
 
   add_index "wines", ["brand_id"], name: "index_wines_on_brand_id", using: :btree
