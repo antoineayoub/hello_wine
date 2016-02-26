@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="row">
+    <% @wines.each do |wine| %>
+      <%= render "shared/card", wine: wine %>
+    <% end %>
+  </div>
+</div>

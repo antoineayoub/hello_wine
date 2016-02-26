@@ -1,0 +1,28 @@
+<div class="col-xs-12 col-md-6 col-lg-3">
+  <div class="card">
+  <%= image_tag("test.jpg") %>
+    <div class="card-name">
+      <h3><%= wine.name %></h3>
+      <div class="card-color-region">
+        <% if wine.color == "Blanc" %>
+          <div class="color-dot dot-white"></div>
+        <% elsif wine.color == "Rouge" %>
+          <div class="color-dot dot-red"></div>
+        <% else %>
+          <div class="color-dot dot-rose"></div>
+        <% end %>
+        <p class="card-region text-inline"><%= truncate(wine.appellation, length:25) %> - <%= wine.region %> - <%= wine.alcohol_percent %>%</p>
+      </div>
+    </div>
+      <div class="card-rating">
+        <i class="fa fa-star-o"><%= wine.avg_rating %>/ <%= wine.rating_count %> votes</i>
+      </div>
+
+
+    <div class="card-price"><p><%= wine.price %>€</p></div>
+    <div class="card-details">
+      <p class="card-description"><%= truncate(wine.description, length: 130) %></p>
+      <div class="card-map"></div>
+    </div>
+  </div>
+</div>

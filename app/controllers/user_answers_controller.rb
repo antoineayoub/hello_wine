@@ -27,4 +27,5 @@ class UserAnswersController < ApplicationController
     @answer_params = params.require(:user_answer).permit(:meal, :color, :price)
   end
 
+
 end
