@@ -1,0 +1,102 @@
+.card {
+  height: 380px;
+  margin: 0.5em 0.5em;
+  background-size: cover !important;
+  color: $gray-dark;
+  position: relative;
+  background: white;
+  border-radius: 5px;
+  img {
+    width: 100px;
+    position: absolute;
+    top: 190px;
+    right: 0px;
+  }
+}
+.card-price {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.card-name {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 8px;
+  text-transform: uppercase;
+}
+.card-details {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  font-size: 13px;
+}
+
+
+.card-description {
+  padding-left: 10px;
+  width: 75%;
+}
+
+.card-color {
+  position: absolute;
+  padding-left: 0.3em;
+  top: 3px;
+  left: 3px;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.card-region {
+  margin-top: 5px;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.card-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index:2;
+  background: black;
+  opacity: 0;
+}
+.card-link:hover{
+  opacity: 0.1;
+}
+
+.card-map{
+  min-height: 6em;
+  background-color: #333333;
+}
+.card-color-region {
+  display: flex;
+  align-items: center;
+  p {
+    margin: 0;
+  }
+}
+
+.color-dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: $gray-lighter;
+}
+
+.dot {
+  &-white {
+    background-color: #FAD662;
+  }
+  &-red {
+    background-color: #902424;
+  }
+  &-rose {
+    background-color: #EA6157;
+  }
+}
