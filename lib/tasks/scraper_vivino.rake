@@ -2,5 +2,5 @@ require 'scrapers/vivino'
 
 desc "Scrappe Vivino"
 task :scraper_vivino => [:environment] do
-   Scrapers::VivinoJob.new.run
+   Scrapers::Vivino.new.run
 end

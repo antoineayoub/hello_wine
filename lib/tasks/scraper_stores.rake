@@ -25,10 +25,10 @@ task :scraper_stores => [:environment] do
 end
 
 def store_scraper_monoprix
-  Scrapers::Stores::MonoprixJob.new.run
+  Scrapers::Stores::Monoprix.new.run
 end
 
 def store_scraper_nicolas
-  Scrapers::Stores::NicolasJob.new.run
+  Scrapers::Stores::Nicolas.new.run
 end
 
