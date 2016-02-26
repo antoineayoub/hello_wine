@@ -14,10 +14,6 @@
         <p class="card-region text-inline"><%= truncate(wine.appellation, length:25) %> - <%= wine.region %> - <%= wine.alcohol_percent %>%</p>
       </div>
     </div>
-      <div class="card-rating">
-        <i class="fa fa-star-o"><%= wine.avg_rating %>/ <%= wine.rating_count %> votes</i>
-      </div>
-
 
     <div class="card-price"><p><%= wine.price %>€</p></div>
     <div class="card-details">
