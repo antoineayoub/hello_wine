@@ -20,6 +20,7 @@ gem 'simple_form'
 gem 'autoprefixer-rails'
 
 gem 'nokogiri'
+gem 'mechanize', '~> 2.7', '>= 2.7.4'
 
 # gems for pictures AWS S3
 gem "carrierwave"
@@ -34,7 +35,7 @@ gem 'omniauth-facebook'
 gem 'faker'
 
 # for gmaps
-gem 'geocoder'
+gem "geocoder"
 gem 'gmaps4rails'
 source 'https://rails-assets.org' do
  gem "rails-assets-underscore"
