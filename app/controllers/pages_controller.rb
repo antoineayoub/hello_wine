@@ -9,18 +9,18 @@ class PagesController < ApplicationController
 
     @questions = {
       meal: {
-            question: "what food?",
-            answers: [ "Meat", "Fish", "Vegie" ],
-            values: [ "meat", "fish", "vegie"]
+            question: "Que vas-tu manger?",
+            answers: [ "de la viande", "du poisson", "végétarien" ],
+            values: [ "viande", "poisson", "vegie"]
           },
       color: {
-            question: "what color?",
-            answers: [ "Red", "rosé", "White" ],
-            values: [ "red", "rose", "white"]
+            question: "Quel vin préfères-tu?",
+            answers: [ "Vin Rouge", "Vin Rosé", "Vin Blanc" ],
+            values: [ "rouge", "rose", "blans"]
           },
       price: {
-            question: "what price?",
-            answers: [ "less than 10€", "10-20€", "more than 20€" ],
+            question: "Quel montant veux-tu dépenser?",
+            answers: [ "moins de 10€", "entre 10 et 20€", "plus de 20€" ],
             values: [ "10", "20", "1000"]
           }
     }
