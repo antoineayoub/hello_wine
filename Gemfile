@@ -20,6 +20,7 @@ gem 'simple_form'
 gem 'autoprefixer-rails'
 
 gem 'nokogiri'
+gem 'mechanize', '~> 2.7', '>= 2.7.4'
 
 # gems for pictures AWS S3
 gem "carrierwave"
