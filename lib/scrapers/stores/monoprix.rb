@@ -11,14 +11,14 @@ module Scrapers
         puts "Monoprix Stores is starting"
         brand = Brand.find_by_name("Monoprix")
         brand.stores.destroy_all
-        agent = Mechanize.new
-        page = agent.get("https://www.monoprix.fr/trouver-nos-magasins")
+        # agent = Mechanize.new
+        # page = agent.get("https://www.monoprix.fr/trouver-nos-magasins")
 
-        form = page.form(:id => 'storeSearchForm')
+        # form = page.form(:id => 'storeSearchForm')
 
-        form.checkbox_with(:name => 'monoprix').check
-        form.checkbox_with(:name => 'monopdaily').check
-        form.checkbox_with(:name => 'monop').check
+        # form.checkbox_with(:name => 'monoprix').check
+        # form.checkbox_with(:name => 'monopdaily').check
+        # form.checkbox_with(:name => 'monop').check
 
        #Preparing for scraping
         url = open("https://www.monoprix.fr/trouver-nos-magasins")
@@ -26,7 +26,7 @@ module Scrapers
         html_doc = Nokogiri::HTML(url, nil, 'utf-8')
         #getting all store elements
         stores = html_doc.search("#results>li")
-        stores = page.css('#results>li:not(.storeHidden)')
+        #stores = page.css('#results>li:not(.storeHidden)')
 
         stores.each do |store|
           # building store url

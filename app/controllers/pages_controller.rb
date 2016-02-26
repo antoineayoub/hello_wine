@@ -21,7 +21,7 @@ class PagesController < ApplicationController
       price: {
             question: "what price?",
             answers: [ "less than 10€", "10-20€", "more than 20€" ],
-            values: [ "10", "20", "1000"]
+            values: [ "less-10", "10-20", "more-20"]
           }
     }
   end

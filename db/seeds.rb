@@ -7,3 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
+Brand.create!(name: 'Nicolas')
+Brand.create!(name: 'Monoprix')
