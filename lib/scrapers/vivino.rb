@@ -6,7 +6,6 @@ module Scrapers
     def run
       Wine.find_in_batches do |group|
         group.each do |wine|
-
           fetch_wine(wine)
         end
       end
@@ -23,16 +22,11 @@ module Scrapers
 
       wine_cards.each do |wine_card|
         begin
-          urls << wine_card.search(".wine-name > a").attribute('href').value
+          fetch_wines(wine_card.search(".wine-name > a").attribute('href').value, wine.id)
         rescue NoMethodError => e
           puts "No cards found #{e}"
         end
       end
-      fetch_wines(urls.first)
-
-      # urls.each do |url|
-      #   fetch_wines(url)
-      # end
     end
 
     def normalize_uri(uri)
@@ -44,7 +38,7 @@ module Scrapers
       URI(URI.encode(uri) << Array(tail).join)
     end
 
-    def fetch_wines(wine_url)
+    def fetch_wines(wine_url,wine_id)
       grapes = []
       parings = []
       infos = []
@@ -58,6 +52,7 @@ module Scrapers
         wine_details.search('.wine-name span').each do |info|
           infos << info.text.strip
         end
+        e.wine_id = wine_id
         e.winery = infos[0]
         e.wine_name = infos[1]
         e.vintage = infos[2]

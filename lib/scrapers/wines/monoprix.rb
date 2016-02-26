@@ -48,18 +48,6 @@ module Scrapers
                e
             end
 
-            # name        = "" if name.nil?
-            # appellation = "" if appellation.nil?
-            # price       = "" if price.nil?
-            # description = "" if description.nil?
-            # alcohol_percent = "" if alcohol_percent.nil?
-            # img             = "" if img.nil?
-            # cepage  = "" if cepage.nil?
-            # region  = "" if region.nil?
-            # color   = "" if color.nil?
-
-
-
             unless name.nil?
               name.slice! "Monoprix Gourmet - " if name.include?("Monoprix Gourmet - ")
               p name

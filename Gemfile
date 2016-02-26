@@ -22,6 +22,11 @@ gem 'autoprefixer-rails'
 gem 'nokogiri'
 gem 'mechanize', '~> 2.7', '>= 2.7.4'
 
+# Sidekiq
+gem 'sidekiq'
+gem 'sinatra'  # Dependency of sidekiq
+gem 'sidekiq-failures'
+
 # gems for pictures AWS S3
 gem "carrierwave"
 gem "mini_magick"
