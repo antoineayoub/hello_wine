@@ -26,7 +26,7 @@ module Scrapers
         html_doc = Nokogiri::HTML(url, nil, 'utf-8')
         #getting all store elements
         stores = html_doc.search("#results>li")
-        stores = page.css('#results>li:not(.storeHidden)')
+        #stores = page.css('#results>li:not(.storeHidden)')
 
         stores.each do |store|
           # building store url
