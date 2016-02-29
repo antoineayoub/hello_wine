@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :user_ratings, only: [:create]
   end
   resources :user_answers, only: [:create]
+
   get '/questions', to: 'pages#questions', as: 'questions'
 
   resources :stores, only: [:index]

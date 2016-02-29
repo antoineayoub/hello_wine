@@ -2,9 +2,10 @@
  * CSS code specific to home page
  * (margin/padding adjustments)
  * ------------------------------------- */
-.hp-title {
-
+body{
+  background-color: #e74c3c;
 }
+
 .btn-home {
     background-color: #353535;
     padding: 20px 90px;
@@ -21,15 +22,13 @@
   border: 1px solid white;
   text-decoration: none,
 }
-.hp-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-.hp-content img {
-  width: 120px;
-}
-.btn-container {
-  width: 100%;
+
+.title-lato{
+  font-weight: 300;
+  font-family: $lato-font;
+  color:black;
+  font-size: 24px;
+  color: white;
+  text-transform: uppercase;
+  padding-top: 30px;
 }
