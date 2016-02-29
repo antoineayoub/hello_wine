@@ -1,0 +1,50 @@
+.meal-background {
+  height: 30vh;
+  background-image: image-url('pic_meal.png');
+  background-size: cover;
+  background-position: center;
+}
+.color-background {
+  height: 30vh;
+  background-image: image-url('pic_color.png');
+  background-size: cover;
+  background-position: center;
+}
+.price-background {
+  height: 30vh;
+  background-image: image-url('pic_price.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.title{
+  font-size: 24px;
+  font-family: $lato-font;
+  font-weight: 400;
+  color: white;
+}
+
+.btn-question {
+  width:100%;
+  background-color: transparent;
+  border: 1px solid white;
+  color:white;
+}
+
+.btn-question:hover {
+  background-color: white;
+  color:#e74c3c;
+  border: 1px solid white;
+}
+
+.nav-white{
+  color:white;
+}
+
+.nav-gray{
+  color:$gray-light;
+}
+.sur-lg-padding {
+  padding: 30px 0px;
+}
+

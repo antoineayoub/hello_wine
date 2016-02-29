@@ -5,11 +5,17 @@
  * ------------------------------------- */
 
 // Paddings
-.padded {
+.padded-5 {
   padding-top: 5em;
   padding-bottom: 5em;
 }
-
+.padded-2 {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+.padded-top-bottom-xs {
+  padding: 10px 0px;
+}
 // Backgrounds
 .bg-black {
   background: #4a4a4a;
@@ -22,4 +28,40 @@
 }
 .bg-dark-blue {
   background: #3b5998;
+}
+
+// Centering vertically in a full page
+.centered{
+  position:fixed;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+
+.flag{
+  border-radius: 1px;
+  color:white;
+  font-weight:bolder;
+  font-size: 10px;
+  width: 60px;
+  text-align: center;
+  padding:5px 10px;
+}
+.flag-validated{
+  background-color: $green;
+}
+.flag-pending{
+  background-color: $orange;
+}
+.flag-cancelled{
+  background-color: $red;
+}
+
+.fa-true{
+  color: $green;
+}
+.fa-false{
+  color: $red;
 }

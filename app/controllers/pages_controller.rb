@@ -1,26 +1,27 @@
 class PagesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:home, :questions]
+
   def home
   end
-
 
 
   def questions
     @user_answer = UserAnswer.new
 
     @questions = {
+      color: {
+            question: "What do you wanna drink ?",
+            answers: [ "Red Wine", "White Wine", "Rosé Wine" ],
+            values: [ "Rouge", "Blanc", "Rosé"]
+          },
       meal: {
-            question: "Que vas-tu manger?",
-            answers: [ "de la viande", "du poisson", "végétarien" ],
+            question: "What do you gonna eat ?",
+            answers: [ "Hudge meat plate", "Bob the fish", "Piece of tofu" ],
             values: [ "viande", "poisson", "vegie"]
           },
-      color: {
-            question: "Quel vin préfères-tu?",
-            answers: [ "Vin Rouge", "Vin Rosé", "Vin Blanc" ],
-            values: [ "rouge", "rose", "blans"]
-          },
       price: {
-            question: "Quel montant veux-tu dépenser?",
-            answers: [ "moins de 10€", "entre 10 et 20€", "plus de 20€" ],
+            question: "How much do you wanna spend ?",
+            answers: [ "Less than 10€", "From 10 to 20€", "More than 20€" ],
             values: [ "less-10", "10-20", "more-20"]
           }
     }
