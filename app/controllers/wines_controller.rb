@@ -1,5 +1,5 @@
 class WinesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
     @wines = Wine.all.first(50)
@@ -11,9 +11,8 @@ class WinesController < ApplicationController
   end
 
   def show
-
+    @wine = Wine.find(params[:id])
   end
-
 
   private
 
@@ -31,5 +30,5 @@ class WinesController < ApplicationController
     end
 
     @wines = wines_matrix.sort { | a, b | b[:score] <=> a[:score] }
-  end
+
 end
