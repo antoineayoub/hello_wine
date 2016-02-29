@@ -22,6 +22,12 @@ gem 'autoprefixer-rails'
 gem 'nokogiri'
 gem 'mechanize', '~> 2.7', '>= 2.7.4'
 
+#i18n
+gem 'i18n', '~> 0.7.0'
+
+# Algo search
+gem 'amatch', '~> 0.3.0'
+
 # Sidekiq
 gem 'sidekiq'
 gem 'sinatra'  # Dependency of sidekiq

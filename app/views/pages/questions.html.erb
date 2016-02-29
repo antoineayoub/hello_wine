@@ -12,7 +12,7 @@
       <% question[1][:answers].each_with_index do |answer, index| %>
         <div class="col-xs-12">
           <div class="padded-top-bottom-xs">
-            <a class="btn btn-question" data-q="<%= question[0].to_s %>"
+            <a class="btn btn-question btn-next" data-q="<%= question[0].to_s %>"
                 data-value="<%= question[1][:values][index] %>">
               <%= answer %>
             </a>
@@ -20,22 +20,21 @@
         </div>
       <% end %>
       <div class="col-xs-12">
-        <div id ="btn-skip" class="padded-top-bottom-xs">
+        <div class="padded-top-bottom-xs btn-skip">
           <a class="btn btn-question">I don't care</a>
-        </div>
-      </div>
-      <div class="col-xs-12">
-        <div class="text-center padded-5">
-          <% (1..@questions.length).each do |i| %>
-            <span class="nav-gray nav-<%= i %>"><i class="fa fa-circle"></i></span>
-          <% end %>
         </div>
       </div>
     </div>
   <% end %>
+  <div class="col-xs-12">
+    <div class="text-center padded-5">
+      <% (1..@questions.length).each do |i| %>
+        <span id="nav-<%= i %>" class="nav-gray"><i class="fa fa-circle"></i></span>
+      <% end %>
+    </div>
+  </div>
  </div>
 </div>
-
 
 <%= simple_form_for @user_answer do |f| %>
   <%= f.input :color, :as => :hidden %>
@@ -63,39 +62,49 @@
     }
     // on first page load removes ".hide" on first element
     $('*[data-ft="1"]').removeClass("hide");
-    $('.nav-1').removeClass('nav-gray');
-    $('.nav-1').addClass('nav-white');
+    $('#nav-1').removeClass('nav-gray').addClass('nav-white').addClass('btn-back');
 
     var questionToShow        = 1;
     var questionTotalNumber   = <%= raw @questions.length %> ;
 
-    // next question
-    $(".btn-question").click(function(e){
+    // next questions
+    $(".btn-next").click(function(e){
       // question count variable
-      questionToDisplay(1);//, $(this));
+      questionToDisplay(1);
       recordAnswer($(this));
       submitQuestionaire();
     })
 
-    // back button
     $(".btn-back").click(function(){
-      // question count variable
-      questionToDisplay(0);
-      questionToShow    += -1;
-    })
+        if (questionToShow > 1){
+          // question count variable
+          questionToDisplay(0);
+          // put empty result in form for current question
+          resetQuestion(questionToShow);
+
+          questionToShow    += -1;
+        }
+      })
 
     // skip question
-    $("#btn-skip").click(function(){
+    $(".btn-skip").click(function(){
       // question count variable
       questionToDisplay(1);
+      resetQuestion(questionToShow - 1);
       submitQuestionaire();
     })
 
+    function resetQuestion(questionToReset){
+      var answer        = "";
+      var data_q        = $("*[data-ft="+ questionToReset + "]").attr("data-type");
+      var formAnswerID  = "#user_answer_"+ data_q +""
+      $(formAnswerID).val(answer);
+    }
 
-    function questionToDisplay(direction,button) {
+    function questionToDisplay(direction) {
 
+      // back button
       questionToShow += direction;
-      console.log(questionToShow);
       // hide or show the right question
       $("*[data-ft="+ (questionToShow - 1) +"]").toggleClass("hide");
       $("*[data-ft="+ questionToShow +"]").toggleClass("hide");
@@ -105,14 +114,11 @@
 
       var type_1 = $("*[data-ft="+ (questionToShow - 1) +"]").attr("data-type");
       var css_class_1 = type_1 + "-background";
-      console.log(questionToShow - 1);
 
-      $(".nav-" + questionToShow - 1).removeClass("nav-white");
-      $(".nav-"+ questionToShow - 1).addClass("nav-gray");
 
-      $(".nav-" + questionToShow).removeClass("nav-gray");
-      $(".nav-" + questionToShow).addClass("nav-white");
-      $(".nav-" + questionToShow).addClass("btn-back");
+      $("#nav-" + (questionToShow - 1)).toggleClass("nav-white").toggleClass("nav-gray")//.addClass("nav-gray");
+      $("#nav-" + questionToShow).toggleClass("nav-gray").toggleClass("nav-white")//.addClass("nav-white");
+      $("#nav-" + (questionToShow - 1)).addClass("btn-back");
 
       $("#back-picture").removeClass(css_class_1);
       $("#back-picture").addClass(css_class);

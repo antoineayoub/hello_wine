@@ -1,6 +1,9 @@
 <div class="col-xs-12">
   <div class="card-banner card-backg text-center">
-      <h1><%= wine.name %></h1>
+      <%= link_to wine_path(wine) do %>
+        <h1><%= wine.name %></h1>
+      <% end %>
+
   </div>
 </div>
 
@@ -21,6 +24,7 @@
     <div class="card-element">
       <i class="fa fa-map-marker fa-2x"></i>
       <h2><%= wine.brand.name %> </h2>
+      <h1> <%= wine.nearest(@latitude,@longitude)[:distance] %>
       <p>200m</p>
     </div>
     <div class="card-element">
@@ -68,6 +72,17 @@
       <!-- <div id="map" style="width: 100%; height: 600px;"></div> -->
   </div>
 </div>
+
+<%= simple_form_for @wines(wine) do |f| %>
+  <%= f.input :color, :as => :hidden %>
+  <%= f.input :meal, :as => :hidden %>
+  <%= f.input :price, :as => :hidden %>
+  <%= f.input :latitude, :as => :hidden %>
+  <%= f.input :longitude, :as => :hidden %>
+  <%= f.button :submit, :class => "hidden" %>
+<% end %>
+
+
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
     $(document).on('ready', function() {
