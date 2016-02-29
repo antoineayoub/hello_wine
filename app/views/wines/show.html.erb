@@ -1,4 +1,54 @@
-<div id="map" style="width: 100%; height: 600px;"></div>
+
+<div class="map-show">
+  <div id="map" style="width: 100%; height: 100%"></div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-7">
+      <h2><%= @wine.name %></h2>
+    </div>
+
+    <div class="col-xs-5">
+     <%= image_tag(@wine.photo, class: "img-center avatar-large") %>
+    </div>
+  </div>
+    <h4><%= @wine.appellation %></h4>
+
+  <div class="row padded-1 wine-details">
+    <div class="col-xs-12">
+      <i class="fa fa-map-marker fa-2x"> <%= @wine.region %></i>
+    </div>
+  </div>
+
+  <div class="row padded-1 wine-details">
+    <div class="col-xs-12">
+      <i class="fa fa-percent fa-2x"> <%= @wine.alcohol_percent %> alc</i>
+    </div>
+  </div>
+
+  <div class="row padded-1 wine-details">
+    <div class="col-xs-12">
+      <i class="fa fa-euro fa-2x"> <%= @wine.price %></i>
+    </div>
+  </div>
+
+  <div class="row padded-1 wine-details">
+    <div class="col-xs-12">
+      <i class="fa fa-shopping-cart fa-2x">
+      <% if @wine.brand_id == "2" %>
+       ‡<span>Monoprix</span>
+      <% else %>
+       <span>Nicolas</span>
+      <% end %>
+      </i>
+    </div>
+  </div>
+
+</div>
+
+
 
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
@@ -32,7 +82,7 @@
   function calcRoute() {
 
     var origin      = new google.maps.LatLng(<%= @latitude %>, <%= @longitude %>);
-    var destination = new google.maps.LatLng(<%= @stores.last.latitude %>, <%= @stores.last.longitude %>);
+    var destination = new google.maps.LatLng(<%= @latitude %>, <%= @longitude %>);
     var request = {
         origin:      origin,
         destination: destination,
