@@ -19,16 +19,20 @@ class WinesController < ApplicationController
   def wine_sorting(wines)
     wines_matrix = []
     wines.each do |wine|
-      rating_value = wine.external_ratings[2].avg_rating
-      rating_score = [0.3*(rating_value-2)*100,0].max
+      rating_value = wine.external_ratings[2].avg_rating unless wine.external_ratings[2].nil?
+      rating_score = [0.3*(rating_value - 2)*100,0].max unless rating_value.nil?
 
       distance_value = (10..600).to_a.sample
       distance_score = 100-distance_value/6
 
-      score = (rating_score + distance_score)/2
-      wines_matrix << { wine: wine, score: score, distance: distance_value, rating_score: rating_score, distance_score: distance_score}
+      if rating_score.nil?
+        score = 0
+      else
+        score = (rating_score + distance_score)/2
+      end
+      wines_matrix << { wine: wine, score: score, distance: distance_value }
     end
 
     @wines = wines_matrix.sort { | a, b | b[:score] <=> a[:score] }
-
+  end
 end
