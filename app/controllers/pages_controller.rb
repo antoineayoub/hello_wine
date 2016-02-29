@@ -11,7 +11,7 @@ class PagesController < ApplicationController
     @questions = {
       color: {
             question: "What do you wanna drink ?",
-            answers: [ "Red Wine", "White Wine", "Rosé Wine" ],
+            answers: [ "Red Wine", "White Wine", "Rosé" ],
             values: [ "Rouge", "Blanc", "Rosé"]
           },
       meal: {
@@ -20,7 +20,7 @@ class PagesController < ApplicationController
             values: [ "viande", "poisson", "vegie"]
           },
       price: {
-            question: "How much do you wanna spend ?",
+            question: "How much you wanna spend ?",
             answers: [ "Less than 10€", "From 10 to 20€", "More than 20€" ],
             values: [ "less-10", "10-20", "more-20"]
           }
