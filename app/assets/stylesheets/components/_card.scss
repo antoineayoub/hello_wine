@@ -1,106 +1,118 @@
-.card-container {
+.wine-card {
+  height: 90vh;
+  display: flex;
+  flex-flow: column;
+    margin: 10px 0px 40px 0px;
+    box-shadow: 1px 1px 2px #D8D7D7;
+    background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 3px;
+}
+.card-header-side {
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding:0 20px;
-  .fa{
-    color:#e74c3c;
-  }
-  p{
-    font-size: 14px;
-  }
 }
-.card-backg{
-  background-color: white;
-  font-family: $lato-font;
-  color: $gray-dark;
+.card-header {
+  display: flex;
+  flex: 1;
 }
+.card-kpi {
+    display: flex;
+    flex-flow: column;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 3px;
+}
+.card-kpi-green {
 
-.card-banner {
-  padding: 10px 0 30px 0;
-  border-radius: 2px 2px 0 0;
-  h1{
-    text-transform: uppercase;
-    padding-top: 20px;
-    font-size: 26px;
-    margin:0;
-  }
 }
+.card-kpi-red {
 
-.img_resize{
-  border-radius: 0 0 2px 2px;
-  width: 100%;
-  margin-left: 0px;
 }
-.color-open{
-  color: $green;
+.card-kpis-container {
+  display: flex;
+  flex-flow: column;
+  flex: 1;
+  flex: 0 0 110px;
+  text-align: center;
 }
-.color-closing{
-  color: $orange;
+hr {
+  width: 1px;
+  height: 18px;
+  background-color: #3B3642;
+  border: 0;
+  opacity: .5;
+  margin: 3px auto;
+  opacity: .1;
 }
-.color-closed{
-  color: $red;
+.card-kpis {
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+  flex: 1;
 }
-
-.card-element {
-  h2{
-    margin-top: 10px;
+.kpi-divider {
+  height: 1px;
+    margin: 0 25px;
+    background-color: #989393;
+}
+.kpi-picto, .kpi-text {
+    color: #6B6B6B;
+    font-weight: 100;
+}
+.kpi-picto {
+    padding-top: 7px;
+      display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+.kpi-text {
+  padding-bottom: 7px;
+  padding-top: 5px;
+}
+.font-awesome-circled {
+  width: 40px;
+    height: 40px;
+    background-color: #2ECC71;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
     font-size: 20px;
-    font-weight: 400;
-  }
 }
-
-.card-details {
-  width: 100%;
-  font-size: 13px;
+.button-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 58px;
+  background-color: #2ECC71;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 3px;
+  border-radius: 0px 0px 3px 3px;
 }
-
-
-#card-description {
-  padding-left: 10px;
-  width: 100%;
+.button-submit:hover, .button-submit:focus {
+  color: #eeeeee;
+  text-decoration: none;
+  background-color: #25B361;
 }
-
-.card-color {
-  padding-left: 0.3em;
-
-  font-size: 9px;
-  text-transform: uppercase;
+.kpi-overall {
+  background: #2ECC71;
+  color: white;
+  border-radius: 3px;
+  font-weight: bold;
+  letter-spacing: 3px;
 }
-
-.card-region {
-  margin-top: 5px;
-  font-size: 9px;
-  text-transform: uppercase;
+.bottle-image {
+  height: 315px;
 }
-
-.card-link {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  z-index:2;
-  background: black;
-  opacity: 0;
-}
-.card-link:hover{
-  opacity: 0.1;
-}
-
-.card-map{
-  min-height: 6em;
-  background-color: #333333;
-}
-
-
-.dot {
-  &-white {
-    color: #FAD662;
-  }
-  &-red {
-    color: #902424;
-  }
-  &-rose {
-    color: #EA6157;
-  }
+.card-title {
+  text-align: center;
+  font-size: 20px;
+  color: #656F69;
+  font-weight: bold;
+  letter-spacing: 3px;
+  padding-top: 15px;
 }
