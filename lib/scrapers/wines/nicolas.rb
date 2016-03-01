@@ -23,21 +23,32 @@ module Scrapers
             doc.search('.ns-Product').each do |wines|
               begin
                 url = wines.css('a').attribute('href').value.gsub(/\s/,'%20')
+                p name = wines.css('a').attribute('title').value.strip
                 wine = Wine.new({
-                        name: wines.css('a').attribute('title').value.strip,
+                        name: name,
+                        vintage: name[/\d{4}/],
                         remote_photo_url: wines.css('.ns-Product-img').attribute('src').value,
                         region: wines.css('.ns-Product-district').text().gsub(/\n*\t*/,''),
                         appellation: wines.css('.ns-Product-domain').text().gsub(/\n*\t*/,''),
                         price: (wines.css('.ns-Price-unity').text() + wines.css('.ns-Price-decimal').text()).to_f,
                         brand_id: brand.id
                       })
-                p wine.name
+
                 wine_detail = open("http://www.nicolas.com#{url}")
 
                 doc = Nokogiri::HTML(wine_detail, nil, 'utf-8')
                 doc.search('.ns-ProductDetails-infos').each do |w|
                   # Couleur et T°
                   wine[:color] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[0]
+                  if wine[:color] == "Rouge"
+                    wine[:color] = "red"
+                  elsif wine[:color] == "Blanc"
+                    wine[:color] = "white"
+                  elsif wine[:color] == "Rosé"
+                    wine[:color] = "pink"
+                  end
+
+
                   wine[:alcohol_percent] = w.css('.ns-ProductDetails-cara > .ns-Product-cara').last.text().strip.gsub(/\n*\s/,'').split('|')[1].to_f
 
                   # Cepages
