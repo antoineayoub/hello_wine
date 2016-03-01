@@ -2,9 +2,9 @@ class WinesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-
     @latitude = params[:latitude]
     @longitude = params[:longitude]
+    @skip_navbard = true
 
     @wines = Wine.all
 
@@ -17,7 +17,6 @@ class WinesController < ApplicationController
    #@wines = @wines.filter_by_pairing(params[:pairing])
 
     @wines = wine_sorting(@wines, @latitude, @longitude)
-
 
   end
 
