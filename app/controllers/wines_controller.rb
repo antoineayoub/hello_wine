@@ -2,6 +2,7 @@ class WinesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
+    @skip_navbard = true
     @wines = Wine.all.first(50)
     # @wines = @wines.filter_by_location(params[:latitude], params[:longitude])
     # @wines = @wines.filter_by_color(params[:color])

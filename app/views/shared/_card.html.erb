@@ -1,7 +1,12 @@
 <div class="col-xs-12">
   <div class="wine-card">
     <div class="card-title">
-      <%= wine[:wine].name %>
+      <% if wine[:wine].name.length > 30 %>
+        <%= wine[:wine].name.split("").first(25).join("") %>
+        <span style="font-weight:100;">...</span>
+      <% else %>
+        <%= wine[:wine].name %>
+      <% end %>
     </div>
     <div class="card-header">
       <div class="card-header-side">
@@ -44,12 +49,14 @@
                 <% end %>
               </div>
             </div>
-            <hr/>
-            <div class="card-kpi">
-              <div class="kpi-text kpi-overall">
-                <span style="font-size: 23px;"><%= wine[:score].round %>%</span>
-                <div style="line-height: 1; color: #EFEFEF;">WINE</div>
-                <div style="font-size: 34px; line-height: 1.1;">FIT</div>
+            <div class="media-query-500">
+              <hr/>
+              <div class="card-kpi">
+                <div class="kpi-text kpi-overall">
+                  <span style="font-size: 23px;"><%= wine[:score].round %>%</span>
+                  <div class="media" style="line-height: 1; color: #EFEFEF;">WINE</div>
+                  <div class="media" style="font-size: 34px; line-height: 1.1;">FIT</div>
+                </div>
               </div>
             </div>
           </div>
