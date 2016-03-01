@@ -19,7 +19,7 @@ module Scrapers
       urls = []
       # Create Levensthein object and downcase and take off special chars
       leven_wine = Levenshtein.new(I18n.transliterate(wine.name.downcase))
-      p query = wine.name.gsub(" ","+")
+      p query = (wine.name + " " + wine.appellation).gsub(" ","+")
       url = open(normalize_uri("https://www.vivino.com/search?q=#{query}&start=#{@page}"))
       html_doc = Nokogiri::HTML(url, nil, 'utf-8')
       wine_cards = html_doc.search(".wine-card")

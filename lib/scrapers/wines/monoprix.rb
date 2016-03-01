@@ -6,9 +6,10 @@ module Scrapers
   module Wines
     class Monoprix
       def run
+        puts "Deleting Wines"
         brand = Brand.find_by_name("Monoprix")
         brand.wines.destroy_all
-
+        puts "End"
         p get_wine("white", "/vin-blanc-sec-0000532", get_nb_page("/vin-blanc-sec-0000532"), brand)
         p get_wine("red", "/vin-rouge-0000536", get_nb_page("/vin-rouge-0000536"), brand)
         p get_wine("pink", "/vin-rose-0000535", get_nb_page("/vin-rose-0000535"), brand)
@@ -65,16 +66,18 @@ module Scrapers
             unless name.nil? || name == "Monoprix" || name.include?("Monoprix -")
               if name.include?("Monoprix Gourmet - ")
                 name.slice! "Monoprix Gourmet - "
-                name = name + " " + appellation
-              elsif name == "Monoprix Gourmet"
+              elsif name == "Monoprix Gourmet" || name == "PREMIER PRIX" || name == "MARQUE NATIONALE"
                 name = appellation
               elsif name.include?("- Monoprix Bio")
                 name.slice! "- Monoprix Bio"
-                name = name + " " + appellation
-              else
-                name = name + " " + appellation
+              elsif name.include?("SELECT MPX BIO")
+                name.slice! "SELECT MPX BIO"
               end
-              p name = name.gsub(/\s*\d*[., ]\d*\s*%\s*(vol.)*/,"").gsub(/\d*\s*(cl)\s*/,"").gsub(/,/," ").gsub(/\s+/," ").strip
+              p name = name.gsub(/\s*\d*[., ]\d*\s*%\s*(vol.)*/,"").gsub(/\d*\s*(cl)\s*/,"").gsub(/,/," ").gsub(/\s+/," ").gsub(/\s-\s/," ").strip
+              p name = name.downcase + " " + appellation.downcase
+              p name = name.split(" ")
+              name.uniq! unless name.uniq!.nil?
+              p name = I18n.transliterate(name.join(" ")).upcase
 
               Wine.create!({
                 brand_id: brand.id,
