@@ -19,9 +19,10 @@ module Scrapers
           doc = Nokogiri::HTML(store_list, nil, 'utf-8')
           doc.css('.storeMap').each do |element|
             (0..NB_STORE_BY_PAGE).each do |i|
-              break unless store["store#{i}"]
 
               store = JSON.parse(element.attribute("data-stores"))
+              break unless store["store#{i}"]
+
               new_store = Store.create(brand_id: brand.id,name: store["store#{i}"]["displayName"], address: [store["store#{i}"]["address"] ,store["store#{i}"]["postcode"], store["store#{i}"]["town"]].join(' '))
               store_details = open("http://www.nicolas.com/#{store["store#{i}"]["urlDetail"]}")
               create_schedule(store_details, new_store.id)

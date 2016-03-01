@@ -30,7 +30,7 @@
                 </div>
               </div>
               <div class="kpi-text">
-                <%= wine[:distance] %>m
+                <%= ( wine[:info_store][:distance] * 1000 ).round %>m
               </div>
             </div>
             <hr/>
@@ -71,9 +71,9 @@
       </div>
       </div>
     </div>
-    <a href="" class="button-submit">
-      GO GET IT
-    </a>
+
+    <%= link_to "GO GET IT", wine_path(wine[:wine], store_id: wine[:info_store][:store].id,latitude: @latitude, longitude: @longitude), :class => "button-submit"  %>
   </div>
 </div>
+
 
