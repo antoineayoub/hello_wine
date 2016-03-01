@@ -5,12 +5,14 @@ Rails.application.routes.draw do
 
   resources :wines, only: [:show, :index] do
     resources :user_ratings, only: [:create]
+    collection do
+      get 'closed'
+    end
   end
+
   resources :user_answers, only: [:create]
 
   get '/questions', to: 'pages#questions', as: 'questions'
-
-  resources :stores, only: [:index]
 
   require "sidekiq/web"
   authenticate :user, lambda { |u| u.admin } do

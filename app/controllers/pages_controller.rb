@@ -12,7 +12,7 @@ class PagesController < ApplicationController
       color: {
             question: "What do you wanna drink ?",
             answers: [ "Red Wine", "White Wine", "Rosé" ],
-            values: [ "Rouge", "Blanc", "Rosé"]
+            values: [ "red", "white", "pink"]
           },
       meal: {
             question: "What do you gonna eat ?",

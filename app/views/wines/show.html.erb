@@ -37,11 +37,7 @@
   <div class="row padded-1 wine-details">
     <div class="col-xs-12">
       <i class="fa fa-shopping-cart fa-2x">
-      <% if @wine.brand_id == "2" %>
-       ‡<span>Monoprix</span>
-      <% else %>
-       <span>Nicolas</span>
-      <% end %>
+      <%= @wine.brand.name %>
       </i>
     </div>
   </div>
@@ -53,10 +49,8 @@
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
     $(document).on('ready', function() {
-
-
       handler = Gmaps.build('Google');
-      handler.buildMap({ internal: { id: 'map' } }, function(){
+      handler.buildMap({provider: { scrollwheel: false }, internal: { id: 'map' } }, function(){
         markers = handler.addMarkers(<%= raw @markers.to_json %>);
         handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
@@ -64,7 +58,6 @@
           navigator.geolocation.getCurrentPosition(displayOnMap);
         calcRoute();
         directionsDisplay.setMap(handler.getMap());
-
       });
     });
 
@@ -81,8 +74,8 @@
 
   function calcRoute() {
 
-    var origin      = new google.maps.LatLng(<%= @latitude %>, <%= @longitude %>);
-    var destination = new google.maps.LatLng(<%= @latitude %>, <%= @longitude %>);
+    var origin      = new google.maps.LatLng(<%= params[:latitude] %>, <%= params[:longitude] %>);
+    var destination = new google.maps.LatLng(<%= @store.latitude %>, <%= @store.longitude %>);
     var request = {
         origin:      origin,
         destination: destination,

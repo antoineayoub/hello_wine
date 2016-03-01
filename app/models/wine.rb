@@ -7,7 +7,7 @@ class Wine < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
 
   scope :filter_by_location, -> (latitude, longitude) do
-    stores = Store.near([latitude, longitude], 0.6, units: :km)
+    stores = Store.near([latitude, longitude], 1, units: :km)
     distinct.joins(brand: :stores).where(stores: { id: stores.map(&:id) }) # map { |x| x.id }
   end
    #SELECT DISTINCT "wines".* FROM "wines"
@@ -44,11 +44,13 @@ class Wine < ActiveRecord::Base
     stores = Store.all
     Brand.all.each do |brand|
       stores = stores.filter_by_opening(brand.id)
-      store = brand.stores.near([latitude, longitude], 0.6, units: :km, :order => "distance").first
-      stores_closed << {
-        store: store,
-        distance: Geocoder::Calculations.distance_between([latitude,longitude], store, {units: :km})
-      }
+      unless stores.empty?
+        store = brand.stores.near([latitude, longitude], 0.6, units: :km, :order => "distance").first
+        stores_closed << {
+          store: store,
+          distance: Geocoder::Calculations.distance_between([latitude,longitude], store, {units: :km})
+        }
+      end
     end
     stores_closed.sort_by! { |hash| hash[:distance]}
     selected_store = stores_closed.first

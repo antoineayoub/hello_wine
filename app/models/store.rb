@@ -5,7 +5,7 @@ class Store < ActiveRecord::Base
   after_validation :geocode, if: :address_changed?
 
   scope :filter_by_opening, -> (brand_id) do
-    distinct.joins(:store_schedules).joins(:brand).where("start_am < ? AND end_pm > ? AND day = ?", Time.now, Time.now, Date.today.cwday).where(brand: brand_id)
+    distinct.joins(:store_schedules).where("start_am <= ? AND end_pm >= ? AND day = ?", Time.now, Time.now, Date.today.cwday).joins(:brand).where(brand: brand_id)
   end
   #SELECT DISTINCT COUNT(DISTINCT "stores"."id") FROM "stores"
   #INNER JOIN "store_schedules" ON "store_schedules"."store_id" = "stores"."id"
