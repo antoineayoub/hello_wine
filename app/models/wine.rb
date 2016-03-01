@@ -48,7 +48,7 @@ class Wine < ActiveRecord::Base
         store = brand.stores.near([latitude, longitude], 0.6, units: :km, :order => "distance").first
         stores_closed << {
           store: store,
-          distance: Geocoder::Calculations.distance_between([latitude,longitude], store, {units: :km})
+          distance: (Geocoder::Calculations.distance_between([latitude,longitude], store, {units: :km}) * 1000).round
         }
       end
     end

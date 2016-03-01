@@ -6,10 +6,10 @@ module Scrapers
   module Wines
     class Monoprix
       def run
-        puts "Deleting Wines"
+        puts "Deleting Wines Monoprix"
         brand = Brand.find_by_name("Monoprix")
         brand.wines.destroy_all
-        puts "End"
+        puts "End deleting"
         p get_wine("white", "/vin-blanc-sec-0000532", get_nb_page("/vin-blanc-sec-0000532"), brand)
         p get_wine("red", "/vin-rouge-0000536", get_nb_page("/vin-rouge-0000536"), brand)
         p get_wine("pink", "/vin-rose-0000535", get_nb_page("/vin-rose-0000535"), brand)
@@ -73,9 +73,10 @@ module Scrapers
               elsif name.include?("SELECT MPX BIO")
                 name.slice! "SELECT MPX BIO"
               end
-              p name = name.gsub(/\s*\d*[., ]\d*\s*%\s*(vol.)*/,"").gsub(/\d*\s*(cl)\s*/,"").gsub(/,/," ").gsub(/\s+/," ").gsub(/\s-\s/," ").strip
-              p name = name.downcase + " " + appellation.downcase
-              p name = name.split(" ")
+              name = name.gsub(/\d*[., ]*\d*\s*%\s*(vol.)*(VOL.)*(VOL)*/,"").gsub(/\d*\s*(cl)\s*/,"").gsub(/,/," ").gsub(/\s+/," ").gsub(/\s-\s/," ").strip
+              name = name.downcase + " " + appellation.downcase
+              name = name.split(" ")
+              name.delete("-")
               name.uniq! unless name.uniq!.nil?
               p name = I18n.transliterate(name.join(" ")).upcase
 
