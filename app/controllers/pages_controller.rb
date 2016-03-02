@@ -4,7 +4,6 @@ class PagesController < ApplicationController
   def home
   end
 
-
   def questions
     @user_answer = UserAnswer.new
 

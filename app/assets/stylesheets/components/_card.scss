@@ -1,21 +1,18 @@
 .wine-cards {
-white-space: nowrap;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    .container {
-      display: inline-block;
-    }
+// white-space: nowrap;
+//     overflow-x: scroll;
+//     overflow-y: hidden;
 }
 .wine-card {
-  height: 97vh;
+  height: 100%;
   display: flex;
   flex-flow: column;
-    margin: 10px 0px 40px 0px;
+    margin: 10px 0px 0px 0px;
     box-shadow: 1px 1px 2px #D8D7D7;
     background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.14);
   border-radius: 3px;
-  width: 55vh;
+  width: 100%;
 }
 .card-header-side {
   flex: 1;
@@ -26,6 +23,7 @@ white-space: nowrap;
 .card-header {
   display: flex;
   flex: 1;
+  height: 80vh;
 }
 .card-kpi {
     display: flex;
@@ -134,7 +132,6 @@ hr {
 }
 @media screen and (max-height: 500px) {
   .media-query-500 .media {
-    display:none;
   }
 }
 @media screen and (min-height: 550px) {
@@ -143,18 +140,77 @@ hr {
   }
 }
 @media screen and (max-height: 400px) and (min-width: 550px) {
-  .card-title, .card-kpi-rating, .card-kpi-price, .card-kpi-distance {
-    display:none;
+  .card-kpis-container {
+      flex-flow: row;
   }
-  .media-query-500 {
-    display: block;
-    max-width: 69px;
-    margin-left: 24px;
-      .media {
-        display: block;
-      }
+  .card-kpi {
+    min-width: 85px;
   }
-  hr {
+  .kpi-overall {
     display: none;
   }
+  .card-header {
+    height: 66vh;
+  }
+  .media-query-500 {
+    display:none;
+  }
+  .bottle-image {
+    background-size: contain !important;
+  }
+  hr {
+  width: 10px;
+  height: 1px;
+  margin: auto 3px;
+  }
+}
+
+
+
+.SwipeViewsHeader{
+  min-height: 0px;
+}
+.SwipeViewsTab {
+  display: none;
+}
+
+
+
+.fit-spec{
+  font-size: 34px;
+  line-height: 1.1;
+  margin-top: 0px;
+}
+.wine-text-spec{
+  line-height: 1;
+  color: #EFEFEF;
+  margin-top: 0px;
+}
+.wine-spec{
+  font-size: 23px;
+}
+.ext-spec{
+  font-size: 12px;
+}
+.marker-spec{
+  font-size: 30px;
+}
+.eur-spec{
+  font-size: 27px;
+}
+
+
+.wineWishList {
+  height: 40px;
+  border-bottom: 1px solid #FF6950;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+.wineNotWish {
+  display: none;
+}
+.bookmark-center {
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  color: #CA97AE;
 }

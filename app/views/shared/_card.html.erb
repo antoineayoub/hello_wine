@@ -63,15 +63,14 @@
         </div>
       </div>
       <div class="card-header-side">
-      <div class="card-header-side bottle-image"
-        style="background-image:url(<%= wine[:wine].photo %>);
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: cover;">
-      </div>
+    <div class="card-header-side bottle-image"
+      style="background-image:url(<%= wine[:wine].photo %>);
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: cover;">
+    </div>
       </div>
     </div>
-
     <%= link_to "GO GET IT", wine_path(wine[:wine], store_id: wine[:info_store][:store].id,latitude: @latitude, longitude: @longitude), :class => "button-submit"  %>
   </div>
 </div>

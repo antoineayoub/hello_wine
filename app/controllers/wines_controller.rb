@@ -6,18 +6,16 @@ class WinesController < ApplicationController
     @longitude = params[:longitude]
     @skip_navbard = true
 
-    @wines = Wine.all
+    @wines = Wine.all.first(5)
 
-    @wines = @wines.filter_by_location(@latitude, @longitude)
+    # @wines = @wines.filter_by_location(@latitude, @longitude)
+    # @wines = @wines.filter_by_color(params[:color])
+    # @wines = @wines.filter_by_price(params[:price])
 
-    @wines = @wines.filter_by_color(params[:color])
+    #@wines = @wines.filter_by_pairing(params[:pairing])
 
-    @wines = @wines.filter_by_price(params[:price])
-
-   #@wines = @wines.filter_by_pairing(params[:pairing])
-
-    @wines = wine_sorting(@wines, @latitude, @longitude)
-
+    @wines = wine_sorting(@wines, 48.87146, 2.35500)
+    @wines = @wines.first(5)
   end
 
   def show
@@ -49,15 +47,15 @@ class WinesController < ApplicationController
       rating_value = wine.external_ratings[2].avg_rating unless wine.external_ratings[2].nil?
       rating_score = [0.3*(rating_value - 2)*100,0].max unless rating_value.nil?
 
-      distance_value = ( info_store[:distance] * 1000 ).round
-      distance_score = 100 - distance_value / 6
+      #distance_value = ( info_store[:distance] * 1000 ).round
+      #distance_score = 100 - distance_value / 6
 
       if rating_score.nil?
         score = 0
       else
-        score = (rating_score + distance_score)/2
+        score = (rating_score)/2
       end
-      wines_matrix << { wine: wine, score: score, info_store: info_store }
+      wines_matrix << { wine: wine, score: 80, info_store: {distance: 100} }
 
     end
 
@@ -65,3 +63,6 @@ class WinesController < ApplicationController
   end
 
 end
+
+
+

@@ -1,5 +1,62 @@
 json.wines do
   json.array! @wines do |wine|
-    json.extract! wine[:wine].na, :name
+    json.extract! wine[:wine], :id
+    json.extract! wine[:wine], :name
+    json.extract! wine[:wine], :price
+    unless wine[:wine].external_ratings[2].nil?
+      json.extract! wine[:wine].external_ratings[2], :avg_rating
+    end
+    json.extract! wine, :score
+    json.extract! wine[:info_store], :distance
+    json.extract! wine[:wine].photo, :url
   end
 end
+
+
+# lire doc jbuilder
+# json.name, :name
+# why not props displayed in chrome dev tool
+# key not working
+
+
+# media query for landscape
+
+# react boostrap
+# check bell react
+
+
+# link to dans img tag
+# div flexbox > img tag
+
+
+# ref & key > se met pas sur un objet react mais sur une div
+# ES6 > no more that = this
+
+# render uniquement pour class et styles
+
+
+# ElementDidMount....
+#
+# when to put return in functions?
+
+
+# what keyword for DOM element ($)
+
+
+# return toujours ac span ou div
+# return = templating = html
+
+# dans quels cas utilisés 'ref'
+# return wishlist dans iteration
+#
+
+
+
+# adding wine wishlist
+# <i className="fa fa-bookmark" onClick={this.handleClick}></i>
+
+# commit without wine controller & ability to get back
+#
+#
+#
+# help on UX discard wine
