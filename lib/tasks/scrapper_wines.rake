@@ -24,11 +24,11 @@ task :scraper_wines => [:environment] do
 end
 
 def wine_scraper_monoprix
-  Scrapers::Wines::Monoprix.new.run
+  Scrapers::Wines::MonoprixJob..perform_later
 end
 
 def wine_scraper_nicolas
-  Scrapers::Wines::Nicolas.new.run
+  Scrapers::Wines::NicolasJob.perform_later
 end
 
 # CODE TO DELETE FOLDERS AWS S3
