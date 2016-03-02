@@ -15,14 +15,20 @@ class Wine < ActiveRecord::Base
     #INNER JOIN "stores" ON "stores"."brand_id" = "brands"."id"
     #WHERE "stores"."id" IN (4615, 4589, 4666, 4692)
 
+   scope :filter_by_external_ratings, -> do
+    joins(:external_ratings)
+  end
+    select{ |w| !w.external_ratings.blank?}
+
   scope :filter_by_color, -> (color) { where(color: color) }
 
   scope :filter_by_pairing, -> (pairing) do
     condition = <<~HEREDOC
-      (pairing_1 IS NULL OR pairing_1 = :pairing)
-      OR pairing_2 = :pairing
-      OR pairing_3 = :pairing
-      OR pairing_4 = :pairing
+      (wines.pairing_1 IS NULL OR wines.pairing_1 = :pairing)
+      OR wines.pairing_2 = :pairing
+      OR wines.pairing_3 = :pairing
+      OR wines.pairing_4 = :pairing
+      OR wines.pairing_5 = :pairing
     HEREDOC
 
     where(condition, pairing: pairing)
@@ -31,11 +37,11 @@ class Wine < ActiveRecord::Base
   scope :filter_by_price, -> (price) do
     case price
     when 'less-10'
-      where('price <= 10')
+      where('wines.price <= 10')
     when '10-20'
-      where('price >= 10 AND price <= 20')
+      where('wines.price >= 10 AND wines.price <= 20')
     when 'more-20'
-      where('price >= 20')
+      where('wines.price >= 20')
     end
   end
 
@@ -55,4 +61,26 @@ class Wine < ActiveRecord::Base
     stores_closed.sort_by! { |hash| hash[:distance]}
     selected_store = stores_closed.first
   end
+
+   def self.find_wines(latitude,longitude,color,price,pairing)
+    wine_list = Wine.all
+
+    # All wines whitch have an external rating
+    wine_list = wine_list.filter_by_external_ratings
+
+    # All the wines in store less than 1km
+    wine_list = wine_list.filter_by_location(latitude, longitude)
+
+    # Filter color
+    wine_list = wine_list.filter_by_color(color) unless color.nil?
+
+    # Filter price
+    wine_list = wine_list.filter_by_price(price) unless price.nil?
+
+    # Filter pairing
+    wine_list = wine_list.filter_by_pairing(pairing) unless pairing.nil?
+
+   return wine_list
+  end
+
 end

@@ -14,7 +14,7 @@ class PagesController < ApplicationController
             answers: [ "Red Wine", "White Wine", "Rosé" ],
             values: [ "red", "white", "pink"]
           },
-      meal: {
+      pairing: {
             question: "What do you gonna eat ?",
             answers: [ "Hudge meat plate", "Bob the fish", "Piece of tofu" ],
             values: [ "viande", "poisson", "vegie"]

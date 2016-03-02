@@ -41,10 +41,10 @@
                 </div>
               </div>
               <div class="kpi-text">
-                <% if wine[:wine].external_ratings[2].nil? %>
+                <% if wine[:wine].external_ratings.first.nil? %>
                   'not rated'
                 <% else %>
-                  <%= wine[:wine].external_ratings[2].avg_rating.to_s.gsub(".",",") %>
+                  <%= wine[:wine].external_ratings.first.avg_rating.to_s.gsub(".",",") %>
                   <span style="font-size: 12px;"> /5</span>
                 <% end %>
               </div>

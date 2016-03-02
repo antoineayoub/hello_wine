@@ -5,7 +5,11 @@ module Scrapers
     queue_as :default
 
     def perform(*args)
-      Scrapers::Vivino.new.run
+      puts "ok"
+      ActiveRecord::Base.transaction do
+        Scrapers::Vivino.new.run
+        puts "ok"
+      end
     end
   end
 end
