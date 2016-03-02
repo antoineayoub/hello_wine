@@ -1,13 +1,84 @@
-.map-show {
+.container{
+  background-color: white;
+}
+
+#map-show {
   border: 1px solid grey;
   width: 100%;
   height: 100vh;
-  margin-top: -200px;
-  position: relative;
   z-index: 1;
-  transition: all ease 0.5s;
+  transition: all ease 0.8s;
 }
-.map-filter {
+.map{
+  width: 100%;
+  height: 100%;
+}
+.map-margin-up{
+  margin-top: calc(-33.33vh);
+  position: relative;
+}
+
+.map-margin-down{
+  position:fixed;
+  margin-top: 0px;
+}
+
+.wrapper-white{
+  background: white;
+  width: 100%;
+  height: 100vh;
+  z-index: 4;
+  transition: all ease 0.8s;
+  position: relative;
+}
+.wrapper-white-up{
+  margin-top: -100vh;
+}
+.wrapper-white-down{
+  margin-top: -50vh;
+}
+
+.wrapper-info-wine{
+  position: absolute;
+  bottom: 120px;
+  vertical-align: middle;
+  align-items: center;
+}
+
+/* Nouvelles règles si la fenêtre fait au plus 1024px de large */
+@media all and (max-device-width: 480px)
+{
+  .map-margin-up {
+    margin-top: calc(-18vh);
+    position: relative;
+  }
+
+}
+/* Nouvelles règles si la fenêtre fait au plus 1024px de large */
+@media all and (min-device-height: 481px) and (max-device-height: 570px)
+{
+  .map-margin-up {
+    margin-top: calc(-11.5vh);
+    position: relative;
+  }
+
+}
+@media all and (min-device-height: 571px) and (max-device-height: 630px)
+{
+  .map-margin-up {
+    margin-top: calc(-2.5vh);
+    position: relative;
+  }
+}
+@media all and (min-device-height: 631px) and (max-device-height: 740px)
+{
+  .map-margin-up {
+    margin-top: calc(2.5vh);
+    position: relative;
+  }
+}
+
+.map-filter-closed {
   background-image: linear-gradient(-225deg, rgba(30,30,30,0.8) 30%, rgba(46,46,46,0.5) 80%);
   position: absolute;
   top: 0;
@@ -17,9 +88,25 @@
   background-size: cover;
   z-index: 2;
 }
+
+.map-filter-open{
+  background-image: transparent;
+  background-size: cover;
+  z-index: 2;
+}
+
 #btn-closed{
-  position: absolute;
+  position: fixed;
   bottom: 40px;
+  z-index: 3;
+  left: 50%;
+  .fa-times-circle{
+    color: $alizarin;
+  }
+  .fa-times-circle:active{
+    color: white;
+  }
+
 }
 
 .wine-details {
@@ -29,20 +116,21 @@
 }
 
 .title-show {
-  font-size: 20px;
-  font-weight: 300;
   font-style: $lato-font;
-  margin-top: 16px;
-  h4{
+  h3{
+    font-size: 20px;
     font-weight: 200;
   }
+  position: absolute;
+  bottom: 35vh;
 }
 
 .card-map-wine-image-container {
   background-color: white;
+  position: absolute;
+  bottom: -10vh;
   border: 1px solid rgba(0, 0, 0, 0.29);
   border-radius: 50%;
-  margin-top: -50px;
   width: 100px;
   height: 130px;
   border-radius: 6px;
@@ -58,20 +146,5 @@
   margin-left: 15px;
   font-size: 17px;
   color: black;
-}
-
-.wrapper-grey {
-  background: rgba(0, 0, 0, 0.61);
-  box-shadow: 0px 0 4px rgba(0, 0, 0, 0.41);
-  color: white;
-}
-
-.wrapper-white{
-  background: white;
-}
-.position-closed{
-  z-index: 1000000;
-  position: relative;
-  top: -190px;
 }
 

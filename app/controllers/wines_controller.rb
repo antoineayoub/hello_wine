@@ -46,6 +46,7 @@ class WinesController < ApplicationController
     wines.each do |wine|
       info_store = wine.nearest(latitude,longitude)
 
+
       rating_value = wine.external_ratings[2].avg_rating unless wine.external_ratings[2].nil?
       rating_score = [0.3*(rating_value - 2)*100,0].max unless rating_value.nil?
 
@@ -58,7 +59,6 @@ class WinesController < ApplicationController
         score = (rating_score + distance_score)/2
       end
       wines_matrix << { wine: wine, score: score, info_store: info_store }
-
     end
 
     @wines = wines_matrix.sort { | a, b | b[:score] <=> a[:score] }
