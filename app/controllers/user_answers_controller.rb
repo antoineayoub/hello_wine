@@ -12,7 +12,7 @@ class UserAnswersController < ApplicationController
   private
 
   def answer_params
-    @answer_params = params.require(:user_answer).permit(:meal, :color, :price, :latitude, :longitude)
+    @answer_params = params.require(:user_answer).permit(:pairing, :color, :price, :latitude, :longitude)
   end
 
 

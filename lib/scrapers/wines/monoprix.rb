@@ -79,7 +79,6 @@ module Scrapers
               name.delete("-")
               name.uniq! unless name.uniq!.nil?
               p name = I18n.transliterate(name.join(" ")).upcase
-
               Wine.create!({
                 brand_id: brand.id,
                 color: color,

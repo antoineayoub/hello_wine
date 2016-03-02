@@ -6,7 +6,9 @@ module Scrapers
       queue_as :default
 
       def perform(*args)
-        Scrapers::Stores::Monoprix.new.run
+        ActiveRecord::Base.transaction do
+          Scrapers::Stores::Monoprix.new.run
+        end
       end
     end
   end
