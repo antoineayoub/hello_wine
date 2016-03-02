@@ -1,52 +1,34 @@
 
-<div class="map-show">
-  <div class="map-filter"></div>
-  <div id="map" style="width: 100%; height: 100%"></div>
-  <div class="text-center">
-    <i id= "btn-closed" class="fa fa-times-circle fa-3x"></i>
+<div class="wrapper-white wrapper-white-down">
+  <div class="wine-body">
+    <div class="title-show text-center">
+        <h3><%= @wine.name %></h3>
+    </div>
+    <div class="card-map-wine-image-container img-show">
+      <%= image_tag(@wine.photo) %>
+    </div>
+    <div class="wrapper-info-wine">
+      <h4><%= @wine.appellation %></h4>
+      <span class="fa fa-map-marker fa-2x wine-details"></span>
+      <span class="fa-show"><%= @wine.region %></span>
+      <span class="fa fa-percent fa-2x wine-details"></span>
+      <span class="fa-show"><%= @wine.alcohol_percent %> alc</span>
+      <span class="fa fa-euro fa-2x wine-details"></span>
+      <span class="fa-show"><%= @wine.price %></span>
+      <span class="fa fa-shopping-cart fa-2x wine-details"></span>
+      <span class="fa-show"><%= @wine.brand.name %></span>
+      </div>
+    </div>
   </div>
 </div>
-<div class="position-closed">
-  <div class="container wine-body">
-    <div class="wrapper-grey">
-      <div class="row">
-        <div class="col-xs-7">
-          <h3 class="title-show"><%= @wine.name %></h3>
-        </div>
-        <div class="col-xs-5">
-          <div class="card-map-wine-image-container img-show">
-          <%= image_tag(@wine.photo) %>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <h4><%= @wine.appellation %></h4>
-        </div>
-      </div>
-    </div>
-    <div class="wrapper-white">
-      <div class="row">
-        <div class="col-xs-12">
-          <span class="fa fa-map-marker fa-2x wine-details"></span>
-          <span class="fa-show"><%= @wine.region %></span>
-        </div>
 
-        <div class="col-xs-12">
-          <span class="fa fa-percent fa-2x wine-details"></span>
-          <span class="fa-show"><%= @wine.alcohol_percent %> alc</span>
-        </div>
-        <div class="col-xs-12">
-          <span class="fa fa-euro fa-2x wine-details"></span>
-          <span class="fa-show"><%= @wine.price %></span>
-        </div>
-        <div class="col-xs-12">
-          <span class="fa fa-shopping-cart fa-2x wine-details"></span>
-          <span class="fa-show"><%= @wine.brand.name %></span>
-        </div>
-      </div>
-    </div>
-  </div>
+<div id="map-show" class="map-margin-up">
+  <div id="map-filter" class="map-filter-closed"></div>
+  <div id="map" style="width: 100%; height: 100%"></div>
+</div>
+
+<div id= "btn-closed" class="text-center hidden">
+  <i class="fa fa-times-circle fa-3x"></i>
 </div>
 
 <% content_for(:after_js) do %>
@@ -96,17 +78,24 @@
         });
       }
 
-      $(".map-show").on("click", function() {
-        $(this).css('margin-top','0px');
-        $(this).css('position','fixed');
-        console.log($(this.firstElementChild));
-        $(this.firstElementChild).removeClass('map-filter');
-        $(this).css('margin-top','0px');
-        $('.wine-body').css('margin-top','180px');
+      $("#map-show").on("click", function() {
+        $(this).removeClass('map-margin-up').addClass('map-margin-down');
+
+        $('.wrapper-white').removeClass('wrapper-white-down').addClass('wrapper-white-up');
+        $("#btn-closed").removeClass('hidden')
+        $(".map-filter-closed").slideUp( 400,function(){
+          $('.img-show').hide("slow");
+        });
+
 
       });
       $("#btn-closed").on("click", function() {
-        $(".map-show").css('position','relative')
+        $("#map-show").removeClass('map-margin-down').addClass('map-margin-up');
+        $("#btn-closed").addClass('hidden');
+        $('.wrapper-white').addClass('wrapper-white-down').removeClass('wrapper-white-up');
+        $(".map-filter-closed").slideDown( 400,function(){
+          $('.img-show').show("slow");
+        });
 
       });
     });
