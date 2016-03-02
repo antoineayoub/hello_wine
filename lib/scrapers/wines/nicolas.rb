@@ -8,9 +8,10 @@ module Scrapers
 
     class Nicolas
       def run
+        puts "Deleting Wines Nicolas"
         brand = Brand.find_by_name("Nicolas")
         brand.wines.destroy_all
-        puts "Nicolas is starting"
+        puts "End deleting"
         (0..NB_WINE_PAGES).each do |page|
           puts "Page n°#{page}"
           begin
@@ -23,13 +24,15 @@ module Scrapers
             doc.search('.ns-Product').each do |wines|
               begin
                 url = wines.css('a').attribute('href').value.gsub(/\s/,'%20')
-                p name = wines.css('a').attribute('title').value.strip
+                p name = wines.css('a').attribute('title').value
+                p name = I18n.transliterate(name.gsub(/\s-\s/," ").gsub(/,/,"").strip).upcase
+                p appelation = wines.css('.ns-Product-domain').text().gsub(/\n*\t*/,'')
                 wine = Wine.new({
                         name: name,
                         vintage: name[/\d{4}/],
                         remote_photo_url: wines.css('.ns-Product-img').attribute('src').value,
                         region: wines.css('.ns-Product-district').text().gsub(/\n*\t*/,''),
-                        appellation: wines.css('.ns-Product-domain').text().gsub(/\n*\t*/,''),
+                        appellation: appelation,
                         price: (wines.css('.ns-Price-unity').text() + wines.css('.ns-Price-decimal').text()).to_f,
                         brand_id: brand.id
                       })

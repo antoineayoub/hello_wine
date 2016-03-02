@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226224245) do
+ActiveRecord::Schema.define(version: 20160301164132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20160226224245) do
     t.float    "price"
     t.string   "country"
     t.string   "pairing_5"
+    t.float    "len_distance"
   end
 
   add_index "external_ratings", ["wine_id"], name: "index_external_ratings_on_wine_id", using: :btree
@@ -63,7 +64,6 @@ ActiveRecord::Schema.define(version: 20160226224245) do
     t.string   "acidity"
     t.string   "body"
     t.string   "pairing_1"
-    t.string   "string"
     t.string   "pairing_2"
     t.string   "pairing_3"
     t.string   "pairing_4"

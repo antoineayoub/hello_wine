@@ -26,9 +26,11 @@ module Scrapers
 
       wine_cards.each_with_index do |wine_card, index|
         begin
+          wine_url = wine_card.search(".wine-name > a").attribute('href')
           vivino_wine = fetch_wines(wine_card.search(".wine-name > a").attribute('href').value, wine.id)
 
-          if index == 0
+          if index == 0 || ExternalRating.all == []
+            p vivino_wine.len_distance = leven_wine.match(I18n.transliterate(vivino_wine.wine_name.downcase))
             vivino_wine.save!
             puts "Challenger => #{vivino_wine.wine_name}"
           else
@@ -36,9 +38,10 @@ module Scrapers
             result_new = leven_wine.match(I18n.transliterate(vivino_wine.wine_name.downcase))
             if result_new < result_last
               ExternalRating.all.last.delete
+              vivino_wine.len_distance = result_new
               vivino_wine.save!
               puts "New winner => #{vivino_wine.wine_name}"
-              puts "#{result_new} vs #{result_last}"
+              puts "#{vivino_wine.len_distance} vs #{result_last}"
             else
               puts "Last win !"
               puts "#{result_last} vs #{result_new}"
@@ -68,25 +71,23 @@ module Scrapers
       j = 1
       html_wine = Nokogiri::HTML(open("https://www.vivino.com#{wine_url}"), nil, 'utf-8')
       wine_details = html_wine.search(".wine-page-content")
-
       begin
         e = ExternalRating.new
         wine_details.search('.wine-name span').each do |info|
           infos << info.text.strip
         end
+        wine_details.search('div[itemprop=ratingValue]')
         e.wine_id = wine_id
         e.winery = infos[0]
         e.wine_name = (infos[0] + " " + infos[1] + " " + infos[2]).strip
         e.vintage = infos[2]
-        #e.color
-        #e.photo = wine_details.search('.wine-page-image-holder img[itemprop=image]').attribute('src')
-        e.price = wine_details.search('span[itemprop=price]').text.to_f
+        e.price = wine_details.search('.wine-price > *[itemprop=price]').attr('content').value.to_f
         e.winery = wine_details.search('a[data-item-type=winery]').text
         e.appellation = wine_details.search('a[data-item-type=wine-region]').text
         e.region = wine_details.search('a[data-item-type=wine-style]').text
         e.country = wine_details.search('a[data-item-type=Country]').text
-        e.avg_rating = wine_details.search('div[itemprop=ratingValue]').text.to_f
-        e.rating_count = wine_details.search('span[itemprop=ratingCount]').text.to_i
+        e.avg_rating = wine_details.search('.rating-average > *[itemprop=ratingValue]').attr('content').value.to_f
+        e.rating_count = wine_details.search('.rating-count > span[itemprop=ratingCount]').text.to_i
         # wine_details.search('a[data-item-type=grape]').each do |grape|
         #   e["grape_#{i}"] = grape.text.strip
         #   fetch_grape_info(grape.attributes['href'].value)
@@ -97,8 +98,8 @@ module Scrapers
           e["pairing_#{j}"] = pairing.text.strip
           j += 1
         end
+
         unless e.avg_rating == 0
-          #e.save
           return e
         end
 

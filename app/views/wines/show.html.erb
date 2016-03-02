@@ -1,91 +1,103 @@
 
-<div class="map-show">
+<div class="wrapper-white wrapper-white-down">
+  <div class="wine-body">
+    <div class="title-show text-center">
+        <h3><%= @wine.name %></h3>
+    </div>
+    <div class="card-map-wine-image-container img-show">
+      <%= image_tag(@wine.photo) %>
+    </div>
+    <div class="wrapper-info-wine">
+      <h4><%= @wine.appellation %></h4>
+      <span class="fa fa-map-marker fa-2x wine-details"></span>
+      <span class="fa-show"><%= @wine.region %></span>
+      <span class="fa fa-percent fa-2x wine-details"></span>
+      <span class="fa-show"><%= @wine.alcohol_percent %> alc</span>
+      <span class="fa fa-euro fa-2x wine-details"></span>
+      <span class="fa-show"><%= @wine.price %></span>
+      <span class="fa fa-shopping-cart fa-2x wine-details"></span>
+      <span class="fa-show"><%= @wine.brand.name %></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="map-show" class="map-margin-up">
+  <div id="map-filter" class="map-filter-closed"></div>
   <div id="map" style="width: 100%; height: 100%"></div>
 </div>
 
-
-<div class="container">
-  <div class="row">
-    <div class="col-xs-7">
-      <h2><%= @wine.name %></h2>
-    </div>
-
-    <div class="col-xs-5">
-     <%= image_tag(@wine.photo, class: "img-center avatar-large") %>
-    </div>
-  </div>
-    <h4><%= @wine.appellation %></h4>
-
-  <div class="row padded-1 wine-details">
-    <div class="col-xs-12">
-      <i class="fa fa-map-marker fa-2x"> <%= @wine.region %></i>
-    </div>
-  </div>
-
-  <div class="row padded-1 wine-details">
-    <div class="col-xs-12">
-      <i class="fa fa-percent fa-2x"> <%= @wine.alcohol_percent %> alc</i>
-    </div>
-  </div>
-
-  <div class="row padded-1 wine-details">
-    <div class="col-xs-12">
-      <i class="fa fa-euro fa-2x"> <%= @wine.price %></i>
-    </div>
-  </div>
-
-  <div class="row padded-1 wine-details">
-    <div class="col-xs-12">
-      <i class="fa fa-shopping-cart fa-2x">
-      <%= @wine.brand.name %>
-      </i>
-    </div>
-  </div>
-
+<div id= "btn-closed" class="text-center hidden">
+  <i class="fa fa-times-circle fa-3x"></i>
 </div>
-
-
 
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
     $(document).on('ready', function() {
-      handler = Gmaps.build('Google');
-      handler.buildMap({provider: { scrollwheel: false }, internal: { id: 'map' } }, function(){
-        markers = handler.addMarkers(<%= raw @markers.to_json %>);
-        handler.bounds.extendWith(markers);
-        handler.fitMapToBounds();
-        if(navigator.geolocation)
-          navigator.geolocation.getCurrentPosition(displayOnMap);
-        calcRoute();
-        directionsDisplay.setMap(handler.getMap());
+
+      function buildMap() {
+        handler = Gmaps.build('Google');
+        handler.buildMap({provider: { scrollwheel: false }, internal: { id: 'map' } }, function(){
+          markers = handler.addMarkers(<%= raw @markers.to_json %>);
+          handler.bounds.extendWith(markers);
+          handler.fitMapToBounds();
+          if(navigator.geolocation)
+            navigator.geolocation.getCurrentPosition(displayOnMap);
+          calcRoute();
+          directionsDisplay.setMap(handler.getMap());
+        });
+      }
+
+      buildMap();
+
+
+      function displayOnMap(position){
+        var marker = handler.addMarker({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+       <!--  handler.map.centerOn(marker); -->
+      };
+
+      var directionsDisplay = new google.maps.DirectionsRenderer();
+      var directionsService = new google.maps.DirectionsService();
+
+      function calcRoute() {
+
+        var origin      = new google.maps.LatLng(<%= params[:latitude] %>, <%= params[:longitude] %>);
+        var destination = new google.maps.LatLng(<%= @store.latitude %>, <%= @store.longitude %>);
+        var request = {
+            origin:      origin,
+            destination: destination,
+            travelMode:  google.maps.TravelMode.WALKING
+        };
+        directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+          }
+        });
+      }
+
+      $("#map-show").on("click", function() {
+        $(this).removeClass('map-margin-up').addClass('map-margin-down');
+
+        $('.wrapper-white').removeClass('wrapper-white-down').addClass('wrapper-white-up');
+        $("#btn-closed").removeClass('hidden')
+        $(".map-filter-closed").slideUp( 400,function(){
+          $('.img-show').hide("slow");
+        });
+
+
+      });
+      $("#btn-closed").on("click", function() {
+        $("#map-show").removeClass('map-margin-down').addClass('map-margin-up');
+        $("#btn-closed").addClass('hidden');
+        $('.wrapper-white').addClass('wrapper-white-down').removeClass('wrapper-white-up');
+        $(".map-filter-closed").slideDown( 400,function(){
+          $('.img-show').show("slow");
+        });
+
       });
     });
-
-  function displayOnMap(position){
-    var marker = handler.addMarker({
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    });
-    handler.map.centerOn(marker);
-  };
-
-  var directionsDisplay = new google.maps.DirectionsRenderer();
-  var directionsService = new google.maps.DirectionsService();
-
-  function calcRoute() {
-
-    var origin      = new google.maps.LatLng(<%= params[:latitude] %>, <%= params[:longitude] %>);
-    var destination = new google.maps.LatLng(<%= @store.latitude %>, <%= @store.longitude %>);
-    var request = {
-        origin:      origin,
-        destination: destination,
-        travelMode:  google.maps.TravelMode.WALKING
-    };
-    directionsService.route(request, function(response, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(response);
-      }
-    });
-    }
   <% end %>
 <% end %>
