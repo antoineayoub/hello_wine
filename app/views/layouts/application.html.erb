@@ -28,8 +28,9 @@
       $( document ).ready(function() {
 
         // hide spinner
-        $(".spinner").hide();
-
+        setTimeout(function() {
+          $(".spinner").hide();
+        }, 2000);
 
         // show spinner on AJAX start
         $(document).ajaxStart(function(){

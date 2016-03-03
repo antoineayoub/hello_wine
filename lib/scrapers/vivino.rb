@@ -17,6 +17,7 @@ module Scrapers
 
     def fetch_wine(wine)
       urls = []
+      challenger = nil
       # Create Levensthein object and downcase and take off special chars
       leven_wine = Levenshtein.new(I18n.transliterate(wine.name.downcase))
       p query = (wine.name + " " + wine.appellation).gsub(" ","+")
@@ -31,15 +32,14 @@ module Scrapers
 
           if index == 0 || ExternalRating.all == []
             p vivino_wine.len_distance = leven_wine.match(I18n.transliterate(vivino_wine.wine_name.downcase))
-            vivino_wine.save!
+            challenger = vivino_wine
             puts "Challenger => #{vivino_wine.wine_name}"
           else
-            result_last = leven_wine.match(I18n.transliterate(ExternalRating.all.last.wine_name.downcase))
+            result_last = leven_wine.match(I18n.transliterate(challenger.wine_name.downcase))
             result_new = leven_wine.match(I18n.transliterate(vivino_wine.wine_name.downcase))
             if result_new < result_last
-              ExternalRating.all.last.delete
-              vivino_wine.len_distance = result_new
-              vivino_wine.save!
+              challenger = vivino_wine
+              challenger.len_distance = result_new
               puts "New winner => #{vivino_wine.wine_name}"
               puts "#{vivino_wine.len_distance} vs #{result_last}"
             else
@@ -51,6 +51,7 @@ module Scrapers
           puts "No cards found #{e}"
         end
       end
+      challenger.save!
       puts "<=======================GAME OVER============================> "
     end
 
@@ -88,11 +89,11 @@ module Scrapers
         e.country = wine_details.search('a[data-item-type=Country]').text
         e.avg_rating = wine_details.search('.rating-average > *[itemprop=ratingValue]').attr('content').value.to_f
         e.rating_count = wine_details.search('.rating-count > span[itemprop=ratingCount]').text.to_i
-        # wine_details.search('a[data-item-type=grape]').each do |grape|
-        #   e["grape_#{i}"] = grape.text.strip
-        #   fetch_grape_info(grape.attributes['href'].value)
-        #   i += 1
-        # end
+        wine_details.search('a[data-item-type=grape]').each do |grape|
+          e["grape_#{i}"] = grape.text.strip
+          fetch_grape_info(grape.attributes['href'].value)
+          i += 1
+        end
         wine_details.search('a[data-item-type=food-pairing]').each do |pairing|
           pairing.text.strip
           e["pairing_#{j}"] = pairing.text.strip

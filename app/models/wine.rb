@@ -67,19 +67,19 @@ class Wine < ActiveRecord::Base
   def self.find_wines(latitude,longitude,color,price,pairing)
     wine_list = Wine.all
 
-    # All wines whitch have an external rating
+    ##All wines whitch have an external rating
     wine_list = wine_list.filter_by_external_ratings
 
-    # All the wines in store less than 1km
+    ##All the wines in store less than 1km
     wine_list = wine_list.filter_by_location(latitude, longitude)
 
-    # Filter color
+    ##Filter color
     wine_list = wine_list.filter_by_color(color) unless color.nil?
 
-    # Filter price
+    ##Filter price
     wine_list = wine_list.filter_by_price(price) unless price.nil?
 
-    # Filter pairing
+    ##Filter pairing
     wine_list = wine_list.filter_by_pairing(pairing) unless pairing.nil?
 
     return wine_list

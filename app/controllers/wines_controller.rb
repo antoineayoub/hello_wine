@@ -47,16 +47,19 @@ class WinesController < ApplicationController
     weight_distance = 0.3
 
     wines.each do |wine|
-      info_store = wine.nearest(latitude,longitude)
 
-      rating_score = wine.external_ratings.first.avg_rating * 10 * weight_rating
-      distance_score = distance_note( info_store[:distance] ) * weight_distance
-      if rating_score.nil?
-        score = 0
-      else
-        score = (rating_score + distance_score).round
+      unless wine.external_ratings.first.nil?
+        info_store = wine.nearest(latitude,longitude)
+
+        rating_score = wine.external_ratings.first.avg_rating * 10 * weight_rating
+        distance_score = distance_note( info_store[:distance] ) * weight_distance
+        if rating_score.nil?
+          score = 0
+        else
+          score = (rating_score + distance_score).round
+        end
+        wines_matrix << { wine: wine, score: score, info_store: info_store }
       end
-      wines_matrix << { wine: wine, score: score, info_store: info_store }
     end
 
     @wines = wines_matrix.sort { | a, b | b[:score] <=> a[:score] }
