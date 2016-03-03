@@ -69,7 +69,6 @@ class Wine < ActiveRecord::Base
 
     ##All wines whitch have an external rating
     wine_list = wine_list.filter_by_external_ratings
-    binding.pry
     ##All the wines in store less than 1km
     wine_list = wine_list.filter_by_location(latitude, longitude)
 
