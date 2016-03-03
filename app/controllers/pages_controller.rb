@@ -31,7 +31,7 @@ class PagesController < ApplicationController
             answers: [ "Red Wine", "White Wine", "Rosé" ],
             values: [ "red", "white", "pink"]
           },
-      meal: {
+      pairing: {
             question: "What do you gonna eat ?",
             pic_url: "pic_meal.png",
             answers: [ "Hudge meat plate", "Bob the fish", "Piece of tofu" ],

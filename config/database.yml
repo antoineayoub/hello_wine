@@ -75,11 +75,12 @@ test:
 #
 # You can use this database configuration with:
 #
-#   production:
-#     url: <%= ENV['DATABASE_URL'] %>
+# production:
+#   url: <%= ENV['SCALINGO_POSTGRESQL_URL=postgres://hellowine_8184:dvZpT_WDPw5W2P3baJDI@hellowine-8184.postgresql.dbs.appsdeck.eu:30135/hellowine_8184'] %>
+
 #
 production:
   <<: *default
   database: hello_wine_production
   username: hello_wine
-  password: <%= ENV['HELLO_WINE_DATABASE_PASSWORD'] %>
+  password:

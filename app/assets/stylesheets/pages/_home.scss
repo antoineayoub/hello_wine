@@ -3,7 +3,7 @@
  * (margin/padding adjustments)
  * ------------------------------------- */
 body{
-  background-color: #FAFAFA;
+  background-color: white;
 }
 
 .btn-home {
@@ -31,4 +31,19 @@ body{
   color: white;
   text-transform: uppercase;
   padding-top: 30px;
+}
+.wrapper-home{
+  opacity: 0;
+  transform: scale(.9);
+  transition: all .3s ease;
+
+  &.is-loaded {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.increment{
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+  font-weight: bold;
+  font-size: 40px;
 }

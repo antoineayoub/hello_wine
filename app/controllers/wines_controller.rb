@@ -1,22 +1,22 @@
 class WinesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show, :all, :closed]
+
+  def all
+    @wines = Wine.all
+  end
 
   def index
     @latitude = params[:latitude]
     @longitude = params[:longitude]
     @skip_navbard = true
 
-    @wines = Wine.all
+    @wines = Wine.find_wines(@latitude,@longitude,params[:color],params[:price],params[:paring])
 
-    @wines = @wines.filter_by_location(@latitude, @longitude)
-
-    @wines = @wines.filter_by_color(params[:color])
-
-    @wines = @wines.filter_by_price(params[:price])
-
-   #@wines = @wines.filter_by_pairing(params[:pairing])
-
-    @wines = wine_sorting(@wines, @latitude, @longitude)
+    if @wines.nil? || @wines.length == 0
+      redirect_to closed_wines_path
+    else
+      @wines = wine_sorting(@wines, @latitude, @longitude)
+    end
 
   end
 
@@ -43,25 +43,38 @@ class WinesController < ApplicationController
 
   def wine_sorting(wines,latitude,longitude)
     wines_matrix = []
+    weight_rating = 0.7
+    weight_distance = 0.3
+
     wines.each do |wine|
-      info_store = wine.nearest(latitude,longitude)
 
+      unless wine.external_ratings.first.nil?
+        info_store = wine.nearest(latitude,longitude)
 
-      rating_value = wine.external_ratings[2].avg_rating unless wine.external_ratings[2].nil?
-      rating_score = [0.3*(rating_value - 2)*100,0].max unless rating_value.nil?
-
-      distance_value = ( info_store[:distance] * 1000 ).round
-      distance_score = 100 - distance_value / 6
-
-      if rating_score.nil?
-        score = 0
-      else
-        score = (rating_score + distance_score)/2
+        rating_score = wine.external_ratings.first.avg_rating * 10 * weight_rating
+        distance_score = distance_note( info_store[:distance] ) * weight_distance
+        if rating_score.nil?
+          score = 0
+        else
+          score = (rating_score + distance_score).round
+        end
+        wines_matrix << { wine: wine, score: score, info_store: info_store }
       end
-      wines_matrix << { wine: wine, score: score, info_store: info_store }
     end
 
     @wines = wines_matrix.sort { | a, b | b[:score] <=> a[:score] }
+  end
+
+  def distance_note(distance)
+    if distance <= 50
+      return 100
+    elsif distance > 50 && distance <= 500
+      return 1/9 * (distance * 50) + 100
+    elsif distance > 500 && distance <= 600
+      return (distance + 150) / 2
+    else
+      return 0
+    end
   end
 
 end

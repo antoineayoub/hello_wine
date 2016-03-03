@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   resources :wines, only: [:show, :index] do
     resources :user_ratings, only: [:create]
     collection do
-      get 'closed'
+      get 'closed', to: "wines#closed"
+      get 'all', to: "wines#all"
     end
   end
 

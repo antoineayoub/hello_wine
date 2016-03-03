@@ -77,24 +77,26 @@ hr {
 .kpi-text {
   padding-bottom: 7px;
   padding-top: 5px;
+  font-size: 15px;
 }
 .font-awesome-circled {
   width: 40px;
-    height: 40px;
-    background-color: #2ECC71;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    color: white;
-    font-size: 20px;
+  min-width: 40px;
+  height: 40px;
+  background-color: $alizarin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
 }
 .button-submit {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 58px;
-  background-color: #2ECC71;
+  background-color: $alizarin;
   font-size: 20px;
   color: white;
   font-weight: bold;
@@ -104,10 +106,10 @@ hr {
 .button-submit:hover, .button-submit:focus {
   color: #eeeeee;
   text-decoration: none;
-  background-color: #25B361;
+  background-color: $alizarin;
 }
 .kpi-overall {
-  background: #2ECC71;
+  background: $alizarin;
   color: white;
   border-radius: 3px;
   font-weight: bold;
@@ -123,9 +125,10 @@ hr {
 }
 .card-title {
   text-align: center;
-  color: #656F69;
+  font-family: "Raleway", "Helvetica", "sans-serif";
+  color: #252525;
   font-weight: bold;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   padding-top: 15px;
   text-transform: uppercase;
   font-size: 12px;
@@ -164,8 +167,6 @@ hr {
   margin: auto 3px;
   }
 }
-
-
 
 .SwipeViewsHeader{
   min-height: 0px;
