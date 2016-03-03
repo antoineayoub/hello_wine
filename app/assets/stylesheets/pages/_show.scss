@@ -44,7 +44,7 @@
 }
 .wrapper-info-wine{
   position: absolute;
-  bottom: 35vh;
+  bottom: 25vh;
   width: 100%;
   margin-left: 4vh;
 }
@@ -88,11 +88,11 @@
 @media all and (min-device-height: 630px) and (max-device-height: 740px)
 {
   .map-margin-up {
-    margin-top: calc(-10vh);
+    margin-top: calc(-36vh);
     position: relative;
   }
   .wrapper-margin-down{
-    margin-top: -50vh;
+    margin-top: -27vh;
   }
 }
 
@@ -127,7 +127,7 @@
 
 }
 .wine-details {
-  font-size: 20px;
+  font-size: 14px;
   opacity: 0.7;
   width: 20px;
 }
@@ -136,14 +136,19 @@
   font-style: $lato-font;
   h3{
     font-size: 21px;
-    font-weight: 400;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #252525;
+    padding: 0 20px;
   }
   h4 {
     font-size: 18px;
-    font-weight: 200;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 4px;
   }
   position: absolute;
-  bottom: 57vh;
+  bottom: 50vh;
   width: 100%;
 }
 
@@ -151,10 +156,10 @@
   background-color: white;
   position: absolute;
   bottom: -4vh;
-  left: 30%;
+  left: 32%;
   border: 1px solid rgba(0, 0, 0, 0.29);
   border-radius: 50%;
-  width: 130px;
+  width: 110px;
 
   border-radius: 3px;
   padding: 2px;
@@ -167,8 +172,8 @@
 
 .fa-show {
   margin-left: 15px;
-  font-size: 17px;
-  color: black;
+  font-size: 15px;
+  color: #6F6F6F;
   margin-top: 5px;
 
 }
@@ -193,3 +198,16 @@
   }
 }
 
+.font-awesome-show-circled {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  height: 30px;
+  background-color: $alizarin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  font-size: 14px;
+}
