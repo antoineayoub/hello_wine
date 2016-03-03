@@ -30,7 +30,8 @@
         // hide spinner
         setTimeout(function() {
           $(".spinner").hide();
-        }, 2000);
+          $('.wrapper-home').addClass('is-loaded')
+        }, 500);
 
         // show spinner on AJAX start
         $(document).ajaxStart(function(){
