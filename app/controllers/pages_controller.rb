@@ -7,9 +7,7 @@ class PagesController < ApplicationController
   end
 
   def wines_filtering
-    p wine_params
     if wine_params[:topic] == "color"
-      p Wine.all.filter_by_color(wine_params[:value])
       nb_wines = Wine.all.filter_by_color(wine_params[:value]).length
       @wines = {nb_wines: nb_wines}
       # render questions to route to "questions.json.builder"
