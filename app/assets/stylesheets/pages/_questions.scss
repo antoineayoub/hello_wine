@@ -27,13 +27,19 @@
 }
 
 .btn-question {
-width: 100%;
-    background-color: rgba(226, 78, 53, 0.71);
-    border: 1px solid #E24E35;
-    padding: 14px;
-    color: #FFFFFF;
-    border-radius: 4px;
+  width: 100%;
+  background-color: rgba(226, 78, 53, 0.71);
+  border: 1px solid #E24E35;
+  padding: 14px;
+  color: #FFFFFF;
+  border-radius: 4px;
+  transform: scale(1);
+  transition: transform .3s ease;
+  &.is-clicked {
+    transform: scale(.9);
+  }
 }
+
 .btn-back {
 width: 100%;
     border-radius: 4px;
