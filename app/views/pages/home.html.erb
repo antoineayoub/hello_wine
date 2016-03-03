@@ -1,18 +1,29 @@
-<div class="centered">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <%= link_to(questions_path) do %>
-          <%= image_tag("logo_hello_wine.png", class: "pulse")  %>
-        <% end %>
+<div class="centered bg-alizarin text-center flex-center">
+  <div class="wrapper-home">
+    <%= link_to(questions_path) do %>
+      <%= image_tag("logo_hello_wine.png",class: "hatch")  %> <!-- class: "pulse" -->
+    <% end %>
+    <div class="title-lato">
+      <div>
+        the best
       </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="title-lato">
-          the best wines around you
-        </div>
+      <div class="increment">
       </div>
+      <div>Wines around you</div>
     </div>
   </div>
 </div>
+
+<%= content_for(:after_js) do %>
+  <script>
+    i = 1
+
+    var interval = setInterval(function() {
+      $('.increment').html(i)
+      if(i === 682) {
+        clearInterval(interval)
+      }
+      i ++
+    }, 1)
+  </script>
+<% end %>

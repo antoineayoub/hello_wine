@@ -28,8 +28,10 @@
       $( document ).ready(function() {
 
         // hide spinner
-        $(".spinner").hide();
-
+        setTimeout(function() {
+          $(".spinner").hide();
+          $('.wrapper-home').addClass('is-loaded')
+        }, 500);
 
         // show spinner on AJAX start
         $(document).ajaxStart(function(){
