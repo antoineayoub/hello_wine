@@ -8,10 +8,10 @@ module Scrapers
 
     class Nicolas
       def run
-        puts "Deleting Wines Nicolas"
-        brand = Brand.find_by_name("Nicolas")
-        brand.wines.destroy_all
-        puts "End deleting"
+        # puts "Deleting Wines Nicolas"
+        # brand = Brand.find_by_name("Nicolas")
+        # brand.wines.destroy_all
+        # puts "End deleting"
         (0..NB_WINE_PAGES).each do |page|
           puts "Page n°#{page}"
           begin
@@ -27,7 +27,7 @@ module Scrapers
                 p name = wines.css('a').attribute('title').value
                 p name = I18n.transliterate(name.gsub(/\s-\s/," ").gsub(/,/,"").strip).upcase
                 p appelation = wines.css('.ns-Product-domain').text().gsub(/\n*\t*/,'')
-                wine = Wine.new({
+                wine = {
                         name: name,
                         vintage: name[/\d{4}/],
                         remote_photo_url: wines.css('.ns-Product-img').attribute('src').value,
@@ -35,7 +35,7 @@ module Scrapers
                         appellation: appelation,
                         price: (wines.css('.ns-Price-unity').text() + wines.css('.ns-Price-decimal').text()).to_f,
                         brand_id: brand.id
-                      })
+                      }
 
                 wine_detail = open("http://www.nicolas.com#{url}")
 
@@ -72,7 +72,13 @@ module Scrapers
                   # Description
                   wine[:description] = w.css('.ns-Oenologist-tastingContent').first.search('p').last.text
                 end
-                wine.save!
+                if Wine.find_by_name(wine[:name])
+                  Wine.update!(wine)
+                  puts "updated"
+                else
+                  Wine.create!(wine)
+                  puts "created"
+                end
 
               rescue NoMethodError => e
                 puts "No wine found #{e}"

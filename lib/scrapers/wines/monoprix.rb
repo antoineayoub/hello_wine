@@ -6,10 +6,10 @@ module Scrapers
   module Wines
     class Monoprix
       def run
-        puts "Deleting Wines Monoprix"
-        brand = Brand.find_by_name("Monoprix")
-        brand.wines.destroy_all
-        puts "End deleting"
+        # puts "Deleting Wines Monoprix"
+        # # brand = Brand.find_by_name("Monoprix")
+        # # brand.wines.destroy_all
+        # puts "End deleting"
         p get_wine("white", "/vin-blanc-sec-0000532", get_nb_page("/vin-blanc-sec-0000532"), brand)
         p get_wine("red", "/vin-rouge-0000536", get_nb_page("/vin-rouge-0000536"), brand)
         p get_wine("pink", "/vin-rose-0000535", get_nb_page("/vin-rose-0000535"), brand)
@@ -79,18 +79,25 @@ module Scrapers
               name.delete("-")
               name.uniq! unless name.uniq!.nil?
               p name = I18n.transliterate(name.join(" ")).upcase
-              Wine.create!({
-                brand_id: brand.id,
-                color: color,
-                name: name,
-                vintage: name[/\d{4}/],
-                description: description,
-                appellation: appellation,
-                region: region,
-                alcohol_percent: alcohol_percent,
-                remote_photo_url: img,
-                price: price
-              })
+              wine = {
+                      brand_id: brand.id,
+                      color: color,
+                      name: name,
+                      vintage: name[/\d{4}/],
+                      description: description,
+                      appellation: appellation,
+                      region: region,
+                      alcohol_percent: alcohol_percent,
+                      remote_photo_url: img,
+                      price: price
+                    }
+              if Wine.find_by_name(wine[:name])
+                Wine.update!(wine)
+                puts "updated"
+              else
+                Wine.create!(wine)
+                puts "created"
+              end
             end
           end
         end
