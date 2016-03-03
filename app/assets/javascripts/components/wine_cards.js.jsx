@@ -17,9 +17,7 @@ var WineCards = React.createClass({
   },
 
   render: function() {
-
     var that = this;
-
     return (
       <div>
         <WineWishList wishlistedWines={this.state.wishlistedWines} hasWishlist={this.state.hasWishlist} key={this.state.key}/>
@@ -32,6 +30,8 @@ var WineCards = React.createClass({
                       <WineCard
                         wine={wine}
                         onWishListClick={that.handleWishListApp}
+                        latitude={that.props.latitude}
+                        longitude={that.props.longitude}
                       />
                     </div>
                 )

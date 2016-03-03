@@ -1,3 +1,5 @@
+json.latitude @latitude
+json.longitude @longitude
 json.wines do
   json.array! @wines do |wine|
     json.extract! wine[:wine], :id
@@ -7,7 +9,7 @@ json.wines do
       json.extract! wine[:wine].external_ratings[2], :avg_rating
     end
     json.extract! wine, :score
-    json.extract! wine[:info_store], :distance
+    json.extract! wine[:info_store], :distance, :store
     json.extract! wine[:wine].photo, :url
   end
 end

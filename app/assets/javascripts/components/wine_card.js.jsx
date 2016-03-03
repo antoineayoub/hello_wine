@@ -9,7 +9,11 @@ var WineCard = React.createClass({
                 wine={this.props.wine}
                 onWishListClick={this.props.onWishListClick}
               />
-              <WineCardButton wine_id={this.props.wine} />
+              <WineCardButton
+                store_id={this.props.wine.store.id}
+                wine={this.props.wine}
+                latitude={this.props.latitude}
+                longitude={this.props.longitude} />
             </div>
           </div>
     );

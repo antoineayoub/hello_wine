@@ -36,7 +36,7 @@ var WineCardBody = React.createClass({
                     </div>
                   </div>
                   <div className="kpi-text">
-                    { Math.round(this.props.wine.distance * 1000) }m
+                    { Math.round(this.props.wine.distance) }m
                   </div>
                 </div>
                 <hr/>
