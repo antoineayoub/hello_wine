@@ -18,19 +18,35 @@
 }
 
 .title{
-  font-size: 22px;
-  font-family: $lato-font;
-  font-weight: 400;
-  color: white;
-  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 19px;
+    font-family: "Lato", "Helvetica", "sans-serif";
+    font-weight: 400;
+    color: #5F3131;
+    text-shadow: none !important;
+    text-transform: uppercase;
 }
 
 .btn-question {
-  width:100%;
-  background-color: white;
+  width: 100%;
+  background-color: rgba(226, 78, 53, 0.71);
   border: 1px solid #E24E35;
-  color:#E24E35;
+  padding: 14px;
+  color: #FFFFFF;
   border-radius: 4px;
+  transform: scale(1);
+  transition: transform .3s ease;
+  &.is-clicked {
+    transform: scale(.9);
+  }
+}
+
+.btn-back {
+width: 100%;
+    border-radius: 4px;
+    padding: 14px;
+      background-color: rgba(255, 255, 255, 0.71);
+    color: #565454;
+    border: 1px solid #565454;
 }
 
 // .btn-question:hover {

@@ -1,148 +1,24 @@
-<div id="back-picture" class="text-center color-background">
-</div>
-<div class="container" style="margin-top: -70px">
-  <div class="row">
-  <% @questions.each_with_index do |question, index| %>
-    <div class="hide" data-type="<%= question[0].to_s %>" data-ft="<%= index+1 %>">
-      <div class="col-xs-12">
-        <div class="title text-center padded-1">
-          <%= question[1][:question] %>
-        </div>
-      </div>
-      <% question[1][:answers].each_with_index do |answer, index| %>
-        <div class="col-xs-12">
-          <div class="padded-top-bottom-xs">
-            <a class="btn btn-question btn-next" data-q="<%= question[0].to_s %>"
-                data-value="<%= question[1][:values][index] %>">
-              <%= answer %>
-            </a>
-          </div>
-        </div>
-      <% end %>
-      <div class="col-xs-12">
-        <div class="padded-top-bottom-xs btn-skip">
-          <a class="btn btn-question">I don't care</a>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  <div class="col-xs-12">
-    <div class="text-center padded-5">
-      <% (1..@questions.length).each do |i| %>
-        <span id="nav-<%= i %>" class="nav-gray"><i class="fa fa-circle"></i></span>
-      <% end %>
-    </div>
-  </div>
- </div>
-</div>
-
-<%= simple_form_for @user_answer do |f| %>
-  <%= f.input :color, :as => :hidden %>
-  <%= f.input :pairing, :as => :hidden %>
-  <%= f.input :price, :as => :hidden %>
-  <%= f.input :latitude, :as => :hidden %>
-  <%= f.input :longitude, :as => :hidden %>
-  <%= f.button :submit, :class => "hidden" %>
-<% end %>
-
-<% content_for(:after_js) do %>
-  <script>
-
-
-    // NOTE : DOES NOT OVERWRITE QUESTIONAIRE WHEN BACK
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success);
-    } else {
-      error('Geo Location is not supported');
-    }
-
-    function success(position) {
-         $('#user_answer_latitude').val(position.coords.latitude);
-         $('#user_answer_longitude').val(position.coords.longitude);
-    }
-    // on first page load removes ".hide" on first element
-    $('*[data-ft="1"]').removeClass("hide");
-    $('#nav-1').removeClass('nav-gray').addClass('nav-white').addClass('btn-back');
-
-    var questionToShow        = 1;
-    var questionTotalNumber   = <%= raw @questions.length %> ;
-
-    // next questions
-    $(".btn-next").click(function(e){
-      // question count variable
-      questionToDisplay(1);
-      recordAnswer($(this));
-      submitQuestionaire();
-    })
-
-    $(".btn-back").click(function(){
-        if (questionToShow > 1){
-          // question count variable
-          questionToDisplay(0);
-          // put empty result in form for current question
-          resetQuestion(questionToShow);
-
-          questionToShow    += -1;
-        }
-      })
-
-    // skip question
-    $(".btn-skip").click(function(){
-      // question count variable
-      questionToDisplay(1);
-      resetQuestion(questionToShow - 1);
-      submitQuestionaire();
-    })
-
-    function resetQuestion(questionToReset){
-      var answer        = "";
-      var data_q        = $("*[data-ft="+ questionToReset + "]").attr("data-type");
-      var formAnswerID  = "#user_answer_"+ data_q +""
-      $(formAnswerID).val(answer);
-    }
-
-    function questionToDisplay(direction) {
-
-      // back button
-      questionToShow += direction;
-      // hide or show the right question
-      $("*[data-ft="+ (questionToShow - 1) +"]").toggleClass("hide");
-      $("*[data-ft="+ questionToShow +"]").toggleClass("hide");
-
-      var type = $("*[data-ft="+ questionToShow +"]").attr("data-type");
-      var css_class = type + "-background";
-
-      var type_1 = $("*[data-ft="+ (questionToShow - 1) +"]").attr("data-type");
-      var css_class_1 = type_1 + "-background";
-
-
-      $("#nav-" + (questionToShow - 1)).toggleClass("nav-white").toggleClass("nav-gray")//.addClass("nav-gray");
-      $("#nav-" + questionToShow).toggleClass("nav-gray").toggleClass("nav-white")//.addClass("nav-white");
-      $("#nav-" + (questionToShow - 1)).addClass("btn-back");
-
-      $("#back-picture").removeClass(css_class_1);
-      $("#back-picture").addClass(css_class);
-    }
-
-
-    function recordAnswer(elementClicked) {
-      $this = elementClicked
-
-      // retrieve user answer on btn click
-      var answer        = $this.attr("data-value");
-      var formAnswerID  = "#user_answer_"+ $this.attr("data-q") +""
-
-      // populates form
-      $(formAnswerID).val(answer);
-    }
-
-    function submitQuestionaire() {
-      // on last question, submit the form
-      if ((questionToShow - 1) == questionTotalNumber) {
-        $("#new_user_answer").submit();
-      }
-    }
-
-
-  </script>
-<% end %>
+<%= react_component "Questions",
+  questions: [
+    {
+      topic: "color",
+      question: "What do you wanna drink ?",
+      pic_url: asset_url("pic_color.png"),
+      answers: [ "Red Wine", "White Wine", "Rosé" ],
+      values: [ "red", "white", "pink"]
+    },
+    {
+      topic: "meal",
+      question: "What do you gonna eat ?",
+      pic_url: asset_url("pic_meal.png"),
+      answers: [ "Hudge meat plate", "Bob the fish", "Piece of tofu" ],
+      values: [ "viande", "poisson", "vegie"]
+    },
+    {
+      topic: "price",
+      question: "What's your budget ?",
+      pic_url: asset_url("pic_price.png"),
+      answers: [ "Less than 10€", "From 10 to 20€", "More than 20€" ],
+      values: [ "less-10", "10-20", "more-20"]
+    }]
+%>
