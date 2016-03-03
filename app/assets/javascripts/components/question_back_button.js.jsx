@@ -7,7 +7,7 @@ var QuestionBackButton = React.createClass({
       <div>
         <div className="col-xs-12">
           <div className="padded-top-bottom-xs btn-skip">
-            <a className="btn btn-question" onClick={this.handleClick}>I dont care</a>
+            <a className="btn btn-back" onClick={this.handleClick}>I dont care</a>
           </div>
         </div>
       </div>

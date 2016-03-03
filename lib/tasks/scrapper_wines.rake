@@ -24,7 +24,7 @@ task :scraper_wines => [:environment] do
 end
 
 def wine_scraper_monoprix
-  Scrapers::Wines::MonoprixJob..perform_later
+  Scrapers::Wines::MonoprixJob.perform_later
 end
 
 def wine_scraper_nicolas

@@ -13,6 +13,12 @@ json.wines do
 end
 
 
+# <a class="button-submit" href="/wines/1183?latitude=48.8648524&amp;longitude=2.3798705&amp;store_id=1548">GO GET IT</a>
+
+# wines?color=red&latitude=48.8648342&longitude=2.3798768999999997&pairing=viande&price=less-10
+
+# add steps in questions
+
 # asset_url > helper de rails qui ajoute une clef
 # pre render of index only when JSON parsed
 # lire doc jbuilder

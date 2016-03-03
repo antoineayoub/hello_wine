@@ -1,25 +1,26 @@
 <%= react_component "Questions",
-  order: ["color", "meal", "price"],
-  qustions: [
-  Q1: {
-        topic: "color",
-        question: "What do you wanna drink ?",
-        pic_url: asset_url("pic_color.png"),
-        answers: [ "Red Wine", "White Wine", "Rosé" ],
-        values: [ "red", "white", "pink"]
-      },
-  Q2: {
-        topic: "meal",
-        question: "What do you gonna eat ?",
-        pic_url: asset_url("pic_meal.png"),
-        answers: [ "Hudge meat plate", "Bob the fish", "Piece of tofu" ],
-        values: [ "viande", "poisson", "vegie"]
-      },
-  Q3: {
-        topic: "price",
-        question: "How much you wanna spend ?",
-        pic_url: asset_url("pic_price.png"),
-        answers: [ "Less than 10€", "From 10 to 20€", "More than 20€" ],
-        values: [ "less-10", "10-20", "more-20"]
-      }]
+  questions: [
+    {
+      topic: "color",
+      question: "What do you wanna drink ?",
+      pic_url: asset_url("pic_color.png"),
+      answers: [ "Red Wine", "White Wine", "Rosé" ],
+      values: [ "red", "white", "pink"]
+    },
+    {
+      topic: "meal",
+      question: "What do you gonna eat ?",
+      pic_url: asset_url("pic_meal.png"),
+      answers: [ "Hudge meat plate", "Bob the fish", "Piece of tofu" ],
+      values: [ "viande", "poisson", "vegie"]
+    },
+    {
+      topic: "price",
+      question: "What's your budget ?",
+      pic_url: asset_url("pic_price.png"),
+      answers: [ "Less than 10€", "From 10 to 20€", "More than 20€" ],
+      values: [ "less-10", "10-20", "more-20"]
+    }]
 %>
+
+

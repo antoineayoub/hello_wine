@@ -1,11 +1,16 @@
 var QuestionItem = React.createClass({
 
   handleClick: function(){
-    var value   = this.props.value;
-    var topic   = this.props.topic;
-    var answer  = this.props.answer;
-    var questionNumber = this.props.questionNumber;
-    this.props.onQuestionClick(topic, value, answer, questionNumber);
+    if (this.props.isLastQuestion === true) {
+      this.props.onQuestionClicks(this.props.value);
+      console.log("last question");
+      var geo   = this.props.geolocation;
+      var query = this.props.finalQuery;
+      document.location.href = "/wines?color="+query[0]['color']+"&pairing="+query[1]['meal']+"&price="+query[2]['price']+"&latitude="+geo['latitude']+"&longitude="+geo['longitude'];
+    } else {
+      this.props.onQuestionClick(this.props.value);
+      this.props.onQuestionClicks(this.props.value);
+    };
   },
 
   render: function() {
@@ -13,7 +18,7 @@ var QuestionItem = React.createClass({
     return (
       <div className="col-xs-12">
         <div className="padded-top-bottom-xs">
-          <a className="btn btn-question btn-next" onClick={this.handleClick}>
+          <a className="btn btn-question" onClick={this.handleClick}>
             {this.props.answer}
           </a>
         </div>
@@ -21,3 +26,6 @@ var QuestionItem = React.createClass({
     )
   }
 });
+
+
+
