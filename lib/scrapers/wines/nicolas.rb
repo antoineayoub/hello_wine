@@ -9,7 +9,7 @@ module Scrapers
     class Nicolas
       def run
         # puts "Deleting Wines Nicolas"
-        # brand = Brand.find_by_name("Nicolas")
+        brand = Brand.find_by_name("Nicolas")
         # brand.wines.destroy_all
         # puts "End deleting"
         (0..NB_WINE_PAGES).each do |page|
