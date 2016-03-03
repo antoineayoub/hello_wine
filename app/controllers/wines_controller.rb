@@ -1,5 +1,9 @@
 class WinesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show, :all, :closed]
+
+  def all
+    @wines = Wine.all
+  end
 
   def index
     @latitude = params[:latitude]
@@ -8,7 +12,7 @@ class WinesController < ApplicationController
 
     @wines = Wine.find_wines(@latitude,@longitude,params[:color],params[:price],params[:paring])
 
-    if @wines.nil?
+    if @wines.nil? || @wines.length == 0
       redirect_to closed_wines_path
     else
       @wines = wine_sorting(@wines, @latitude, @longitude)
@@ -47,7 +51,6 @@ class WinesController < ApplicationController
 
       rating_score = wine.external_ratings.first.avg_rating * 10 * weight_rating
       distance_score = distance_note( info_store[:distance] ) * weight_distance
-raise
       if rating_score.nil?
         score = 0
       else
@@ -60,7 +63,6 @@ raise
   end
 
   def distance_note(distance)
-
     if distance <= 50
       return 100
     elsif distance > 50 && distance <= 500
@@ -70,8 +72,6 @@ raise
     else
       return 0
     end
-
-
   end
 
 end

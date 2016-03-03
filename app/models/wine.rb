@@ -8,17 +8,19 @@ class Wine < ActiveRecord::Base
 
   scope :filter_by_location, -> (latitude, longitude) do
     stores = Store.near([latitude, longitude], 1, units: :km)
-    distinct.joins(brand: :stores).where(stores: { id: stores.map(&:id) }) # map { |x| x.id }
+
+    stores = stores.joins(:store_schedules).where("start_am <= ? AND end_pm >= ? AND day = ?", Time.now, Time.now, Date.today.cwday)
+
+    distinct.joins(brand: :stores).where(stores: { id: stores.map(&:id) })# map { |x| x.id }
   end
    #SELECT DISTINCT "wines".* FROM "wines"
     #INNER JOIN "brands" ON "brands"."id" = "wines"."brand_id"
     #INNER JOIN "stores" ON "stores"."brand_id" = "brands"."id"
     #WHERE "stores"."id" IN (4615, 4589, 4666, 4692)
 
-   scope :filter_by_external_ratings, -> do
+  scope :filter_by_external_ratings, -> do
     joins(:external_ratings)
   end
-    select{ |w| !w.external_ratings.blank?}
 
   scope :filter_by_color, -> (color) { where(color: color) }
 
@@ -62,7 +64,7 @@ class Wine < ActiveRecord::Base
     selected_store = stores_closed.first
   end
 
-   def self.find_wines(latitude,longitude,color,price,pairing)
+  def self.find_wines(latitude,longitude,color,price,pairing)
     wine_list = Wine.all
 
     # All wines whitch have an external rating
@@ -80,7 +82,7 @@ class Wine < ActiveRecord::Base
     # Filter pairing
     wine_list = wine_list.filter_by_pairing(pairing) unless pairing.nil?
 
-   return wine_list
+    return wine_list
   end
 
 end

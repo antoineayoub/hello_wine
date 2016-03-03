@@ -16,6 +16,7 @@
   </head>
   <body>
     <%# render 'shared/navbar_new' unless @skip_navbard %>
+    <%= render "shared/loader" %>
     <%= yield %>
 
     <%= javascript_include_tag "https://maps.google.com/maps/api/js" %>
@@ -23,5 +24,25 @@
 
     <%= javascript_include_tag 'application' %>
     <%= yield :after_js %>
+     <script>
+      $( document ).ready(function() {
+
+        // hide spinner
+        $(".spinner").hide();
+
+
+        // show spinner on AJAX start
+        $(document).ajaxStart(function(){
+          $(".spinner").show();
+        });
+
+        // hide spinner on AJAX stop
+        $(document).ajaxStop(function(){
+          $(".spinner").delay(3000).hide(0);
+        });
+
+      });
+    </script>
   </body>
 </html>
+
