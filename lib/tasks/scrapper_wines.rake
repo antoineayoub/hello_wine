@@ -31,6 +31,7 @@ def wine_scraper_nicolas
   Scrapers::Wines::NicolasJob.perform_later
 end
 
+
 #CODE TO DELETE FOLDERS AWS S3
 # desc "Scraper Wines"
 # task :scraper_wines => [:environment] do
