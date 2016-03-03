@@ -10,7 +10,6 @@ var Questions = React.createClass({
       nbWines: 10000
     }
   },
-  // component did mount OR component did load
   getGeoloc: function(){
     var that = this;
     navigator.geolocation.getCurrentPosition(success);
@@ -55,19 +54,24 @@ var Questions = React.createClass({
         lastQuestion: true
       })
     }
-    $.ajax({
-      type: 'POST',
-      data: {wine: { topic: this.state.question.topic, value: value }},
-      url: Routes.wines_filtering_path({format: 'json'}),
-      success: function(data) {
-        console.log(data["nb_wines"]);
         that.setState({
           page: that.state.page + 1,
           question: that.props.questions[(that.state.page + 1)],
-          nbWines: data['nb_wines']
+          // nbWines: data['nb_wines']
         })
-      }
-    })
+    // $.ajax({
+    //   type: 'POST',
+    //   data: {wine: { topic: this.state.question.topic, value: value }},
+    //   url: Routes.wines_filtering_path({format: 'json'}),
+    //   success: function(data) {
+    //     console.log(data["nb_wines"]);
+    //     that.setState({
+    //       page: that.state.page + 1,
+    //       question: that.props.questions[(that.state.page + 1)],
+    //       // nbWines: data['nb_wines']
+    //     })
+    //   }
+    // })
   },
   render: function() {
     return (
