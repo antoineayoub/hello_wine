@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :user_answers, only: [:create]
 
   get '/questions', to: 'pages#questions', as: 'questions'
+  post '/questions', to: 'pages#wines_filtering', as: 'wines_filtering'
 
   require "sidekiq/web"
   authenticate :user, lambda { |u| u.admin } do

@@ -13,12 +13,25 @@ json.wines do
 end
 
 
+# asset_url > helper de rails qui ajoute une clef
+# pre render of index only when JSON parsed
 # lire doc jbuilder
 # json.name, :name
 # why not props displayed in chrome dev tool
 # key not working
-
-
+#
+#
+# on a callback with a jbuilder, does it update the whole json????
+#
+#
+#
+#
+# Uncaught Error: Invariant Violation: setState(...): Cannot update during an existing state transition (such as within `render`). Render methods should be a pure function of props and state.
+# >> fait un tour à l'intérieur des fctions
+# in child child when calling function handleClick > if put parenthis, runs it one time by default > does it mean we cannot pass arguments if we want to build generic functions to handle clicks????
+#
+#
+#
 # media query for landscape
 
 # react boostrap
