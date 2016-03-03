@@ -2,6 +2,8 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :questions]
 
   def home
+    @get_loader = true
+    @wine_count = Wine.all.count
   end
 
   def wines_filtering
