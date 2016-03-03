@@ -27,12 +27,12 @@ module Scrapers
 
       wine_cards.each_with_index do |wine_card, index|
         begin
-          wine_url = wine_card.search(".wine-name > a").attribute('href')
-          vivino_wine = fetch_wines(wine_card.search(".wine-name > a").attribute('href').value, wine.id)
+          p wine_url = wine_card.search(".wine-name > a").attribute('href')
+          p vivino_wine = fetch_wines(wine_card.search(".wine-name > a").attribute('href').value, wine.id)
 
-          if index == 0 || ExternalRating.all == []
+          if index == 0 || ExternalRating.all == [] || challenger.nil?
             p vivino_wine.len_distance = leven_wine.match(I18n.transliterate(vivino_wine.wine_name.downcase))
-            challenger = vivino_wine
+            p challenger = vivino_wine
             puts "Challenger => #{vivino_wine.wine_name}"
           else
             result_last = leven_wine.match(I18n.transliterate(challenger.wine_name.downcase))
@@ -51,7 +51,8 @@ module Scrapers
           puts "No cards found #{e}"
         end
       end
-      challenger.save!
+      challenger.save! unless challenger.nil?
+
       puts "<=======================GAME OVER============================> "
     end
 
