@@ -91,8 +91,10 @@ module Scrapers
                       remote_photo_url: img,
                       price: price
                     }
-              if Wine.find_by_name(wine[:name])
-                Wine.update!(wine)
+              find_wine = Wine.find_by_name(wine[:name])
+
+              if find_wine
+                find_wine.update(wine)
                 puts "updated"
               else
                 Wine.create!(wine)

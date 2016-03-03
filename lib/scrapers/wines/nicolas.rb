@@ -72,8 +72,10 @@ module Scrapers
                   # Description
                   wine[:description] = w.css('.ns-Oenologist-tastingContent').first.search('p').last.text
                 end
-                if Wine.find_by_name(wine[:name])
-                  Wine.update!(wine)
+                find_wind = Wine.find_by_name(wine[:name])
+
+                if find_wine
+                  find_wine.update(wine)
                   puts "updated"
                 else
                   Wine.create!(wine)
