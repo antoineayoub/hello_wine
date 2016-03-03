@@ -49,8 +49,15 @@ gem 'faker'
 gem "geocoder"
 gem 'gmaps4rails'
 source 'https://rails-assets.org' do
- gem "rails-assets-underscore"
+  gem "rails-assets-underscore"
+  gem 'rails-assets-classnames'
+  gem 'rails-assets-react-swipe-views'
 end
+
+# for react
+gem 'js-routes'
+gem 'react-rails', '1.2.0'
+
 
 group :development, :test do
   gem 'binding_of_caller'

@@ -9,7 +9,6 @@ class WinesController < ApplicationController
     @latitude = params[:latitude]
     @longitude = params[:longitude]
     @skip_navbard = true
-
     @wines = Wine.find_wines(@latitude,@longitude,params[:color],params[:price],params[:paring])
 
     if @wines.nil? || @wines.length == 0

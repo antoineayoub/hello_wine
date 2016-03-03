@@ -1,10 +1,6 @@
-    <div class="wine-cards">
-<% @wines.each do |wine| %>
-  <div class="container">
-      <div class="row">
-        <%= render "shared/card", wine: wine %>
-      </div>
-    </div>
-<% end %>
-  </div>
+<div class="wine-cards">
+<%= react_component "WineCards",
+          render(template: 'wines/index.json.jbuilder'),
+          prerender: true %>
+</div>
 
