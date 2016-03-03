@@ -20,7 +20,7 @@
 
     var interval = setInterval(function() {
       $('.increment').html(i)
-      if(i === 682) {
+      if(i === <%= @wine_count %>) {
         clearInterval(interval)
       }
       i ++

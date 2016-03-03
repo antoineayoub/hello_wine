@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @get_loader = true
-    @wine.count = Wine.all.count
+    @wine_count = Wine.all.count
   end
 
 
