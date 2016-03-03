@@ -10,6 +10,7 @@ var Questions = React.createClass({
       nbWines: 10000
     }
   },
+  // component did mount OR component did load
   getGeoloc: function(){
     var that = this;
     navigator.geolocation.getCurrentPosition(success);

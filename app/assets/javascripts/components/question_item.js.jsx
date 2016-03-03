@@ -8,7 +8,6 @@ var QuestionItem = React.createClass({
   handleClick: function(){
     if (this.props.isLastQuestion === true) {
       this.props.onQuestionClicks(this.props.value);
-      console.log("last question");
       var geo   = this.props.geolocation;
       var query = this.props.finalQuery;
       document.location.href = "/wines?color="+query[0]['color']+"&pairing="+query[1]['meal']+"&price="+query[2]['price']+"&latitude="+geo['latitude']+"&longitude="+geo['longitude'];
