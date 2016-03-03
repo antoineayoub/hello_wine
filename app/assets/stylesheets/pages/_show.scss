@@ -23,7 +23,7 @@
   margin-top: 0px;
 }
 
-.wrapper-white{
+.wrapper-transparent{
   background: white;
   width: 100%;
   height: 100vh;
@@ -31,50 +31,68 @@
   transition: all ease 0.8s;
   position: relative;
 }
-.wrapper-white-up{
+.wrapper-margin-up{
   margin-top: -100vh;
 }
-.wrapper-white-down{
+.wrapper-margin-down{
   margin-top: -50vh;
 }
+.wine-info {
+  display: flex;
+  margin-bottom: 15px;
 
+}
 .wrapper-info-wine{
   position: absolute;
-  bottom: 120px;
-  vertical-align: middle;
-  align-items: center;
+  bottom: 35vh;
+  width: 100%;
+  margin-left: 4vh;
+}
+.wrapper-header-show{
+  background:white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.29);
 }
 
 /* Nouvelles règles si la fenêtre fait au plus 1024px de large */
 @media all and (max-device-width: 480px)
 {
   .map-margin-up {
-    margin-top: calc(-18vh);
+    margin-top: calc(-8.5vh);
     position: relative;
   }
-
+  .wrapper-margin-down{
+    margin-top: -50vh;
+  }
 }
 /* Nouvelles règles si la fenêtre fait au plus 1024px de large */
-@media all and (min-device-height: 481px) and (max-device-height: 570px)
+@media all and (min-device-height: 480px) and (max-device-height: 570px)
 {
   .map-margin-up {
-    margin-top: calc(-11.5vh);
+    margin-top: calc(-38vh);
     position: relative;
   }
-
-}
-@media all and (min-device-height: 571px) and (max-device-height: 630px)
-{
-  .map-margin-up {
-    margin-top: calc(-2.5vh);
-    position: relative;
+  .wrapper-margin-down{
+    margin-top: -25vh;
   }
 }
-@media all and (min-device-height: 631px) and (max-device-height: 740px)
+@media all and (min-device-height: 570px) and (max-device-height: 630px)
 {
   .map-margin-up {
-    margin-top: calc(2.5vh);
+    margin-top: calc(-27vh);
     position: relative;
+  }
+  .wrapper-margin-down{
+    margin-top: -38vh;
+  }
+}
+@media all and (min-device-height: 630px) and (max-device-height: 740px)
+{
+  .map-margin-up {
+    margin-top: calc(-10vh);
+    position: relative;
+  }
+  .wrapper-margin-down{
+    margin-top: -50vh;
   }
 }
 
@@ -101,14 +119,13 @@
   z-index: 3;
   left: 50%;
   .fa-times-circle{
-    color: $alizarin;
+    color: black;
   }
   .fa-times-circle:active{
     color: white;
   }
 
 }
-
 .wine-details {
   font-size: 20px;
   opacity: 0.7;
@@ -118,22 +135,28 @@
 .title-show {
   font-style: $lato-font;
   h3{
-    font-size: 20px;
+    font-size: 21px;
+    font-weight: 400;
+  }
+  h4 {
+    font-size: 18px;
     font-weight: 200;
   }
   position: absolute;
-  bottom: 35vh;
+  bottom: 57vh;
+  width: 100%;
 }
 
 .card-map-wine-image-container {
   background-color: white;
   position: absolute;
-  bottom: -10vh;
+  bottom: -4vh;
+  left: 30%;
   border: 1px solid rgba(0, 0, 0, 0.29);
   border-radius: 50%;
-  width: 100px;
-  height: 130px;
-  border-radius: 6px;
+  width: 130px;
+
+  border-radius: 3px;
   padding: 2px;
   box-shadow: 0px 0 4px rgba(0, 0, 0, 0.26);
   img{
@@ -146,5 +169,27 @@
   margin-left: 15px;
   font-size: 17px;
   color: black;
+  margin-top: 5px;
+
+}
+
+.btn-list {
+  background: transparent;
+  position: absolute;
+  bottom: 70vh;
+  width: 100%;
+  z-index:10;
+  a {
+    color: black;
+    font-size: 10px;
+    margin-left: 8px;
+    font-weight: 100;
+  }
+  :active{
+    color:$alizarin;
+  }
+  :hover{
+    text-decoration: none;
+  }
 }
 

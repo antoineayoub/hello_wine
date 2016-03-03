@@ -1,35 +1,64 @@
 
-<div class="wrapper-white wrapper-white-down">
-  <div class="wine-body">
+<div class='overflow-hidden'>
+
+  <div class="wrapper-transparent wrapper-margin-down">
+  <div class="btn-list">
+    <%= link_to '< Back', :back ,anchor: "#" %>
+  </div>
     <div class="title-show text-center">
-        <h3><%= @wine.name %></h3>
-        <%= link_to 'Back', :back ,anchor: "#",class: "btn btn-primary" %>
+        <h3 class="wine-name"><%= @wine.name.split("").first(30).join("") %></h3>
+        <h4 class="wine-appelation"><%= @wine.appellation %></h4>
+    </div>
+    <div class="row">
+      <div class="wrapper-info-wine">
+        <div class="col-xs-6 col-md-6">
+          <div class="wine-info">
+            <div class="font-awesome-circled text-center">
+              <span class="fa fa-map-marker fa-2x wine-details"></span>
+            </div>
+              <span class="fa-show"><%= @wine.region %></span>
+          </div>
+
+          <div class="wine-info">
+            <div class="font-awesome-circled text-center">
+              <span class="fa fa-percent fa-2x wine-details"></span>
+          </div>
+              <span class="fa-show"><%= @wine.alcohol_percent %> alc</span>
+          </div>
+        </div>
+
+        <div class="col-xs-6 col-md-6">
+
+          <div class="wine-info">
+            <div class="font-awesome-circled text-center">
+              <span class="fa fa-euro fa-2x wine-details"></span>
+            </div>
+              <span class="fa-show"><%= @wine.price %> €</span>
+          </div>
+
+          <div class="wine-info">
+            <div class="font-awesome-circled text-center">
+              <span class="fa fa-shopping-cart fa-2x wine-details"></span>
+            </div>
+              <span class="fa-show"><%= @wine.brand.name %></span>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="card-map-wine-image-container img-show">
       <%= image_tag(@wine.photo) %>
     </div>
-    <div class="wrapper-info-wine">
-      <h4><%= @wine.appellation %></h4>
-      <span class="fa fa-map-marker fa-2x wine-details"></span>
-      <span class="fa-show"><%= @wine.region %></span>
-      <span class="fa fa-percent fa-2x wine-details"></span>
-      <span class="fa-show"><%= @wine.alcohol_percent %> alc</span>
-      <span class="fa fa-euro fa-2x wine-details"></span>
-      <span class="fa-show"><%= @wine.price %></span>
-      <span class="fa fa-shopping-cart fa-2x wine-details"></span>
-      <span class="fa-show"><%= @wine.brand.name %></span>
-      </div>
-    </div>
+
   </div>
-</div>
 
-<div id="map-show" class="map-margin-up">
-  <div id="map-filter" class="map-filter-closed"></div>
-  <div id="map" style="width: 100%; height: 100%"></div>
-</div>
+  <div id="map-show" class="map-margin-up">
+    <div id="map-filter" class="map-filter-closed"></div>
+    <div id="map" style="width: 100%; height: 100vh;"></div>
+  </div>
 
-<div id= "btn-closed" class="text-center hidden">
-  <i class="fa fa-times-circle fa-3x"></i>
+  <div id= "btn-closed" class="text-center hidden">
+    <i class="fa fa-times-circle fa-3x"></i>
+  </div>
 </div>
 
 <% content_for(:after_js) do %>
@@ -82,18 +111,19 @@
       $("#map-show").on("click", function() {
         $(this).removeClass('map-margin-up').addClass('map-margin-down');
 
-        $('.wrapper-white').removeClass('wrapper-white-down').addClass('wrapper-white-up');
+        $('.wrapper-transparent').removeClass('wrapper-margin-down').addClass('wrapper-margin-up');
         $("#btn-closed").removeClass('hidden')
         $(".map-filter-closed").slideUp( 400,function(){
           $('.img-show').hide("slow");
-        });
 
+
+        });
 
       });
       $("#btn-closed").on("click", function() {
         $("#map-show").removeClass('map-margin-down').addClass('map-margin-up');
         $("#btn-closed").addClass('hidden');
-        $('.wrapper-white').addClass('wrapper-white-down').removeClass('wrapper-white-up');
+        $('.wrapper-transparent').addClass('wrapper-margin-down').removeClass('wrapper-margin-up');
         $(".map-filter-closed").slideDown( 400,function(){
           $('.img-show').show("slow");
         });
