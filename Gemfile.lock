@@ -321,6 +321,7 @@ GEM
       railties (= 4.2.5.1)
       sprockets-rails
     rails-assets-classnames (2.2.3)
+    rails-assets-pubsubjs (0.4.0)
     rails-assets-react (0.13.3)
     rails-assets-react-swipe-views (0.0.10)
       rails-assets-react (~> 0.13.1)
@@ -455,6 +456,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.5.1)
   rails-assets-classnames!
+  rails-assets-pubsubjs!
   rails-assets-react-swipe-views!
   rails-assets-underscore!
   rails_12factor
