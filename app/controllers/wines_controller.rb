@@ -6,19 +6,23 @@ class WinesController < ApplicationController
   end
 
   def index
-    @latitude = params[:latitude]
-    @longitude = params[:longitude]
+    puts "CONTROLLER ENTRANCE"
+    puts @latitude = params[:latitude]
+    puts @longitude = params[:longitude]
     @skip_navbard = true
     @get_loader = true
 
     @wines = Wine.find_wines(@latitude,@longitude,params[:color],params[:price],params[:paring])
-
+    puts "END FIND WINES"
+    puts @wines.first
     if @wines == 1 || @wines == 3 || @wines == 4 || @wines == 5
       redirect_to nowine_wines_path
     elsif @wines == 2
       redirect_to closed_wines_path
     else
       @wines = wine_sorting(@wines, @latitude, @longitude) unless @latitude == "undefined" || @longitude == "undefined"
+       puts "END WINE SORTING"
+       puts @wines.first
     end
 
   end
@@ -48,14 +52,14 @@ class WinesController < ApplicationController
     wines_matrix = []
     weight_rating = 0.8
     weight_distance = 0.2
-
+    puts "WINE SORTING"
     wines.each do |wine|
-
+      puts wine
       unless wine.external_ratings.first.nil?
         info_store = wine.nearest(latitude,longitude)
 
-        rating_score = wine.external_ratings.last.avg_rating * 10 * weight_rating
-        distance_score = distance_note( info_store[:distance] ) * weight_distance
+        puts rating_score = wine.external_ratings.last.avg_rating * 10 * weight_rating
+        puts distance_score = distance_note( info_store[:distance] ) * weight_distance
 
         if rating_score.nil?
           score = 0

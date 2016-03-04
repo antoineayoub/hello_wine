@@ -14,7 +14,7 @@ class PagesController < ApplicationController
       render "questions"
       # render json: {nb_wines: nb_wines}  OR @wines
     elsif wine_params[:topic] == "price"
-      nb_wines = @wines.filter_by_price(wine_params[:value])
+      nb_wines = @wines.filter_by_price(wine_params[:value]).length
       @wines = {nb_wines: nb_wines}
     else
       nb_wines = Wine.all.length
