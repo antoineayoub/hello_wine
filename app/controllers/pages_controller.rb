@@ -25,26 +25,27 @@ class PagesController < ApplicationController
 
   def questions
     @user_answer = UserAnswer.new
-    @questions = {
-      color: {
-            question: "What do you wanna drink ?",
-            pic_url: "pic_color.png",
-            answers: [ "Red Wine", "White Wine", "Rosé" ],
-            values: [ "red", "white", "pink"]
-          },
-      pairing: {
-            question: "What do you gonna eat ?",
-            pic_url: "pic_meal.png",
-            answers: [ "Hudge meat plate", "Bob the fish", "Piece of tofu" ],
-            values: [ "viande", "poisson", "vegie"]
-          },
-      price: {
-            question: "How much you wanna spend ?",
-            pic_url: "pic_price.png",
-            answers: [ "Less than 10€", "From 10 to 20€", "More than 20€" ],
-            values: [ "less-10", "10-20", "more-20"]
-          }
-    }
+
+    # @questions = {
+    #   color: {
+    #         question: "What do you wanna drink ?",
+    #         pic_url: "pic_color.png",
+    #         answers: [ "Red Wine", "White Wine", "Rosé Wine" ],
+    #         values: [ "red", "white", "pink"]
+    #       },
+    #   pairing: {
+    #         question: "What do you gonna eat ?",
+    #         pic_url: "pic_meal.png",
+    #         answers: [ "Hudge meat plate", "Bob the fish", "Piece of tofu" ],
+    #         values: [ "viande", "poisson", "vegie"]
+    #       },
+    #   price: {
+    #         question: "How much you wanna spend ?",
+    #         pic_url: "pic_price.png",
+    #         answers: [ "Less than 10€", "From 10 to 20€", "More than 20€" ],
+    #         values: [ "less-10", "10-20", "more-20"]
+    #       }
+    # }
   end
   def not_found
     raise ActionController::RoutingError.new('Not Found')

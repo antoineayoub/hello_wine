@@ -5,8 +5,8 @@ json.wines do
     json.extract! wine[:wine], :id
     json.extract! wine[:wine], :name
     json.extract! wine[:wine], :price
-    unless wine[:wine].external_ratings[2].nil?
-      json.extract! wine[:wine].external_ratings[2], :avg_rating
+    unless wine[:wine].external_ratings.first.nil?
+      json.extract! wine[:wine].external_ratings.first, :avg_rating
     end
     json.extract! wine, :score
     json.extract! wine[:info_store], :distance, :store

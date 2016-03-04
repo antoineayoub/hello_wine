@@ -19,9 +19,9 @@
 
 .title{
     font-size: 19px;
-    font-family: "Lato", "Helvetica", "sans-serif";
+    font-family: $lato-font;
     font-weight: 400;
-    color: #5F3131;
+    color: $gray;
     text-shadow: none !important;
     text-transform: uppercase;
 }
@@ -35,12 +35,6 @@ width: 100%;
     border: 1px solid #565454;
 }
 
-// .btn-question:hover {
-//   background-color: white;
-//   color:#e74c3c;
-//   border: 1px solid white;
-//   transition: background-color 0.5s ease;
-// }
 
 .nav-white{
   color:white;
@@ -82,7 +76,6 @@ width: 100%;
 .btn-question {
   width: 100%;
   background-color: rgba(226, 78, 53, 0.71);
-  border: 1px solid #E24E35;
   padding: 14px;
   color: #FFFFFF !important;
   border-radius: 4px;

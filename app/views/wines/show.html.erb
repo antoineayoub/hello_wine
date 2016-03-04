@@ -3,7 +3,7 @@
 
   <div class="wrapper-transparent wrapper-margin-down">
   <div class="btn-list">
-    <%= link_to '< Back', :back ,anchor: "##{@wine.id}" %>
+    <%= link_to '< Back', :back ,anchor: "##wine-{@wine.id}" %>
   </div>
     <div class="title-show text-center bg-alizarin">
         <h3 class="wine-name"><%= @wine.name.split("").first(30).join("") %></h3>

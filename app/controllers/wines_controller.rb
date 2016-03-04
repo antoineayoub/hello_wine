@@ -18,7 +18,7 @@ class WinesController < ApplicationController
     elsif @wines == 2
       redirect_to closed_wines_path
     else
-      @wines = wine_sorting(@wines, @latitude, @longitude) unless @latitude = "undefined" || @longitude= "undefined"
+      @wines = wine_sorting(@wines, @latitude, @longitude) unless @latitude == "undefined" || @longitude == "undefined"
     end
 
   end
@@ -54,7 +54,6 @@ class WinesController < ApplicationController
 
         rating_score = wine.external_ratings.first.avg_rating * 10 * weight_rating
         distance_score = distance_note( info_store[:distance] ) * weight_distance
-
         if rating_score.nil?
           score = 0
         else
@@ -65,6 +64,7 @@ class WinesController < ApplicationController
     end
 
     @wines = wines_matrix.sort { | a, b | b[:score] <=> a[:score] }
+
   end
 
   def distance_note(distance)
