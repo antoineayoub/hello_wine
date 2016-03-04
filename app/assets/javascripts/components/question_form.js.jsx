@@ -11,9 +11,10 @@ var QuestionForm = React.createClass({
                     value={that.props.question.values[index]}
                     topic={that.props.question.topic}
                     isLastQuestion={that.props.isLastQuestion}
-                    onQuestionClicks={that.props.onQuestionClicks}
+                    updateQuery={that.props.updateQuery}
                     geolocation={that.props.geoLocation}
-                    finalQuery={that.props.finalQuery}  />;
+                    finalQuery={that.props.finalQuery}
+                    nextPage={that.props.nextPage}  />;
         })}
       </div>
     )

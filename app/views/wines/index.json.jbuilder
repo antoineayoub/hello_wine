@@ -71,7 +71,7 @@ end
 # return wishlist dans iteration
 #
 
-
+# how can i kill & re create a component in react?
 
 # adding wine wishlist
 # <i className="fa fa-bookmark" onClick={this.handleClick}></i>
@@ -81,3 +81,24 @@ end
 #
 #
 # help on UX discard wine
+
+
+# PUBSUB
+# > onclick change button color
+
+
+
+# transform: translateX(-50%);
+# scale
+# rotate
+# keyframe
+# perspective (vite fait)
+# animation
+# >> cdn mozilla css
+
+# https://desandro.github.io/3dtransforms/docs/card-flip.html
+
+
+
+
+

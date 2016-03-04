@@ -26,20 +26,6 @@
     text-transform: uppercase;
 }
 
-.btn-question {
-  width: 100%;
-  background-color: rgba(226, 78, 53, 0.71);
-  border: 1px solid #E24E35;
-  padding: 14px;
-  color: #FFFFFF;
-  border-radius: 4px;
-  transform: scale(1);
-  transition: transform .3s ease;
-  &.is-clicked {
-    transform: scale(.9);
-  }
-}
-
 .btn-back {
 width: 100%;
     border-radius: 4px;
@@ -67,3 +53,75 @@ width: 100%;
   padding: 30px 0px;
 }
 
+.question-advancement {
+  height: 5px;
+  border-bottom: 1px solid #9AA7B4;
+  bakcground-color: #E4E4E4;
+  &.nothing {
+    transition: width 1s ease;
+    width: 0%;
+    background-color: #585871;
+  }
+  &.third {
+    transition: width 1s ease;
+    width: 33%;
+    background-color: #585871;
+  }
+  &.two-third {
+    width: 66%;
+    background-color: #585871;
+    transition: width 1s ease;
+  }
+  &.full {
+    transition: width 1s ease;
+    width: 100%;
+    background-color: #585871;
+  }
+}
+
+.btn-question {
+  width: 100%;
+  background-color: rgba(226, 78, 53, 0.71);
+  border: 1px solid #E24E35;
+  padding: 14px;
+  color: #FFFFFF !important;
+  border-radius: 4px;
+  transform: scale(1);
+  transition: transform .3s ease;
+  &.is-clicked {
+    transform: scale(.98);
+    font-weight: 600;
+    background-color: rgba(226, 78, 53, 0.86);
+    color: white;
+    box-shadow: 1px 1px 2px #D2D1D1;
+  }
+  & i{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 30px;
+    color: #EA816F;
+    transition: color .3 ease;
+    &.is-clicked {
+      color: #ECDAD6;
+    }
+  }
+}
+.footer-question {
+  // WHY MARGIN TOP NOT WORKING ON THIS ONE!!!!!!?
+  // WHY WIDTH NOT WORKING ON SPANNSS
+  margin-top: 17px;
+  font-style: italic;
+  font-size: 13px;
+  color: gray;
+  line-height: 1.7;
+  & .figure {
+    width:100px;
+  }
+  & i {
+    font-size: 17px;
+  }
+  & .col-xs-12 {
+    margin-top: 15px;
+  }
+}
