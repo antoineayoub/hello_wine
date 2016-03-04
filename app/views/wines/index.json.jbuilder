@@ -62,7 +62,7 @@ end
 
 
 # what keyword for DOM element ($)
-
+# cache strategy
 
 # return toujours ac span ou div
 # return = templating = html
