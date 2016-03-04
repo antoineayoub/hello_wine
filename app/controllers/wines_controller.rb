@@ -23,8 +23,9 @@ class WinesController < ApplicationController
     else
       puts @wines.first
       @wines = wine_sorting(@wines, @latitude, @longitude) unless @latitude == "undefined" || @longitude == "undefined"
-       puts "END WINE SORTING"
-       puts @wines.first
+      puts "END WINE SORTING"
+      puts @wines.first
+      @wines.first(10)
     end
 
   end
