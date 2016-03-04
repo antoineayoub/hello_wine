@@ -160,12 +160,15 @@
     font-weight: bold;
     color: white;
     padding: 0 20px;
+    color: black;
   }
   h4 {
     font-size: 18px;
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 4px;
+    color: black;
+    opacity: .4;
   }
   position: absolute;
   bottom: 52vh;
@@ -202,19 +205,19 @@
 }
 
 .btn-list {
-  background: $alizarin;
+  background: transparent;
   position: absolute;
   bottom: 68vh;
   z-index: 10;
   height: 33px;
   a {
-    color: white;
+    color: $alizarin;
     font-size: 10px;
     margin-left: 8px;
     font-weight: 100;
   }
   :active{
-    color:white;
+    color:black;
   }
   :hover{
     text-decoration: none;
