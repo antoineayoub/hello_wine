@@ -5,5 +5,6 @@
 //= require gmaps/google
 //= require react
 //= require react_ujs
+//= require pubsubjs
 //= require components
 //= require_tree .
