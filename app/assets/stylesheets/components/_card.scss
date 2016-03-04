@@ -108,6 +108,13 @@ hr {
   text-decoration: none;
   background-color: $alizarin;
 }
+.button-submit:active{
+  transform: scale(.98);
+  font-weight: 600;
+  background-color: rgba(226, 78, 53, 0.86);
+  color: white;
+  box-shadow: 1px 1px 2px #D2D1D1;
+}
 .kpi-overall {
   background: $alizarin;
   color: white;
@@ -184,7 +191,6 @@ hr {
 }
 .wine-text-spec{
   line-height: 1;
-  color: #EFEFEF;
   margin-top: 0px;
 }
 .wine-spec{

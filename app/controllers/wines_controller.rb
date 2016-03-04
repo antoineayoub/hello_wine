@@ -26,6 +26,8 @@ class WinesController < ApplicationController
   def show
     @wine = Wine.find(params[:id])
     @store = Store.find(params[:store_id])
+    @store_closed =  @store.store_schedules.where(day: Date.today.cwday).first[:end_pm]
+    @store_closed = Time.now.change({ hour: @store_closed.hour, min: @store_closed.min })
 
     if @store.nil?
       redirect_to closed_wines_path
@@ -52,8 +54,9 @@ class WinesController < ApplicationController
       unless wine.external_ratings.first.nil?
         info_store = wine.nearest(latitude,longitude)
 
-        rating_score = wine.external_ratings.first.avg_rating * 10 * weight_rating
+        rating_score = wine.external_ratings.last.avg_rating * 10 * weight_rating
         distance_score = distance_note( info_store[:distance] ) * weight_distance
+
         if rating_score.nil?
           score = 0
         else
