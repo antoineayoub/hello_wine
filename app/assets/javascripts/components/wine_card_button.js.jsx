@@ -8,7 +8,7 @@ var WineCardButton = React.createClass({
     return (
       <div>
         <div className="card-title">
-          <a onClick={this.handleClick} onTouch={this.handleClick} className="button-submit">GO GET IT</a>
+          <div onClick={this.handleClick} onTouch={this.handleClick} className="button-submit">GO GET IT</div>
         </div>
       </div>
     );
