@@ -92,7 +92,9 @@ var Questions = React.createClass({
   render: function() {
     return (
       <div>
-        <QuestionBanner question={this.state.question} />
+        <QuestionBanner
+          question={this.state.question}
+          nextQuestion={this.props.questions[(this.state.page + 1)] || this.state.question } />
         <QuestionAdvancement page={this.state.page} />
         <div className="col-xs-12">
           <div className="title text-center padded-1">
@@ -100,13 +102,13 @@ var Questions = React.createClass({
           </div>
         </div>
         <QuestionForm
-          onQuestionClick={this.handleAnswer}
           question={this.state.question}
+          onQuestionClick={this.handleAnswer}
+          updateQuery={this.updateQuery}
+          finalQuery={this.state.finalQuery}
+          geoLocation={this.state.geoLocation}
           questionNumber={this.state.questionNumber}
           isLastQuestion={this.state.lastQuestion}
-          updateQuery={this.updateQuery}
-          geoLocation={this.state.geoLocation}
-          finalQuery={this.state.finalQuery}
           nextPage={this.handleNextPage} />
         <QuestionBackButton
           onSkipQuestion={this.handleSkipQuestion}

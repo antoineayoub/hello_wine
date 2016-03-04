@@ -52,6 +52,7 @@ source 'https://rails-assets.org' do
   gem "rails-assets-underscore"
   gem 'rails-assets-classnames'
   gem 'rails-assets-react-swipe-views'
+  gem 'rails-assets-pubsubjs'
 end
 
 # for react

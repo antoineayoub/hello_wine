@@ -15,6 +15,13 @@ json.wines do
 end
 
 
+# private method to retrieve element of DOM
+# _textarea: function() {
+#   return this.refs.textarea
+# }
+##################################
+
+
 # <a class="button-submit" href="/wines/1183?latitude=48.8648524&amp;longitude=2.3798705&amp;store_id=1548">GO GET IT</a>
 
 # wines?color=red&latitude=48.8648342&longitude=2.3798768999999997&pairing=viande&price=less-10
@@ -30,20 +37,22 @@ end
 #
 #
 # on a callback with a jbuilder, does it update the whole json????
-#
-#
-#
-#
+
+
 # Uncaught Error: Invariant Violation: setState(...): Cannot update during an existing state transition (such as within `render`). Render methods should be a pure function of props and state.
 # >> fait un tour à l'intérieur des fctions
 # in child child when calling function handleClick > if put parenthis, runs it one time by default > does it mean we cannot pass arguments if we want to build generic functions to handle clicks????
-#
-#
-#
+
+
+# overflow
+
 # media query for landscape
 
 # react boostrap
 # check bell react
+
+
+# put component in variable and call variable in DOM
 
 
 # link to dans img tag
@@ -62,7 +71,7 @@ end
 
 
 # what keyword for DOM element ($)
-
+# cache strategy
 
 # return toujours ac span ou div
 # return = templating = html

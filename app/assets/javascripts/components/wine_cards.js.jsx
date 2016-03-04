@@ -26,7 +26,7 @@ var WineCards = React.createClass({
             <SwipeViews>
               {this.props.wines.map(function(wine, index){
                 return (
-                    <div title={'swipe' + index + 1} key={index} ref = 'winecard'>
+                    <div title={'swipe' + index + 1} key={index} ref ='winecard'>
                       <WineCard
                         wine={wine}
                         onWishListClick={that.handleWishListApp}
