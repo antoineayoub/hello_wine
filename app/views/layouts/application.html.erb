@@ -3,7 +3,7 @@
 <html>
   <head>
     <%= favicon_link_tag 'favicon.png' %>
-    <title>Hello Wine</title>
+    <title>Picol.io</title>
     <%= csrf_meta_tags %>
 
    <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,7 +33,7 @@
         setTimeout(function() {
           $(".spinner").hide();
           $('.wrapper-home').addClass('is-loaded')
-        }, 500);
+        }, 100);
 
         // show spinner on AJAX start
         $(document).ajaxStart(function(){

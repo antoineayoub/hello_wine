@@ -8,8 +8,7 @@ class Wine < ActiveRecord::Base
 
   scope :filter_by_location, -> (latitude, longitude) do
     stores = Store.near([latitude, longitude], 1, units: :km)
-
-    #stores = stores.joins(:store_schedules).where("start_am <= ? AND end_pm >= ? AND day = ?", Time.now, Time.now, Date.today.cwday)
+    stores = stores.joins(:store_schedules).where("start_am <= ? AND end_pm >= ? AND day = ?", Time.now, Time.now, Date.today.cwday)
 
     distinct.joins(brand: :stores).where(stores: { id: stores.map(&:id) })# map { |x| x.id }
   end
@@ -51,7 +50,7 @@ class Wine < ActiveRecord::Base
     stores_closed = []
     stores = Store.all
     Brand.all.each do |brand|
-      stores = stores.filter_by_opening(brand.id)
+      #stores = stores.filter_by_opening(brand.id)
       unless stores.empty?
         store = brand.stores.near([latitude, longitude], 0.6, units: :km, :order => "distance").first
         stores_closed << {
@@ -69,17 +68,23 @@ class Wine < ActiveRecord::Base
 
     #All wines whitch have an external rating
     wine_list = wine_list.filter_by_external_ratings
+    return 1 if wine_list.count == 0
+
     #All the wines in store less than 1km
-    wine_list = wine_list.filter_by_location(latitude, longitude)
+    #wine_list = wine_list.filter_by_location(latitude, longitude)
+    return 2 if wine_list.count == 0
 
     #Filter color
     wine_list = wine_list.filter_by_color(color) unless color.nil?
+    return 3 if wine_list.count == 0
 
     #Filter price
     wine_list = wine_list.filter_by_price(price) unless price.nil?
+    return 4 if wine_list.count == 0
 
     #Filter pairing
     wine_list = wine_list.filter_by_pairing(pairing) unless pairing.nil?
+    return 5 if wine_list.count == 0
 
     return wine_list
   end

@@ -1,5 +1,5 @@
 class WinesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show, :all, :closed]
+  skip_before_action :authenticate_user!, only: [:index, :show, :all, :closed, :nowine]
 
   def all
     @wines = Wine.all
@@ -9,12 +9,16 @@ class WinesController < ApplicationController
     @latitude = params[:latitude]
     @longitude = params[:longitude]
     @skip_navbard = true
+    @get_loader = true
+
     @wines = Wine.find_wines(@latitude,@longitude,params[:color],params[:price],params[:paring])
 
-    if @wines.nil? || @wines.length == 0
+    if @wines == 1 || @wines == 3 || @wines == 4 || @wines == 5
+      redirect_to nowine_wines_path
+    elsif @wines == 2
       redirect_to closed_wines_path
     else
-      @wines = wine_sorting(@wines, @latitude, @longitude)
+      @wines = wine_sorting(@wines, @latitude, @longitude) unless @latitude = "undefined" || @longitude= "undefined"
     end
 
   end
@@ -26,8 +30,6 @@ class WinesController < ApplicationController
     if @store.nil?
       redirect_to closed_wines_path
     else
-      # @store = store[:store]
-      # @distance = store[:distance]
 
       # Let's DYNAMICALLY build the markers for the view.
       @markers = Gmaps4rails.build_markers(@stores) do |store, marker|
@@ -42,8 +44,8 @@ class WinesController < ApplicationController
 
   def wine_sorting(wines,latitude,longitude)
     wines_matrix = []
-    weight_rating = 0.7
-    weight_distance = 0.3
+    weight_rating = 0.8
+    weight_distance = 0.2
 
     wines.each do |wine|
 
@@ -52,6 +54,7 @@ class WinesController < ApplicationController
 
         rating_score = wine.external_ratings.first.avg_rating * 10 * weight_rating
         distance_score = distance_note( info_store[:distance] ) * weight_distance
+
         if rating_score.nil?
           score = 0
         else

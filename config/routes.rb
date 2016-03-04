@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     collection do
       get 'closed', to: "wines#closed"
       get 'all', to: "wines#all"
+      get 'nowine', to: "wines#nowine"
     end
   end
 

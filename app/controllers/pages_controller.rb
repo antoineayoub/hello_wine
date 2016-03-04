@@ -45,7 +45,9 @@ class PagesController < ApplicationController
           }
     }
   end
-
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
   private
 
   def wine_params
