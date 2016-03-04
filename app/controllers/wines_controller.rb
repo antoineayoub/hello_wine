@@ -14,6 +14,7 @@ class WinesController < ApplicationController
 
     @wines = Wine.find_wines(@latitude,@longitude,params[:color],params[:price],params[:paring])
     puts "END FIND WINES"
+    puts "1er vin sortir find wines"
     puts @wines.first
     if @wines == 1 || @wines == 3 || @wines == 4 || @wines == 5
       redirect_to nowine_wines_path
@@ -54,12 +55,19 @@ class WinesController < ApplicationController
     weight_distance = 0.2
     puts "WINE SORTING"
     wines.each do |wine|
-      puts wine
+
       unless wine.external_ratings.first.nil?
         info_store = wine.nearest(latitude,longitude)
+        puts "info store"
+        puts info_store
+        rating_score = wine.external_ratings.last.avg_rating * 10 * weight_rating
+        distance_score = distance_note( info_store[:distance] ) * weight_distance
 
-        puts rating_score = wine.external_ratings.last.avg_rating * 10 * weight_rating
-        puts distance_score = distance_note( info_store[:distance] ) * weight_distance
+        puts "rating_score"
+        puts rating_score
+
+        puts "distance_score"
+        puts distance_score
 
         if rating_score.nil?
           score = 0
@@ -69,7 +77,8 @@ class WinesController < ApplicationController
         wines_matrix << { wine: wine, score: score, info_store: info_store }
       end
     end
-
+    puts "wine wines_matrix"
+    puts wines_matrix.count
     @wines = wines_matrix.sort { | a, b | b[:score] <=> a[:score] }
 
   end

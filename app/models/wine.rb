@@ -69,24 +69,29 @@ class Wine < ActiveRecord::Base
     #All wines whitch have an external rating
     wine_list = wine_list.filter_by_external_ratings
     return 1 if wine_list.count == 0
-    puts wine_list.first
+    puts "SCOPE EXT RATING"
+    puts wine_list.count
     #All the wines in store less than 1km
-    #wine_list = wine_list.filter_by_location(latitude, longitude)
+    wine_list = wine_list.filter_by_location(latitude, longitude)
     return 2 if wine_list.count == 0
-    puts wine_list.first
+    puts "SCOPE LOCATION"
+    puts wine_list.count
     #Filter color
     wine_list = wine_list.filter_by_color(color) unless color.nil?
     return 3 if wine_list.count == 0
-    puts wine_list.first
+    puts "SCOPE COLOR"
+    puts wine_list.count
     #Filter price
     wine_list = wine_list.filter_by_price(price) unless price.nil?
     return 4 if wine_list.count == 0
-    puts wine_list.first
+    puts "SCOPE PRICE"
+    puts wine_list.count
 
     #Filter pairing
     wine_list = wine_list.filter_by_pairing(pairing) unless pairing.nil?
     return 5 if wine_list.count == 0
-    puts wine_list.first
+     puts "SCOPE PAIRING"
+     puts wine_list.count
 
     return wine_list
   end
