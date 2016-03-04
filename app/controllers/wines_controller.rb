@@ -53,8 +53,8 @@ class WinesController < ApplicationController
 
   def wine_sorting(wines,latitude,longitude)
     wines_matrix = []
-    weight_rating = 0.8
-    weight_distance = 0.2
+    weight_rating = 0.9
+    weight_distance = 0.1
     puts "WINE SORTING"
     wines.each do |wine|
 
@@ -62,7 +62,7 @@ class WinesController < ApplicationController
         info_store = wine.nearest(latitude,longitude)
         puts "info store"
         puts info_store
-        rating_score = wine.external_ratings.last.avg_rating * 10 * weight_rating
+        rating_score = wine.external_ratings.last.avg_rating * 20 * weight_rating
         distance_score = distance_note( info_store[:distance] ) * weight_distance
 
         puts "rating_score"
@@ -76,7 +76,7 @@ class WinesController < ApplicationController
         else
           score = (rating_score + distance_score).round
         end
-        wines_matrix << { wine: wine, score: score, info_store: info_store }
+        wines_matrix << { wine: wine, score: score, info_store: info_store } unless wine.photo == "null"
       end
     end
     puts "wine wines_matrix"
@@ -89,12 +89,13 @@ class WinesController < ApplicationController
     if distance <= 50
       return 100
     elsif distance > 50 && distance <= 500
-      return 1/9 * (distance * 50) + 100
+      return -( 1.to_f / 9 ) * (distance + 50) + 100
     elsif distance > 500 && distance <= 600
-      return (distance + 150) / 2
+      return - ( 1.to_f / 2 ) * distance + 300
     else
       return 0
     end
+
   end
 
 end

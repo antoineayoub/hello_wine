@@ -52,7 +52,7 @@ class Wine < ActiveRecord::Base
     Brand.all.each do |brand|
       #stores = stores.filter_by_opening(brand.id)
       unless stores.empty?
-        store = brand.stores.near([latitude, longitude], 0.6, units: :km, :order => "distance").first
+        store = brand.stores.near([latitude, longitude], 1, units: :km, :order => "distance").first
         stores_closed << {
           store: store,
           distance: (Geocoder::Calculations.distance_between([latitude,longitude], store, {units: :km}) * 1000).round
@@ -72,7 +72,7 @@ class Wine < ActiveRecord::Base
     puts "SCOPE EXT RATING"
     puts wine_list.count
     #All the wines in store less than 1km
-    #wine_list = wine_list.filter_by_location(latitude, longitude)
+    wine_list = wine_list.filter_by_location(latitude, longitude)
     return 2 if wine_list.count == 0
     puts "SCOPE LOCATION"
     puts wine_list.count

@@ -7,8 +7,8 @@
       <div class="btn-list">
         <%= link_to '< Back', :back ,anchor: "##wine-{@wine.id}" %>
       </div>
-      <div class="title-show text-center bg-alizarin">
-        <h3 class="wine-name"><%= @wine.name.split("").first(30).join("") %></h3>
+      <div class="title-show text-center">
+        <h3 class="wine-name"><%= @wine.name.split("").first(40).join("") %></h3>
         <h4 class="wine-appelation"><%= @wine.appellation %></h4>
       </div>
     </div>
