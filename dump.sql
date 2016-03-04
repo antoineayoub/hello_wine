@@ -16,7 +16,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: brands; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: brands; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE brands (
@@ -47,7 +47,7 @@ ALTER SEQUENCE brands_id_seq OWNED BY brands.id;
 
 
 --
--- Name: external_ratings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: external_ratings; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE external_ratings (
@@ -107,7 +107,7 @@ ALTER SEQUENCE external_ratings_id_seq OWNED BY external_ratings.id;
 
 
 --
--- Name: grapes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: grapes; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE grapes (
@@ -147,7 +147,7 @@ ALTER SEQUENCE grapes_id_seq OWNED BY grapes.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE schema_migrations (
@@ -156,7 +156,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: store_schedules; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: store_schedules; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE store_schedules (
@@ -192,7 +192,7 @@ ALTER SEQUENCE store_schedules_id_seq OWNED BY store_schedules.id;
 
 
 --
--- Name: stores; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: stores; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE stores (
@@ -227,7 +227,7 @@ ALTER SEQUENCE stores_id_seq OWNED BY stores.id;
 
 
 --
--- Name: user_answers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: user_answers; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE user_answers (
@@ -263,7 +263,7 @@ ALTER SEQUENCE user_answers_id_seq OWNED BY user_answers.id;
 
 
 --
--- Name: user_ratings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: user_ratings; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE user_ratings (
@@ -297,7 +297,7 @@ ALTER SEQUENCE user_ratings_id_seq OWNED BY user_ratings.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE users (
@@ -338,7 +338,7 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: wines; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: wines; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE wines (
@@ -1391,6 +1391,7 @@ COPY grapes (id, name, acidity, body, pairing_1, pairing_2, pairing_3, pairing_4
 204	Pederna	\N	\N	\N	\N	\N	\N	\N	\N	\N	2016-03-03 23:38:50.274314	2016-03-03 23:38:50.274314
 205	Azal	\N	\N	\N	\N	\N	\N	\N	\N	\N	2016-03-03 23:38:50.865345	2016-03-03 23:38:50.865345
 206	Verdea	\N	\N	\N	\N	\N	\N	\N	\N	\N	2016-03-03 23:38:55.822332	2016-03-03 23:38:55.822332
+
 \.
 
 
@@ -1399,6 +1400,7 @@ COPY grapes (id, name, acidity, body, pairing_1, pairing_2, pairing_3, pairing_4
 --
 
 SELECT pg_catalog.setval('grapes_id_seq', 206, true);
+
 
 
 --
@@ -9102,7 +9104,7 @@ SELECT pg_catalog.setval('wines_id_seq', 2052, true);
 
 
 --
--- Name: brands_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: brands_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY brands
@@ -9110,7 +9112,7 @@ ALTER TABLE ONLY brands
 
 
 --
--- Name: external_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: external_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY external_ratings
@@ -9118,7 +9120,7 @@ ALTER TABLE ONLY external_ratings
 
 
 --
--- Name: grapes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: grapes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY grapes
@@ -9126,7 +9128,7 @@ ALTER TABLE ONLY grapes
 
 
 --
--- Name: store_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: store_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY store_schedules
@@ -9134,7 +9136,7 @@ ALTER TABLE ONLY store_schedules
 
 
 --
--- Name: stores_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: stores_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY stores
@@ -9142,7 +9144,7 @@ ALTER TABLE ONLY stores
 
 
 --
--- Name: user_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY user_answers
@@ -9150,7 +9152,7 @@ ALTER TABLE ONLY user_answers
 
 
 --
--- Name: user_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY user_ratings
@@ -9158,7 +9160,7 @@ ALTER TABLE ONLY user_ratings
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY users
@@ -9166,7 +9168,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: wines_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: wines_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY wines
@@ -9174,70 +9176,70 @@ ALTER TABLE ONLY wines
 
 
 --
--- Name: index_external_ratings_on_wine_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_external_ratings_on_wine_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_external_ratings_on_wine_id ON external_ratings USING btree (wine_id);
 
 
 --
--- Name: index_store_schedules_on_store_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_store_schedules_on_store_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_store_schedules_on_store_id ON store_schedules USING btree (store_id);
 
 
 --
--- Name: index_stores_on_brand_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stores_on_brand_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_stores_on_brand_id ON stores USING btree (brand_id);
 
 
 --
--- Name: index_user_answers_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_user_answers_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_user_answers_on_user_id ON user_answers USING btree (user_id);
 
 
 --
--- Name: index_user_ratings_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_user_ratings_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_user_ratings_on_user_id ON user_ratings USING btree (user_id);
 
 
 --
--- Name: index_user_ratings_on_wine_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_user_ratings_on_wine_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_user_ratings_on_wine_id ON user_ratings USING btree (wine_id);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
--- Name: index_wines_on_brand_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_wines_on_brand_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_wines_on_brand_id ON wines USING btree (brand_id);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);

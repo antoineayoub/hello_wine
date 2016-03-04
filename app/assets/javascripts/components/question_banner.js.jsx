@@ -4,7 +4,9 @@ var QuestionBanner = React.createClass({
       height: '30vh',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      backgroundImage: "linear-gradient(to bottom, rgba(82, 82, 82, 0.49) , rgba(61, 114, 180, 0.35)), url("+this.props.question.pic_url+")"
+      backgroundImage: "linear-gradient(to bottom, rgba(82, 82, 82, 0.49) , rgba(61, 114, 180, 0.35)), url("+this.props.question.pic_url+")",
+      // not working
+      transition: 'background-image 5s ease'
     };
     return (
       <div>

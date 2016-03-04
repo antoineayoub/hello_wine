@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :questions]
+  skip_before_action :authenticate_user!, only: [:home, :questions, :wines_filtering]
 
   def home
     @get_loader = true
@@ -17,7 +17,8 @@ class PagesController < ApplicationController
       nb_wines = @wines.filter_by_price(wine_params[:value])
       @wines = {nb_wines: nb_wines}
     else
-      @wines = {nb_wines: 0}
+      nb_wines = Wine.all.length
+      @wines = {nb_wines: nb_wines}
       render "questions"
     end
   end
