@@ -7,7 +7,7 @@ module Scrapers
     class Monoprix
       def run
         # puts "Deleting Wines Monoprix"
-        # # brand = Brand.find_by_name("Monoprix")
+        brand = Brand.find_by_name("Monoprix")
         # # brand.wines.destroy_all
         # puts "End deleting"
         p get_wine("white", "/vin-blanc-sec-0000532", get_nb_page("/vin-blanc-sec-0000532"), brand)
