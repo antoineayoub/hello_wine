@@ -1,3 +1,5 @@
+@latitude
+@longitude
 json.latitude @latitude
 json.longitude @longitude
 json.wines do

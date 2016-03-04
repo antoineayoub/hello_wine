@@ -8,7 +8,7 @@ class Wine < ActiveRecord::Base
 
   scope :filter_by_location, -> (latitude, longitude) do
     stores = Store.near([latitude, longitude], 1, units: :km)
-    stores = stores.joins(:store_schedules).where("start_am <= ? AND end_pm >= ? AND day = ?", Time.now, Time.now, Date.today.cwday)
+    #stores = stores.joins(:store_schedules).where("start_am <= ? AND end_pm >= ? AND day = ?", Time.now, Time.now, Date.today.cwday)
 
     distinct.joins(brand: :stores).where(stores: { id: stores.map(&:id) })# map { |x| x.id }
   end
@@ -72,7 +72,7 @@ class Wine < ActiveRecord::Base
     puts "SCOPE EXT RATING"
     puts wine_list.count
     #All the wines in store less than 1km
-    wine_list = wine_list.filter_by_location(latitude, longitude)
+    #wine_list = wine_list.filter_by_location(latitude, longitude)
     return 2 if wine_list.count == 0
     puts "SCOPE LOCATION"
     puts wine_list.count

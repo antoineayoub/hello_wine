@@ -15,12 +15,13 @@ class WinesController < ApplicationController
     @wines = Wine.find_wines(@latitude,@longitude,params[:color],params[:price],params[:paring])
     puts "END FIND WINES"
     puts "1er vin sortir find wines"
-    puts @wines.first
+
     if @wines == 1 || @wines == 3 || @wines == 4 || @wines == 5
       redirect_to nowine_wines_path
     elsif @wines == 2
       redirect_to closed_wines_path
     else
+      puts @wines.first
       @wines = wine_sorting(@wines, @latitude, @longitude) unless @latitude == "undefined" || @longitude == "undefined"
        puts "END WINE SORTING"
        puts @wines.first
