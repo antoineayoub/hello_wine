@@ -80,4 +80,5 @@ Rails.application.configure do
 
   # react
   config.react.variant = :production
+  DEFAULT_META = YAML.load_file(Rails.root.join('config/meta.yml'))
 end
