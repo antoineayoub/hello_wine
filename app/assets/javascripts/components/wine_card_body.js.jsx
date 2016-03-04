@@ -1,7 +1,7 @@
 var WineCardBody = React.createClass({
 
   handleClick: function(){
-     this.props.onWishListClick(this.props.wine);
+     // this.props.onWishListClick(this.props.wine);
   },
 
   render: function() {

@@ -12,7 +12,7 @@ class WinesController < ApplicationController
     @skip_navbard = true
     @get_loader = true
 
-    @wines = Wine.find_wines(@latitude,@longitude,params[:color],params[:price],params[:paring])
+    @wines = Wine.find_wines(@latitude,@longitude,params[:color],params[:price],params[:pairing])
     puts "END FIND WINES"
     puts "1er vin sortir find wines"
 
@@ -25,7 +25,7 @@ class WinesController < ApplicationController
       @wines = wine_sorting(@wines, @latitude, @longitude) unless @latitude == "undefined" || @longitude == "undefined"
       puts "END WINE SORTING"
       puts @wines.first
-      @wines.first(10)
+      @wines = @wines.first(10)
     end
 
   end

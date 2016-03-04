@@ -7,7 +7,6 @@ var WineCard = React.createClass({
               <WineCardTitle wine_name={this.props.wine.name} />
               <WineCardBody
                 wine={this.props.wine}
-                onWishListClick={this.props.onWishListClick}
               />
               <WineCardButton
                 store_id={this.props.wine.store.id}
