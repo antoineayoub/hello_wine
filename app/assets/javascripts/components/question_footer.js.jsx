@@ -2,9 +2,16 @@ var QuestionFooter = React.createClass({
   render: function() {
 
     return (
-      <div>
+      <div className="footer-question">
         <div className="col-xs-12 text-center">
-          more than {this.props.nbWines} wines around you ;)
+          <span>more than </span>
+          <span className="figure">
+                {Math.max(this.props.nbWines, 85)}
+          </span>
+          <span> wines around you.</span>
+          <div>
+            <i className="fa fa-smile-o"></i>
+          </div>
         </div>
       </div>
     )
