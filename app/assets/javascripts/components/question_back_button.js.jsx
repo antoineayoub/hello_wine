@@ -1,6 +1,10 @@
 var QuestionBackButton = React.createClass({
   handleClick: function(){
-    this.props.onSkipQuestion()
+    var that = this;
+    this.props.nextPage();
+    setTimeout(function(){
+      that.props.onSkipQuestion();
+    },500);
   },
   render: function() {
     return (
