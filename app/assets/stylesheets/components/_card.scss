@@ -92,6 +92,7 @@ hr {
   font-size: 20px;
 }
 .button-submit {
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,6 +105,7 @@ hr {
   border-radius: 0px 0px 3px 3px;
 }
 .button-submit:hover, .button-submit:focus {
+  cursor: pointer;
   color: #eeeeee;
   text-decoration: none;
   background-color: $alizarin;
